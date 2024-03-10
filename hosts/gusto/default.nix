@@ -4,8 +4,7 @@
 #  NixOS running on ASUS VivoPC VM40B-S081M
 #
 ###############################################################
-
-{ inputs, ... }: {
+{inputs, ...}: {
   imports = [
     #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-intel

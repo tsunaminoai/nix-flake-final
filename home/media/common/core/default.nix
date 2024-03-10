@@ -1,16 +1,20 @@
-{ config, lib, pkgs, outputs, ... }:
-let
-
-in
 {
-  imports = [
-    # Packages with custom configs go here
-    ./brave.nix
-    ./gtk.nix
+  config,
+  lib,
+  pkgs,
+  outputs,
+  ...
+}: let
+in {
+  imports =
+    [
+      # Packages with custom configs go here
+      ./brave.nix
+      ./gtk.nix
+    ]
+    ++ (builtins.attrValues outputs.homeManagerModules);
 
-  ] ++ (builtins.attrValues outputs.homeManagerModules);
-
-   home = {
+  home = {
     username = lib.mkDefault "media";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = lib.mkDefault "23.05";
@@ -23,25 +27,27 @@ in
   };
 
   home.packages = builtins.attrValues {
-    inherit (pkgs)
-
-    # Packages that don't have custom configs go here
-    nix-tree;
+    inherit
+      (pkgs)
+      # Packages that don't have custom configs go here
+      
+      nix-tree
+      ;
   };
 
- nixpkgs = {
+  nixpkgs = {
     overlays = builtins.attrValues outputs.overlays;
     config = {
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      allowUnfreePredicate = (_: true);
+      allowUnfreePredicate = _: true;
     };
   };
 
   nix = {
     package = lib.mkDefault pkgs.nix;
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
       warn-dirty = false;
     };
   };

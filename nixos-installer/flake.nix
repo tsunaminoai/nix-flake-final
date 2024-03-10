@@ -9,8 +9,11 @@
     };
   };
 
-  outputs = { nixpkgs, disko, ... }:
-  {
+  outputs = {
+    nixpkgs,
+    disko,
+    ...
+  }: {
     nixosConfigurations = {
       # Installer test lab
       guppy = nixpkgs.lib.nixosSystem {
@@ -21,6 +24,6 @@
           ./std-disk-config.nix
         ];
       };
-    }; 
+    };
   };
 }

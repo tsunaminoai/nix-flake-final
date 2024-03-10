@@ -1,14 +1,19 @@
-{ inputs, lib, pkgs, config, outputs, ... }:
 {
+  inputs,
+  lib,
+  pkgs,
+  config,
+  outputs,
+  ...
+}: {
   imports = [
-    #################### Required Configs #################### 
-    common/core  #required
+    #################### Required Configs ####################
+    common/core #required
 
-    #################### Host-specific Optional Configs #################### 
+    #################### Host-specific Optional Configs ####################
     common/optional/sops.nix
     common/optional/helper-scripts
 
     common/optional/desktops
-
   ];
 }

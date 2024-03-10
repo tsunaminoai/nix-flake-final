@@ -23,6 +23,10 @@ rebuild-trace:
 update:
 	nix flake update
 
+	# Formats the directory with alejandra
+format:
+  alejandra .
+
 # Run `just update` followed by `just rebuild`.
 rebuild-update:
 	just update

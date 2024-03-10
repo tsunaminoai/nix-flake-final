@@ -3,7 +3,6 @@
 # in case enabling zsh as a home-manager module (see /home/ta/core/cli)
 # at the user level fails for some reason.
 #
-
 {
   programs.zsh = {
     enable = true;

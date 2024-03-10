@@ -1,22 +1,21 @@
 #############################################################
 #
-#  Grief - Dev Lab 
+#  Grief - Dev Lab
 #  NixOS running on VirtualBox VM
 #
 ###############################################################
-
-{ inputs, ... }: {
+{inputs, ...}: {
   imports = [
-    #################### Hardware Modules #################### 
+    #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-amd
     inputs.hardware.nixosModules.common-gpu-amd
     inputs.hardware.nixosModules.common-pc-ssd
 
-    #################### Required Configs #################### 
-    ../common/core 
+    #################### Required Configs ####################
+    ../common/core
     ./hardware-configuration.nix
 
-    #################### Host-specific Optional Configs #################### 
+    #################### Host-specific Optional Configs ####################
     ../common/optional/yubikey
     ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
     ../common/optional/msmtp.nix #required for emailing clamav alerts
@@ -26,9 +25,8 @@
     ../common/optional/services/greetd.nix # display manager
     ../common/optional/hyprland.nix # window manager
 
-    #################### Users to Create #################### 
+    #################### Users to Create ####################
     ../common/users/ta
-
   ];
   # set custom autologin options. see greetd.nix for details
   # TODO is there a better spot for this?
@@ -36,7 +34,7 @@
   autoLogin.username = "ta";
 
   services.gnome.gnome-keyring.enable = true;
-  #TODO enable and move to greetd area? may need authentication dir or something? 
+  #TODO enable and move to greetd area? may need authentication dir or something?
   #services.pam.services.greetd.enableGnomeKeyring = true;
 
   networking = {
@@ -52,7 +50,7 @@
       timeout = 3;
     };
   };
-  
+
   # VirtualBox settings for Hyprland to display correctly
   #environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
   #environment.sessionVariables.WLR_RENDERER_ALLOW_SOFTWARE = "1";

@@ -1,12 +1,11 @@
 {
   description = "EmergentMind's Nix-Config";
 
-
   inputs = {
     #################### Official NixOS Package Sources ####################
 
     nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # also see 'unstable-packages' overlay at 'overlays/default.nix" 
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # also see 'unstable-packages' overlay at 'overlays/default.nix"
 
     #################### Utilities ####################
 
@@ -41,12 +40,12 @@
     # for now trying to avoid this one because I want stability for my wm
     # this is the hyprland development flake package / unstable
     #hyprland = {
-      #url = "github:hyprwm/hyprland";
-      #inputs.nixpkgs.follows = "nixpkgs";
+    #url = "github:hyprwm/hyprland";
+    #inputs.nixpkgs.follows = "nixpkgs";
     #};
     #hyprland-plugins = {
-      #url = "github:hyprwm/hyprland-plugins";
-      #inputs.hyprland.follows = "hyprland";
+    #url = "github:hyprwm/hyprland-plugins";
+    #inputs.hyprland.follows = "hyprland";
     #};
 
     #################### Personal Repositories ####################
@@ -59,22 +58,27 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... } @ inputs:
-  let
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    ...
+  } @ inputs: let
     inherit (self) outputs;
     lib = nixpkgs.lib // home-manager.lib;
-    systems = [ 
+    systems = [
       "x86_64-linux"
       #"AArch64-linux"
-      #"x86_64-darwin"
+      "x86_64-darwin"
       #"aarch64-darwin"
       #"i686-linux"
-      ];
+    ];
     forEachSystem = f: lib.genAttrs systems (system: f pkgsFor.${system});
-    pkgsFor = lib.genAttrs systems (system: import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    });
+    pkgsFor = lib.genAttrs systems (system:
+      import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      });
   in {
     inherit lib;
 
@@ -87,35 +91,35 @@
 
     # Your custom packages meant to be shared or upstreamed.
     # Accessible through 'nix build', 'nix shell', etc
-    packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
+    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
 
     # Nix formatter available through 'nix fmt' https://nix-community.github.io/nixpkgs-fmt
     formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
 
     # Shell configured with packages that are typically only needed when working on or with nix-config.
-    devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
+    devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
 
     #################### NixOS Configurations ####################
-    # 
+    #
     # Available through 'nixos-rebuild --flake .#hostname'
     # Typically adopted using 'sudo nixos-rebuild switch --flake .#hostname'
-    
+
     nixosConfigurations = {
       # devlab
       grief = lib.nixosSystem {
-        modules = [ ./hosts/grief ];
-        specialArgs = { inherit inputs outputs;};
+        modules = [./hosts/grief];
+        specialArgs = {inherit inputs outputs;};
       };
       # remote install lab
       guppy = lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ ./hosts/guppy];
-        specialArgs = { inherit inputs outputs;};
+        modules = [./hosts/guppy];
+        specialArgs = {inherit inputs outputs;};
       };
       # theatre
       gusto = lib.nixosSystem {
-        modules = [ ./hosts/gusto ];
-        specialArgs = { inherit inputs outputs;};
+        modules = [./hosts/gusto];
+        specialArgs = {inherit inputs outputs;};
       };
     };
 
@@ -123,28 +127,28 @@
     #
     # Available through 'home-manager --flake .#primary-username@hostname'
     # Typically adopted using 'home-manager switch --flake .#primary-username@hostname'
-    
+
     homeConfigurations = {
       "ta@grief" = lib.homeManagerConfiguration {
-        modules = [ ./home/ta/grief.nix ];
+        modules = [./home/ta/grief.nix];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
       "ta@guppy" = lib.homeManagerConfiguration {
-        modules = [ ./home/ta/guppy.nix ];
+        modules = [./home/ta/guppy.nix];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
       "media@gusto" = lib.homeManagerConfiguration {
-        modules = [ ./home/media/gusto.nix ];
+        modules = [./home/media/gusto.nix];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
       "ta@gusto" = lib.homeManagerConfiguration {
-        modules = [ ./home/ta/gusto.nix ];
+        modules = [./home/ta/gusto.nix];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
     };
   };
-} 
+}

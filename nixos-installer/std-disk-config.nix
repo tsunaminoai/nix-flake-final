@@ -23,7 +23,7 @@
               size = "100%";
               content = {
                 type = "btrfs";
-                extraArgs = [ "-f" ]; # Override existing partition
+                extraArgs = ["-f"]; # Override existing partition
                 # Subvolumes must set a mountpoint in order to be mounted,
                 # unless their parent is mounted
                 subvolumes = {
@@ -32,17 +32,17 @@
                   };
 
                   "/persist" = {
-                    mountOptions = [ "compress=zstd" ];
+                    mountOptions = ["compress=zstd"];
                     mountpoint = "/persist";
                   };
-                  
+
                   "/nix" = {
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = ["compress=zstd" "noatime"];
                     mountpoint = "/nix";
                   };
 
                   "/swap" = {
-                    mountOptions = [ "noatime" ];
+                    mountOptions = ["noatime"];
                     mountpoint = "/.swapvol";
                     swap.swapfile.size = "8196M";
                   };
