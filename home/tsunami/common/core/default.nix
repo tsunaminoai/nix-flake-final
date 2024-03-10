@@ -27,7 +27,7 @@
     ++ (builtins.attrValues outputs.homeManagerModules);
 
   home = {
-    username = lib.mkDefault "ta";
+    username = lib.mkDefault "tsunami";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = lib.mkDefault "23.05";
     sessionPath = [
@@ -49,6 +49,7 @@
       (pkgs)
       # Packages that don't have custom configs go here
       
+      alejandra # formatter
       borgbackup # backups
       btop # resource monitor
       coreutils # basic gnu utils

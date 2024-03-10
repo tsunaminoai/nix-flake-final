@@ -7,8 +7,8 @@
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
-    userName = "emergentmind";
-    userEmail = "2889621-emergentmind@users.noreply.gitlab.com";
+    userName = "TsunamiNoAi";
+    userEmail = "spam@falseblue.com";
     aliases = {};
     extraConfig = {
       init.defaultBranch = "main";
@@ -21,7 +21,7 @@
         };
       };
 
-      user.signing.key = "41B7B2ECE0FAEF890343124CE8AA1A8F75B56D39";
+      user.signing.key = "E48B9BA13823B0D8D065C1107467B45313F55526";
       #TODO sops - Re-enable once sops setup complete
       commit.gpgSign = false;
       gpg.program = "${config.programs.gpg.package}/bin/gpg2";
