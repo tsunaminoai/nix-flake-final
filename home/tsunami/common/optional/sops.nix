@@ -14,24 +14,18 @@ in {
     # }
 
     # This is the ta/dev key and needs to have been copied to this location on the host
-    age.keyFile = "/home/ta/.config/sops/age/keys.txt";
+    age.keyFile = "/home/tsunami/.config/sops/age/keys.txt";
 
-    defaultSopsFile = "${secretspath}/secrets.yaml";
-    #    defaultSopsFile = ../../../../hosts/common/secrets.yaml;
+    # defaultSopsFile = "${secretspath}/secrets.yaml";
+    defaultSopsFile = "${secretspath}/hosts/common/secrets.yaml";
     validateSopsFiles = false;
 
     secrets = {
-      "private_keys/maya" = {
-        path = "/home/ta/.ssh/id_maya";
+      "private_keys/id_ed25519" = {
+        path = "/home/tsunami/.ssh/id_ed25519";
       };
-      "private_keys/mara" = {
-        path = "/home/ta/.ssh/id_mara";
-      };
-      "private_keys/manu" = {
-        path = "/home/ta/.ssh/id_manu";
-      };
-      "private_keys/meek" = {
-        path = "/home/ta/.ssh/id_meek";
+      "private_keys/id_rsa_yubikey.nano5c" = {
+        path = "/home/tsunami/.ssh/id_rsa_yubikey.nano5c.ec25519";
       };
     };
   };
