@@ -6,14 +6,11 @@
   lib,
   pkgs,
   modulesPath,
-  flake,
   ...
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
-    flake.inputs.disko.nixosModules.disko
-    ./disk-config.nix
   ];
 
   boot.loader.grub = {
