@@ -18,18 +18,15 @@
   # declare disk partitions and formatting
   disko.devices = {
     disk = {
-      sda = {
-        type = "disk";
+      vdb = {
         device = "/dev/sda";
+        type = "disk";
         content = {
           type = "gpt";
           partitions = {
             ESP = {
-              priority = 1;
-              name = "ESP";
-              start = "1M";
-              end = "512M";
               type = "EF00";
+              size = "500M";
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -39,31 +36,9 @@
             root = {
               size = "100%";
               content = {
-                type = "btrfs";
-                extraArgs = ["-f"]; # Override existing partition
-                # Subvolumes must set a mountpoint in order to be mounted,
-                # unless their parent is mounted
-                subvolumes = {
-                  "/root" = {
-                    mountpoint = "/";
-                  };
-
-                  "/persist" = {
-                    mountOptions = ["compress=zstd"];
-                    mountpoint = "/persist";
-                  };
-
-                  "/nix" = {
-                    mountOptions = ["compress=zstd" "noatime"];
-                    mountpoint = "/nix";
-                  };
-
-                  "/swap" = {
-                    mountOptions = ["noatime"];
-                    mountpoint = "/.swapvol";
-                    swap.swapfile.size = "8196M";
-                  };
-                };
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/";
               };
             };
           };
