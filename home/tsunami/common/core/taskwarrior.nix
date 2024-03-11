@@ -172,8 +172,8 @@
     tn = "task next";
   };
 
-  home.file.".task/voile.bcraton.cert.pem".path = config.sops.secrets."taskwarrior/user-cert".path;
-  home.file.".task/voile.bcraton.key.pem".path = config.sops.secrets."taskwarrior/user-key".path;
+  home.file.".task/voile.bcraton.cert.pem".path = config.sops.secrets."taskwarrior"."user-cert".path;
+  home.file.".task/voile.bcraton.key.pem".path = config.sops.secrets."taskwarrior"."user-key".path;
 
   home.file.".task/voile.ca.pem".text = ''
     -----BEGIN CERTIFICATE-----
