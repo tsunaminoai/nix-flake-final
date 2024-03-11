@@ -18,6 +18,7 @@
       ./nixvim # vim goodness
       ./screen.nix # hopefully rarely needed but good to have if so
       ./ssh.nix # personal ssh configs
+      ./taskwarrior.nix # task manager
       ./zoxide.nix # cd replacement
       ./zsh # primarly shell: includes zsh, oh-my-zsh, and p10k theme
 
