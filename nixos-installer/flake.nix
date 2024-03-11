@@ -16,7 +16,7 @@
   }: {
     nixosConfigurations = {
       # Installer test lab
-      guppy = nixpkgs.lib.nixosSystem {
+      ishtar = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko

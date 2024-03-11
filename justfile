@@ -23,7 +23,7 @@ rebuild-trace:
 update:
 	nix flake update
 
-	# Formats the directory with alejandra
+# Formats the directory with alejandra
 format:
   alejandra .
 
@@ -76,5 +76,5 @@ check-sops:
 	scripts/check-sops.sh
 
 # Update the `mysecrets` flake input when changes have been made to the private nix-secrets repo
-serets-update:
+secrets-update:
 	nix flake lock --update-input mysecrets

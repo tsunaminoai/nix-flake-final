@@ -33,9 +33,8 @@
     #  * a string of the key.pub contents. e.g. "key_type yourpubkey key_id"
 
     # Add all keys for ease of access depending on where install is occurring.
-    (builtins.readFile ../hosts/common/users/ta/keys/id_maya.pub)
-    (builtins.readFile ../hosts/common/users/ta/keys/id_mara.pub)
-    (builtins.readFile ../hosts/common/users/ta/keys/id_manu.pub)
+    (builtins.readFile ../hosts/common/users/tsunami/keys/id_mokou_ed25519.pub)
+    (builtins.readFile ../hosts/common/users/tsunami/keys/id_youmu_ed25519.pub)
   ];
 
   system.stateVersion = "23.11";

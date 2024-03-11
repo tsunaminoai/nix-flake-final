@@ -21,6 +21,7 @@
             };
             root = {
               size = "100%";
+              type = "EF02";
               content = {
                 type = "btrfs";
                 extraArgs = ["-f"]; # Override existing partition
