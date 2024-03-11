@@ -53,7 +53,7 @@
     # Private secrets repo.  See ./docs/secretsmgmt.md
     # Authenticate via ssh and use shallow clone
     mysecrets = {
-      url = "git+ssh://git@gitlab.com/emergentmind/nix-secrets.git?ref=main&shallow=1";
+      url = "git+ssh://git@github.com/tsunaminoai/nix-secrets.git?ref=master&shallow=1";
       flake = false;
     };
   };
@@ -105,22 +105,28 @@
     # Typically adopted using 'sudo nixos-rebuild switch --flake .#hostname'
 
     nixosConfigurations = {
-      # devlab
-      grief = lib.nixosSystem {
-        modules = [./hosts/grief];
-        specialArgs = {inherit inputs outputs;};
-      };
-      # remote install lab
-      guppy = lib.nixosSystem {
+      # # devlab
+      # grief = lib.nixosSystem {
+      #   modules = [./hosts/grief];
+      #   specialArgs = {inherit inputs outputs;};
+      # };
+      # # remote install lab
+      # guppy = lib.nixosSystem {
+      #   system = "x86_64-linux";
+      #   modules = [./hosts/guppy];
+      #   specialArgs = {inherit inputs outputs;};
+      # };
+      # Ishtar VM on Ereshkigal (Proxmox)
+      ishtar = lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [./hosts/guppy];
+        modules = [./hosts/ishtar];
         specialArgs = {inherit inputs outputs;};
       };
-      # theatre
-      gusto = lib.nixosSystem {
-        modules = [./hosts/gusto];
-        specialArgs = {inherit inputs outputs;};
-      };
+      # # theatre
+      # gusto = lib.nixosSystem {
+      #   modules = [./hosts/gusto];
+      #   specialArgs = {inherit inputs outputs;};
+      # };
     };
 
     #################### User-level Home-Manager Configurations ####################
@@ -129,26 +135,31 @@
     # Typically adopted using 'home-manager switch --flake .#primary-username@hostname'
 
     homeConfigurations = {
-      "ta@grief" = lib.homeManagerConfiguration {
-        modules = [./home/ta/grief.nix];
+      "tsunami@ishtar" = lib.homeManagerConfiguration {
+        modules = [./home/tsunami/ishtar.nix];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
-      "ta@guppy" = lib.homeManagerConfiguration {
-        modules = [./home/ta/guppy.nix];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-      "media@gusto" = lib.homeManagerConfiguration {
-        modules = [./home/media/gusto.nix];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-      "ta@gusto" = lib.homeManagerConfiguration {
-        modules = [./home/ta/gusto.nix];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
+      # "ta@grief" = lib.homeManagerConfiguration {
+      #   modules = [./home/ta/grief.nix];
+      #   pkgs = pkgsFor.x86_64-linux;
+      #   extraSpecialArgs = {inherit inputs outputs;};
+      # };
+      # "ta@guppy" = lib.homeManagerConfiguration {
+      #   modules = [./home/ta/guppy.nix];
+      #   pkgs = pkgsFor.x86_64-linux;
+      #   extraSpecialArgs = {inherit inputs outputs;};
+      # };
+      # "media@gusto" = lib.homeManagerConfiguration {
+      #   modules = [./home/media/gusto.nix];
+      #   pkgs = pkgsFor.x86_64-linux;
+      #   extraSpecialArgs = {inherit inputs outputs;};
+      # };
+      # "ta@gusto" = lib.homeManagerConfiguration {
+      #   modules = [./home/ta/gusto.nix];
+      #   pkgs = pkgsFor.x86_64-linux;
+      #   extraSpecialArgs = {inherit inputs outputs;};
+      # };
     };
   };
 }

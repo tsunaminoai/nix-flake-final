@@ -18,13 +18,19 @@ The secrets stored in `secrets.yaml` include private ssh keys, user passwords, m
 
 ## Table of Contents
 
-  * [Requirements](#requirements)
-  * [Using nix-secrets with nix-config](#using-nix-secrets-with-nix-config)
-  * [Initializing Secrets and Keys](#initializing-secrets-and-keys)
-  * [Managing Keys](#managing-keys)
-  * [Managing Secrets](#managing-secrets)
-  * [Installing Secrets on a New Host](#installing-secrets-on-a-new-host)
-  * [Troubleshooting](#troubleshooting)
+- [Nix-Config and Nix-Secrets Secrets Management](#nix-config-and-nix-secrets-secrets-management)
+  - [Table of Contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Using nix-secrets with nix-config](#using-nix-secrets-with-nix-config)
+    - [sops-nix](#sops-nix)
+    - [Inputing nix-secrets to nix-config](#inputing-nix-secrets-to-nix-config)
+    - [Initial and subsequent flake rebuilds](#initial-and-subsequent-flake-rebuilds)
+  - [Initializing Secrets and Keys](#initializing-secrets-and-keys)
+    - [Using Hashed Passwords for Declared User Credentatials](#using-hashed-passwords-for-declared-user-credentatials)
+  - [Installing Secrets on a New Host](#installing-secrets-on-a-new-host)
+  - [Troubleshooting](#troubleshooting)
+    - [`secrets.yaml` isn found in `secretspath`](#secretsyaml-isn-found-in-secretspath)
+    - [no such identity](#no-such-identity)
 
 ## Requirements
 
@@ -119,6 +125,7 @@ This is a log of the steps taken to create the private repo contents for grief b
     ```
 
 3. Create an age key set for dev use if one does not already exist.
+   -  On mac this would be under `~/Library/Application\ Support/sops/age/`
 
     ```bash
     $ mkdir -p .config/sops/age
@@ -182,7 +189,7 @@ This is a log of the steps taken to create the private repo contents for grief b
     ```
     For additional details on formatting refer to https://github.com/Mic92/sops-nix
 8. Save and exit the secrets file.
-9. Commit and push your changes to gitlab.
+9.  Commit and push your changes to gitlab.
 
 ## Managing keys
 
