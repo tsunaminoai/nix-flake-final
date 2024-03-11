@@ -13,7 +13,6 @@
     #################### Required Configs ####################
     ./install-config.nix
     ../common/core
-    ./hardware-configuration.nix
 
     #################### Host-specific Optional Configs ####################
     # ../common/optional/yubikey
