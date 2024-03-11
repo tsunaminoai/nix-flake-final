@@ -15,25 +15,22 @@
     ./hardware-configuration.nix
 
     #################### Host-specific Optional Configs ####################
-    ../common/optional/yubikey
-    ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
-    ../common/optional/msmtp.nix #required for emailing clamav alerts
+    # ../common/optional/yubikey
+    # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
+    # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
 
     #################### Users to Create ####################
-    ../common/users/ta
+    ../common/users/tsunami
   ];
   # set custom autologin options. see greetd.nix for details
-  # TODO is there a better spot for this?
-  autoLogin.enable = true;
-  autoLogin.username = "ta";
 
   services.gnome.gnome-keyring.enable = true;
   #TODO enable and move to greetd area? may need authentication dir or something?
   #services.pam.services.greetd.enableGnomeKeyring = true;
 
   networking = {
-    hostName = "grief";
+    hostName = "ishtar";
     #networkmanager.enable = true;
     enableIPv6 = false;
   };
