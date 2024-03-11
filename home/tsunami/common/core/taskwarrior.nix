@@ -67,16 +67,6 @@
         focus = "-wife -INBOX project.not:wife project.not:social";
       };
 
-      taskd = {
-        certificate = "~/.task/voile.bcraton.cert.pem";
-        # TODO: This should be a secret
-        key = "~/.task/voile.bcraton.key.pem";
-        ca = "~/.task/voile.ca.pem";
-        server = "voile.armadillo-banfish.ts.net:53589";
-        credentials = "Falseblue/Ben Craton/309bdd58-1026-4213-83d4-ad92e085ac92";
-        trust = "ignore hostname";
-      };
-
       verbose = "blank,header,footnote,label,new-id,affected,edit,special,project,sync,unwait,recur";
 
       report = {
@@ -155,8 +145,17 @@
           sort = "scheduled-,due-";
         };
       };
+      taskd = {
+        certificate = config.sops.secrets."taskwarrior/user-cert".path;
+        key = config.sops.secrets."taskwarrior/user-key".path;
+        ca = "~/.task/voile.ca.pem";
+        server = "voile.armadillo-banfish.ts.net:53589";
+        credentials = "Falseblue/Ben Craton/309bdd58-1026-4213-83d4-ad92e085ac92";
+        trust = "ignore hostname";
+      };
     };
   };
+
   services.taskwarrior-sync =
     if pkgs.stdenv.isLinux
     then {
@@ -174,8 +173,6 @@
 
   sops.secrets."taskwarrior/user-cert" = {};
   sops.secrets."taskwarrior/user-key" = {};
-  home.file.".task/voile.bcraton.cert.pem".path = config.sops.secrets."taskwarrior/user-cert".path;
-  home.file.".task/voile.bcraton.key.pem".path = config.sops.secrets."taskwarrior/user-key".path;
 
   home.file.".task/voile.ca.pem".text = ''
     -----BEGIN CERTIFICATE-----
