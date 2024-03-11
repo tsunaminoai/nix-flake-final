@@ -35,14 +35,6 @@
     enableIPv6 = false;
   };
 
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-      timeout = 3;
-    };
-  };
-
   # VirtualBox settings for Hyprland to display correctly
   #environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
   #environment.sessionVariables.WLR_RENDERER_ALLOW_SOFTWARE = "1";
