@@ -11,6 +11,7 @@
     inputs.hardware.nixosModules.common-gpu-intel
 
     #################### Required Configs ####################
+    ./install-config.nix
     ../common/core
     ./hardware-configuration.nix
 
@@ -19,8 +20,6 @@
     # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
-    inputs.disko.nixosModules.disko
-    ./disk-config.nix
 
     #################### Users to Create ####################
     ../common/users/tsunami
