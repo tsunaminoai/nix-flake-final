@@ -18,8 +18,8 @@
     # devices = [ ];
     efiSupport = true;
     efiInstallAsRemovable = true;
-    timeout = 3;
   };
+  boot.loader.timeout = 3;
 
   boot.initrd.availableKernelModules = ["ata_piix" "xhci_pci" "ahci" "sd_mod" "sr_mod"];
   boot.initrd.kernelModules = [];
