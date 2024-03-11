@@ -15,11 +15,13 @@
     (modulesPath + "/profiles/qemu-guest.nix")
     inputs.disko.nixosModules.disko
   ];
-  # boot.loader.systemd-boot.enable = true;
-  # boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
+
+  boot.loader.grub = {
+    # no need to set devices, disko will add all devices that have a EF02 partition to the list already
+    # devices = [ ];
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+  };
   boot.loader.timeout = 3;
 
   boot.initrd.availableKernelModules = ["ata_piix" "xhci_pci" "ahci" "sd_mod" "sr_mod"];
@@ -57,6 +59,7 @@
             };
             root = {
               size = "100%";
+              type = "EF02";
               content = {
                 type = "filesystem";
                 format = "ext4";
