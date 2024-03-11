@@ -1,6 +1,7 @@
 {
   home,
   pkgs,
+  config,
   ...
 }: {
   programs.taskwarrior = {
