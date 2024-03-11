@@ -28,16 +28,16 @@ in {
     # secrets required for user creation are handled in respective ./users/<username>.nix files
     # because they will be output to /run/secrets-for-users and only when the user is assigned to a host.
     secrets = {
-      msmtp-host = {};
-      msmtp-address = {};
-      msmtp-password = {};
+      # msmtp-host = {};
+      # msmtp-address = {};
+      # msmtp-password = {};
 
       # smb-secrets are extracted in hosts/common/optional/smbclient.nix
 
       # extract to default pam-u2f authfile location for passwordless sudo. see ../optional/yubikey
-      "yubico/u2f_keys" = {
-        path = "/home/ta/.config/Yubico/u2f_keys";
-      };
+      # "yubico/u2f_keys" = {
+      #   path = "/home/ta/.config/Yubico/u2f_keys";
+      # };
     };
   };
 }

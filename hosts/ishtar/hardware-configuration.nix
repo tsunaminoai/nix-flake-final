@@ -9,28 +9,51 @@
   ...
 }: {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
 
-  #boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
-  boot.loader.timeout = 3;
-
-  boot.initrd.availableKernelModules = ["ata_piix" "xhci_pci" "ahci" "sd_mod" "sr_mod"];
+  boot.initrd.availableKernelModules = ["ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
+  boot.kernelModules = [];
   boot.extraModulePackages = [];
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/b539f07b-0eac-4e30-b400-33f701207859";
+    fsType = "btrfs";
+    options = ["subvol=root"];
+  };
+
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/b539f07b-0eac-4e30-b400-33f701207859";
+    fsType = "btrfs";
+    options = ["subvol=nix"];
+  };
+
+  fileSystems."/.swapvol" = {
+    device = "/dev/disk/by-uuid/b539f07b-0eac-4e30-b400-33f701207859";
+    fsType = "btrfs";
+    options = ["subvol=swap"];
+  };
+
+  fileSystems."/persist" = {
+    device = "/dev/disk/by-uuid/b539f07b-0eac-4e30-b400-33f701207859";
+    fsType = "btrfs";
+    options = ["subvol=persist"];
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/6482-4BCE";
+    fsType = "vfat";
+  };
+
+  swapDevices = [];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp0s3.useDHCP = lib.mkDefault true;
+  # networking.interfaces.ens18.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
