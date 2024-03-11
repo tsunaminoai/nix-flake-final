@@ -171,9 +171,6 @@
     tn = "task next";
   };
 
-  sops.secrets."taskwarrior/user-cert" = {};
-  sops.secrets."taskwarrior/user-key" = {};
-
   home.file.".task/voile.ca.pem".text = ''
     -----BEGIN CERTIFICATE-----
     MIIFjjCCA3agAwIBAgIUY3e3WdfYvpKfKY+Ymc/fDw4/GBswDQYJKoZIhvcNAQEM
