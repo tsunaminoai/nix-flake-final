@@ -12,7 +12,7 @@ in {
 
   users.users.tsunami = {
     isNormalUser = true;
-    hashedPasswordFile = config.sops.secrets.ta-password.path;
+    hashedPasswordFile = config.sops.secrets.tsunami-password.path;
     shell = pkgs.zsh; #default shell
     extraGroups =
       [
