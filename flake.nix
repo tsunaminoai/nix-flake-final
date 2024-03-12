@@ -148,6 +148,11 @@
     # Typically adopted using 'home-manager switch --flake .#primary-username@hostname'
 
     homeConfigurations = {
+      "bcraton@MacBook-Pro-0432" = lib.homeManagerConfiguration {
+        modules = [./home/bcraton/work-laptop.nix];
+        pkgs = pkgsFor.aarch64-darwin;
+        extraSpecialArgs = {inherit inputs outputs;};
+      };
       "tsunami@ishtar" = lib.homeManagerConfiguration {
         modules = [./home/tsunami/ishtar.nix];
         pkgs = pkgsFor.x86_64-linux;
