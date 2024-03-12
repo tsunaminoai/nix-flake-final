@@ -6,24 +6,9 @@
 }: let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
-  users.mutableUsers = true; # Required for password to be set via sops during system activation!
-
   users.users.bcraton = {
-    homeDirectory = "/Users/bcraton";
-    isNormalUser = true;
+    home = "/Users/bcraton";
     shell = pkgs.fish; #default shell
-    extraGroups =
-      [
-        "wheel"
-        "audio"
-        "video"
-      ]
-      ++ ifTheyExist [
-        "docker"
-        "git"
-        "mysql"
-        "network"
-      ];
 
     openssh.authorizedKeys.keys = [
       (builtins.readFile ../tsunami/keys/id_mokou_ed25519.pub)
