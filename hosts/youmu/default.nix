@@ -19,6 +19,6 @@
   ];
 
   networking = {
-    hostName = "youmu;
+    hostName = "youmu";
   };
 }
