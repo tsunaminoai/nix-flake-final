@@ -15,7 +15,6 @@
       ./fonts.nix # core fonts
       ./git.nix # personal git config
       ./kitty.nix # terminal
-      ./nixvim # vim goodness
       ./screen.nix # hopefully rarely needed but good to have if so
       ./ssh.nix # personal ssh configs
       ./taskwarrior.nix # task manager
@@ -62,13 +61,10 @@
       fzf # fuzzy search
       jq # JSON pretty printer and manipulator
       nix-tree # nix package tree viewer
-      ncdu # TUI disk usage
-      pciutils
       pfetch # system info
       pre-commit # git hooks
       p7zip # compresion & encryption
       ripgrep # better grep
-      usbutils
       tree # cli dir tree viewer
       unzip # zip extraction
       unrar # rar extraction
