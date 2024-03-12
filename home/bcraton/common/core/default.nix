@@ -9,17 +9,21 @@
     [
       # Packages with custom configs go here
 
+      ./atuin.nix # history manager
       ./bash.nix # backup shell
       ./bat.nix # cat with better syntax highlighting and extras like batgrep.
       ./direnv.nix # shell environment manager. Hooks inot shell direnv to look for .envrc before prompts
+      ./fish.nix # fish shell
       ./fonts.nix # core fonts
       ./git.nix # personal git config
       ./kitty.nix # terminal
+      ./nano.nix # text editor
       ./screen.nix # hopefully rarely needed but good to have if so
       ./ssh.nix # personal ssh configs
+      ./starship.nix # prompt
       ./taskwarrior.nix # task manager
+      ./tmux.nix # terminal multiplexer
       ./zoxide.nix # cd replacement
-      ./fish.nix # fish shell
       # ./zsh # primarly shell: includes zsh, oh-my-zsh, and p10k theme
 
       # TODO Not set, need to investigate but will need custom config if used:

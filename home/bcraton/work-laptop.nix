@@ -11,6 +11,11 @@ in {
     #################### Host-specific Optional Configs ####################
     common/optional/sops.nix
     common/optional/helper-scripts
+
+    #################### Optional Configs ####################
+    common/optional/neofetch
+    common/optional/alacritty.nix
+    common/optional/gh.nix
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };
