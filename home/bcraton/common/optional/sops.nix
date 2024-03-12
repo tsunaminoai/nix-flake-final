@@ -14,7 +14,7 @@ in {
     # }
 
     # This is the ta/dev key and needs to have been copied to this location on the host
-    age.keyFile = "/home/tsunami/.config/sops/age/keys.txt";
+    age.keyFile = builtins.toPath "/Users/bcraton/Library/Application Support/sops/age/keys.txt";
 
     defaultSopsFile = "${secretspath}/secrets.yaml";
     validateSopsFiles = false;

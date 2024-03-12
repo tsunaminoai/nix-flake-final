@@ -13,6 +13,12 @@ rebuild:
 	scripts/system-flake-rebuild.sh
 	just check-sops
 
+# Same as `just rebuild` except for the darwin flake.
+rebuild-darwin:
+	git add .
+	scripts/darwin-flake-rebuild.sh
+	just check-sops
+
 # Same as `just rebuild` except with the `--show-trace` flag enabled.
 rebuild-trace:
 	git add .
