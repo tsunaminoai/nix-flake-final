@@ -54,7 +54,8 @@
       # Packages that don't have custom configs go here
       
       alejandra # formatter
-      borgbackup # backups
+      # borgbackup # backups
+      
       btop # resource monitor
       coreutils # basic gnu utils
       #curl
