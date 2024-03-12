@@ -43,7 +43,7 @@
       SHELL = "zsh";
       TERM = "kitty";
       TERMINAL = "kitty";
-      EDITOR = "nvim";
+      EDITOR = "nano";
       MANPAGER = "batman"; # see ./cli/bat.nix
     };
   };
