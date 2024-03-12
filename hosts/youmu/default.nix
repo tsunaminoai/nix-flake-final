@@ -15,7 +15,7 @@
     ../common/security
 
     #################### Users to Create ####################
-    ../common/users/tsunami
+    ../common/users/tsunami-darwin
   ];
 
   networking = {
