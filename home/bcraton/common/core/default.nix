@@ -19,7 +19,8 @@
       ./ssh.nix # personal ssh configs
       ./taskwarrior.nix # task manager
       ./zoxide.nix # cd replacement
-      ./zsh # primarly shell: includes zsh, oh-my-zsh, and p10k theme
+      ./fish.nix # fish shell
+      # ./zsh # primarly shell: includes zsh, oh-my-zsh, and p10k theme
 
       # TODO Not set, need to investigate but will need custom config if used:
       #./shellcolor.nix
