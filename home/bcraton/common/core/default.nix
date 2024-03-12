@@ -9,7 +9,7 @@
     [
       # Packages with custom configs go here
 
-      ./atuin.nix # history manager
+      # ./atuin.nix # history manager
       ./bash.nix # backup shell
       ./bat.nix # cat with better syntax highlighting and extras like batgrep.
       ./direnv.nix # shell environment manager. Hooks inot shell direnv to look for .envrc before prompts
