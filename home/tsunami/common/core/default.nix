@@ -20,6 +20,7 @@
       ./nano.nix # nano editor
       ./screen.nix # hopefully rarely needed but good to have if so
       ./ssh.nix # personal ssh configs
+      ./starship.nix # prompt
       ./taskwarrior.nix # task manager
       ./tmux.nix # terminal multiplexer
       ./zoxide.nix # cd replacement
