@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  environment.packages = with pkgs; [
+  home.packages = with pkgs; [
     bitwarden-cli
   ];
   programs.fish.interactiveShellInit = ''
