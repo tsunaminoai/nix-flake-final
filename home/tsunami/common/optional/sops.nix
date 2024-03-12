@@ -26,6 +26,8 @@ in {
       "taskwarrior/user-key" = {
         path = "/Users/tsunami/.task/key.pem";
       };
+      "bitwarden/client-id" = {};
+      "bitwarden/client-secret" = {};
 
       # "private_keys/id_ed25519" = {
       #   path = "/home/tsunami/.ssh/id_ed25519";

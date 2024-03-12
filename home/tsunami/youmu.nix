@@ -14,6 +14,7 @@ in {
     common/optional/gh.nix
     common/optional/alacritty.nix
     common/optional/neofetch
+    common/optional/bitwarden.nix
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };
