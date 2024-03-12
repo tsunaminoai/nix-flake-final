@@ -17,4 +17,5 @@ in {
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };
+  home.homeDirectory = "/Users/tsunami";
 }
