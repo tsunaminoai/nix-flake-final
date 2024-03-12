@@ -1,4 +1,27 @@
-{pkgs, ...}: {
+{
+  inputs,
+  outputs,
+  pkgs,
+  lib,
+  ...
+}: {
+  imports = [
+    inputs.home-manager.darwinModules.home-manager
+    # ../core/nix.nix # nix settings and garbage collection
+    ../core/zsh.nix # load a basic shell just incase we need it without home-manager
+  ];
+
+  home-manager.extraSpecialArgs = {inherit inputs outputs;};
+  time.timeZone = lib.mkDefault "America/Indiana/Indianapolis";
+
+  nixpkgs = {
+    # you can add global overlays here
+    overlays = builtins.attrValues outputs.overlays;
+    config = {
+      allowUnfree = true;
+    };
+  };
+
   programs.fish.enable = true;
   environment = {
     shells = with pkgs; [bash fish];

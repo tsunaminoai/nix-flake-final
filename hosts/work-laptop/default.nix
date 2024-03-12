@@ -4,17 +4,19 @@
 #  Macbook Pro 13" M1 (apple-silicon) Running nix-darwin
 #
 ###############################################################
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     #################### Required Configs ####################
-    ../common/core
     ../common/darwin
     ../common/security
   ];
 
   networking = {
     hostName = "MacBook-Pro-0432";
-    enableIPv6 = false;
   };
   users.users.bcraton = {
     home = "/Users/bcraton";
