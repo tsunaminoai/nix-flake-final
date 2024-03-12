@@ -6,7 +6,7 @@
     config = {
       # Show line numbers, Git modifications and file header (but no grid)
       style = "numbers,changes,header";
-      theme = "gruvbox-dark";
+      theme = "TwoDark";
     };
     extraPackages = builtins.attrValues {
       inherit
@@ -17,4 +17,5 @@
         ; # read manpages using bat as the formatter
     };
   };
+  programs.fish.shellAliases.cat = "bat";
 }

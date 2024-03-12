@@ -13,7 +13,7 @@
   programs.ssh = {
     enable = true;
     forwardAgent = true;
-    addKeysToAgent = "yes";
+    # addKeysToAgent = "yes";
     compression = true;
     hashKnownHosts = true;
 
