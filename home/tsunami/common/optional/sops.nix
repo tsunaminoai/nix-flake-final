@@ -14,14 +14,18 @@ in {
     # }
 
     # This is the ta/dev key and needs to have been copied to this location on the host
-    age.keyFile = "/home/tsunami/.config/sops/age/keys.txt";
+    age.keyFile = builtins.toPath "/Users/tsunami/Library/Application Support/sops/age/keys.txt";
 
     defaultSopsFile = "${secretspath}/secrets.yaml";
     validateSopsFiles = false;
 
     secrets = {
-      "taskwarrior/user-cert" = {};
-      "taskwarrior/user-key" = {};
+      "taskwarrior/user-cert" = {
+        path = "/Users/tsunami/.task/cert.pem";
+      };
+      "taskwarrior/user-key" = {
+        path = "/Users/tsunami/.task/key.pem";
+      };
 
       # "private_keys/id_ed25519" = {
       #   path = "/home/tsunami/.ssh/id_ed25519";

@@ -140,6 +140,11 @@
         modules = [./hosts/work-laptop];
         specialArgs = {inherit inputs outputs;};
       };
+      "youmu" = nix-darwin.lib.darwinSystem {
+        system = "x86_64-darwin";
+        modules = [./hosts/youmu];
+        specialArgs = {inherit inputs outputs;};
+      };
     };
 
     #################### User-level Home-Manager Configurations ####################
@@ -151,6 +156,11 @@
       "bcraton@MacBook-Pro-0432" = lib.homeManagerConfiguration {
         modules = [./home/bcraton/work-laptop.nix];
         pkgs = pkgsFor.aarch64-darwin;
+        extraSpecialArgs = {inherit inputs outputs;};
+      };
+      "tsunami@youmu" = lib.homeManagerConfiguration {
+        modules = [./home/tsunami/youmu.nix];
+        pkgs = pkgsFor.x86_64-darwin;
         extraSpecialArgs = {inherit inputs outputs;};
       };
       "tsunami@ishtar" = lib.homeManagerConfiguration {
