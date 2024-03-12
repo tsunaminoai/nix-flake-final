@@ -7,6 +7,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # also see 'unstable-packages' overlay at 'overlays/default.nix"
 
+    nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     #################### Utilities ####################
 
     # Declarative partitioning and formatting
@@ -61,6 +64,7 @@
   outputs = {
     self,
     nixpkgs,
+    nix-darwin,
     home-manager,
     ...
   } @ inputs: let
@@ -127,6 +131,15 @@
       #   modules = [./hosts/gusto];
       #   specialArgs = {inherit inputs outputs;};
       # };
+    };
+
+    darwinConfigurations = {
+      # Work Laptop
+      "MacBook-Pro-0432" = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        modules = [./hosts/work-laptop];
+        specialArgs = {inherit inputs outputs;};
+      };
     };
 
     #################### User-level Home-Manager Configurations ####################
