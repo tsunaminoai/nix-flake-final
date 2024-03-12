@@ -146,7 +146,7 @@
         };
       };
       taskd = {
-        certificate = "${config.sops.secrets."taskwarrior/user-cert".path}";
+        certificate = config.sops.secrets."taskwarrior/user-cert".path;
         key = config.sops.secrets."taskwarrior/user-key".path;
         ca = "~/.task/voile.ca.pem";
         server = "voile.armadillo-banfish.ts.net:53589";

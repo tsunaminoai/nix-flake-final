@@ -20,8 +20,12 @@ in {
     validateSopsFiles = false;
 
     secrets = {
-      "taskwarrior/user-cert" = {};
-      "taskwarrior/user-key" = {};
+      "taskwarrior/user-cert" = {
+        path = "/Users/bcraton/.task/cert.pem";
+      };
+      "taskwarrior/user-key" = {
+        path = "/Users/bcraton/.task/key.pem";
+      };
 
       # "private_keys/id_ed25519" = {
       #   path = "/home/tsunami/.ssh/id_ed25519";
