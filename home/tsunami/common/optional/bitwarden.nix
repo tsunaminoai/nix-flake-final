@@ -7,7 +7,7 @@
     bitwarden-cli
   ];
   programs.fish.interactiveShellInit = ''
-    set -x BW_CLIENTID ${config.sops.secrets."bitwarden/client-id"}
-    set -x BW_CLIENTSECRET ${config.sops.secrets."bitwarden/client-secret"}
+    set -x BW_CLIENTID ${config.sops.secrets."bitwarden/client-id".text}
+    set -x BW_CLIENTSECRET ${config.sops.secrets."bitwarden/client-secret".text}
   '';
 }
