@@ -22,24 +22,27 @@ in {
     secrets = {
       "taskwarrior/user-cert" = {
         path = "/Users/tsunami/.task/cert.pem";
+        owner = "tsunami";
         mode = "0400";
       };
       "taskwarrior/user-key" = {
         path = "/Users/tsunami/.task/key.pem";
+        owner = "tsunami";
         mode = "0400";
       };
       "bitwarden/client-id" = {
         path = "/Users/tsunami/.config/bitwarden/client-id";
+        owner = "tsunami";
         mode = "0400";
       };
       "bitwarden/client-secret" = {
         path = "/Users/tsunami/.config/bitwarden/client-secret";
+        owner = "tsunami";
         mode = "0400";
       };
       "bitwarden/topsecret" = {
         path = "/Users/tsunami/.config/bitwarden/topsecret";
-        group = "nobody";
-        user = "tsunami";
+        owner = "tsunami";
         mode = "0400";
       };
 
