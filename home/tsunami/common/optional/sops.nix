@@ -28,18 +28,6 @@ in {
         path = "/Users/tsunami/.task/key.pem";
         mode = "0400";
       };
-      "bitwarden/client-id" = {
-        path = "/Users/tsunami/.config/bitwarden/client-id";
-        mode = "0400";
-      };
-      "bitwarden/client-secret" = {
-        path = "/Users/tsunami/.config/bitwarden/client-secret";
-        mode = "0400";
-      };
-      "bitwarden/topsecret" = {
-        path = "/Users/tsunami/.config/bitwarden/topsecret";
-        mode = "0400";
-      };
 
       # "private_keys/id_ed25519" = {
       #   path = "/home/tsunami/.ssh/id_ed25519";
