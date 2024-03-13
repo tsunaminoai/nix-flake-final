@@ -42,8 +42,8 @@
     sessionVariables = {
       FLAKE = "$HOME/src/nix-config";
       SHELL = "fish";
-      TERM = "alactritty";
-      TERMINAL = "alactritty";
+      TERM = "xterm";
+      TERMINAL = "xterm";
       EDITOR = "nano";
       MANPAGER = "batman"; # see ./cli/bat.nix
     };
