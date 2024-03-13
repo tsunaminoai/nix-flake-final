@@ -36,6 +36,12 @@ in {
         path = "/Users/tsunami/.config/bitwarden/client-secret";
         mode = "0400";
       };
+      "bitwarden/topsecret" = {
+        path = "/Users/tsunami/.config/bitwarden/topsecret";
+        group = "nobody";
+        user = "tsunami";
+        mode = "0400";
+      };
 
       # "private_keys/id_ed25519" = {
       #   path = "/home/tsunami/.ssh/id_ed25519";
