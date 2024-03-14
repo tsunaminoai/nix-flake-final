@@ -1,6 +1,10 @@
 # home level sops. see hosts/common/optional/sops.nix for hosts level
 # TODO should I split secrtets.yaml into a home level and a hosts level or move to a single sops.nix entirely?
-{inputs, ...}: let
+{
+  inputs,
+  system,
+  ...
+}: let
   secretspath = builtins.toString inputs.mysecrets;
 in {
   imports = [
@@ -13,8 +17,11 @@ in {
     #   sshKeyPaths = [ ];
     # }
 
-    # This is the ta/dev key and needs to have been copied to this location on the host
-    age.keyFile = builtins.toPath "/Users/tsunami/Library/Application Support/sops/age/keys.txt";
+    # This is the key and needs to have been copied to this location on the host
+    age.keyFile =
+      if system == "x86_64-darwin"
+      then builtins.toPath "/Users/tsunami/Library/Application Support/sops/age/keys.txt"
+      else builtins.toPath "/home/tsunami/.config/sops/age/keys.txt";
 
     defaultSopsFile = "${secretspath}/secrets.yaml";
     validateSopsFiles = false;
