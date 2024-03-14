@@ -8,12 +8,13 @@
   imports =
     [
       # Packages with custom configs go here
-
+      ./alacritty.nix # terminal
       ./bash.nix # backup shell
       ./bat.nix # cat with better syntax highlighting and extras like batgrep.
       ./direnv.nix # shell environment manager. Hooks inot shell direnv to look for .envrc before prompts
       ./fonts.nix # core fonts
       ./fish.nix # fish shell
+      ./gh.nix # github cli
       ./git.nix # personal git config
       ./kitty.nix # terminal
       # ./nixvim # vim goodness
