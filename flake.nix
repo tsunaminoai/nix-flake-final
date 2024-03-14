@@ -55,7 +55,7 @@
 
     hyprland = {
       url = "github:hyprwm/Hyprland/";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
@@ -63,14 +63,14 @@
     };
     hyprcontrib = {
       url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # Status bar
     barbie = {
       url = "github:sioodmy/barbie";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-unstable";
         flake-parts.follows = "flake-parts";
       };
     };
