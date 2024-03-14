@@ -10,6 +10,7 @@
       ./nix.nix # nix settings and garbage collection
       ./sops.nix # secrets management
       ./zsh.nix # load a basic shell just incase we need it without home-manager
+      ./fish.nix # fish shell
 
       ./services/auto-upgrade.nix # auto-upgrade service
     ]
