@@ -5,6 +5,9 @@
   outputs,
   ...
 }: {
+  # import the theme
+  _module.args.theme = import ./theme;
+
   imports =
     [
       # Packages with custom configs go here
