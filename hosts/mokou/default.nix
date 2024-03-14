@@ -26,7 +26,7 @@
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
     ../common/optional/nvidia.nix
-    ../common/optional/hyperland.nix
+    ../common/optional/hyprland.nix
     ../common/optional/pipewire.nix
     ../common/optional/vlc.nix
 
