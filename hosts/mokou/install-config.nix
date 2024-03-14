@@ -27,15 +27,6 @@
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/431075cc-6f62-445b-b38a-a5362fcd83d5";
-    fsType = "ext4";
-  };
-
-  swapDevices = [
-    {device = "/dev/disk/by-uuid/889938f7-8be0-46a5-a8e5-384da3fb4f74";}
-  ];
-
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
@@ -59,25 +50,40 @@
               type = "EF02"; # for grub MBR
             };
             root = {
-              end = "-1G";
+              end = "-512M";
               content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
+                type = "btrfs";
+                extraArgs = ["-f"]; # Override existing partition
+                # Subvolumes must set a mountpoint in order to be mounted,
+                # unless their parent is mounted
+                subvolumes = {
+                  "/root" = {
+                    mountpoint = "/";
+                  };
+
+                  "/persist" = {
+                    mountOptions = ["compress=zstd"];
+                    mountpoint = "/persist";
+                  };
+
+                  "/nix" = {
+                    mountOptions = ["compress=zstd" "noatime"];
+                    mountpoint = "/nix";
+                  };
+
+                  "/swap" = {
+                    mountOptions = ["noatime"];
+                    mountpoint = "/.swapvol";
+                    swap.swapfile.size = "8196M";
+                  };
+                };
               };
             };
             encryptedSwap = {
-              size = "10M";
+              size = "512M";
               content = {
                 type = "swap";
                 randomEncryption = true;
-              };
-            };
-            plainSwap = {
-              size = "100%";
-              content = {
-                type = "swap";
-                resumeDevice = true; # resume from hiberation from this device
               };
             };
           };
