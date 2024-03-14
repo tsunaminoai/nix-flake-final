@@ -6,6 +6,10 @@
   ...
 }: let
   secretspath = builtins.toString inputs.mysecrets;
+  homeDir =
+    if pkgs.system == "x86_64-darwin"
+    then "/Users/tsunami"
+    else "/home/tsunami";
 in {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
@@ -28,11 +32,11 @@ in {
 
     secrets = {
       "taskwarrior/user-cert" = {
-        path = "/Users/tsunami/.task/cert.pem";
+        path = "${homeDir}/.task/cert.pem";
         mode = "0400";
       };
       "taskwarrior/user-key" = {
-        path = "/Users/tsunami/.task/key.pem";
+        path = "${homeDir}/.task/key.pem";
         mode = "0400";
       };
 
