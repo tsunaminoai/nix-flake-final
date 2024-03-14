@@ -50,13 +50,16 @@
     disk = {
       sda = {
         type = "disk";
-        device = "/dev/disk/by-uuid/431075cc-6f62-445b-b38a-a5362fcd83d5";
+        device = "/dev/disk/by-id/wwn-0x5002538e4058ee3d";
         content = {
           type = "gpt";
           partitions = {
             root = {
-              type = "ext4";
-              device = "/dev/disk/by-uuid/431075cc-6f62-445b-b38a-a5362fcd83d5";
+              type = "EF02";
+              content = {
+                type = "ext4";
+                device = "/dev/disk/by-uuid/431075cc-6f62-445b-b38a-a5362fcd83d5";
+              };
             };
             swap = {
               type = "swap";
