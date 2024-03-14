@@ -13,7 +13,7 @@ in {
   users.users.tsunami = {
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets.tsunami-password.path;
-    shell = pkgs.zsh; #default shell
+    shell = pkgs.fish; #default shell
     extraGroups =
       [
         "wheel"
