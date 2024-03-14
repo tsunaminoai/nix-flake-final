@@ -20,6 +20,7 @@
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
     ../common/optional/services/distributed-client.nix
+    ../common/optional/services/distributed-builder.nix
 
     #################### Users to Create ####################
     ../common/users/tsunami
