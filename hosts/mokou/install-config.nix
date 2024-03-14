@@ -55,9 +55,8 @@
           type = "gpt";
           partitions = {
             root = {
-              type = "EF02";
+              type = "ext4";
               device = "/dev/disk/by-uuid/431075cc-6f62-445b-b38a-a5362fcd83d5";
-              fsType = "ext4";
               mountpoint = "/";
             };
             swap = {
