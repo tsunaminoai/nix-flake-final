@@ -64,6 +64,7 @@
               type = "swap";
               mountOptions = ["noatime"];
               device = "/dev/disk/by-uuid/889938f7-8be0-46a5-a8e5-384da3fb4f74";
+            };
           };
         };
       };
