@@ -16,7 +16,7 @@ in {
     flags = [
       "--refresh"
     ];
-    flake = "git://github.com/EmergentMind/nix-config?ref=release-${hostName}";
+    flake = "git://github.com/tsunaminoai/nix-flake-final?ref=master";
   };
 
   # Only run if current config (self) is older than the new one.
