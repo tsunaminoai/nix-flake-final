@@ -45,4 +45,28 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  disko.devices = {
+    disk = {
+      sda = {
+        type = "disk";
+        device = "/dev/disk/by-uuid/431075cc-6f62-445b-b38a-a5362fcd83d5";
+        content = {
+          type = "gpt";
+          partitions = {
+            root = {
+              type = "EF02";
+              device = "/dev/disk/by-uuid/431075cc-6f62-445b-b38a-a5362fcd83d5";
+              fsType = "ext4";
+              mountpoint = "/";
+            };
+            swap = {
+              type = "swap";
+              mountOptions = ["noatime"];
+              device = "/dev/disk/by-uuid/889938f7-8be0-46a5-a8e5-384da3fb4f74";
+          };
+        };
+      };
+    };
+  };
 }
