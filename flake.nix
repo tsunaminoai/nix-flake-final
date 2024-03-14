@@ -4,7 +4,8 @@
   inputs = {
     #################### Official NixOS Package Sources ####################
 
-    nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
+    # nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # FREEEEEEEBIRD!
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # also see 'unstable-packages' overlay at 'overlays/default.nix"
 
     nix-darwin.url = "github:LnL7/nix-darwin";

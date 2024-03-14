@@ -6,4 +6,4 @@ else
 	export HOST=$(hostname)
 fi
 
-sudo nixos-rebuild --flake .#$HOST switch
+sudo nixos-rebuild --flake .#$HOST boot

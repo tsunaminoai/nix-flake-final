@@ -7,6 +7,11 @@ build:
 	git add .
 	scripts/build.sh
 
+# Switch boot config to current flake
+boot:
+    just rebuild
+    scripts/system-flake-boot.sh
+   
 # Build an ISO installer
 build-iso:
 	git add .

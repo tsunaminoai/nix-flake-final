@@ -12,8 +12,8 @@ in {
     common/optional/sops.nix
     common/optional/helper-scripts
 
+    common/optional/dev
     common/optional/desktops
-    # common/optional/dev
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };
