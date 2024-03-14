@@ -7,6 +7,16 @@ build:
 	git add .
 	scripts/build.sh
 
+# Switch boot config to current flake
+boot:
+    just rebuild
+    scripts/system-flake-boot.sh
+   
+# Build an ISO installer
+build-iso:
+	git add .
+	nix run nixpkgs#nixos-generators -- --format iso --flake .#installerIso -o result
+
 # Stage all files to git, rebuild the flake for the current, or specified hosts, and then valdiation sops activation via `just check-sops`.
 rebuild:
 	git add .

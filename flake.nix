@@ -4,7 +4,8 @@
   inputs = {
     #################### Official NixOS Package Sources ####################
 
-    nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
+    # nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # FREEEEEEEBIRD!
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # also see 'unstable-packages' overlay at 'overlays/default.nix"
 
     nix-darwin.url = "github:LnL7/nix-darwin";
@@ -29,8 +30,20 @@
 
     # Home-manager for declaring user/home configurations
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager"; #/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Weekly updated nix-index database [maintainer=@Mic92]
+    nix-index-db = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Simplify Nix Flakes with the module system
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
     # vim4LMFQR!
@@ -40,16 +53,57 @@
     };
 
     # Windows management
-    # for now trying to avoid this one because I want stability for my wm
-    # this is the hyprland development flake package / unstable
-    #hyprland = {
-    #url = "github:hyprwm/hyprland";
-    #inputs.nixpkgs.follows = "nixpkgs";
-    #};
-    #hyprland-plugins = {
-    #url = "github:hyprwm/hyprland-plugins";
-    #inputs.hyprland.follows = "hyprland";
-    #};
+
+    hyprland = {
+      url = "github:hyprwm/Hyprland/";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+    hyprcontrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    # Status bar
+    barbie = {
+      url = "github:sioodmy/barbie";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
+    # a tree-wide formatter
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # pre-commit hooks
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Nice looking terminal
+    catppuccinifier = {
+      url = "github:lighttigerXIV/catppuccinifier";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # tui editor
+    helix = {
+      url = "github:helix-editor/helix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
+    # Pure and reproducible nix overlay of binary distributed rust toolchains
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     #################### Personal Repositories ####################
 
@@ -126,6 +180,21 @@
         modules = [./hosts/ishtar];
         specialArgs = {inherit inputs outputs;};
       };
+      # Mokou Desktop
+      mokou = lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [./hosts/mokou];
+        specialArgs = {inherit inputs outputs;};
+      };
+
+      installerIso = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/common/optional/installeriso.nix
+        ];
+      };
+
       # # theatre
       # gusto = lib.nixosSystem {
       #   modules = [./hosts/gusto];
@@ -165,6 +234,11 @@
       };
       "tsunami@ishtar" = lib.homeManagerConfiguration {
         modules = [./home/tsunami/ishtar.nix];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+      };
+      "tsunami@mokou" = lib.homeManagerConfiguration {
+        modules = [./home/tsunami/mokou.nix];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };

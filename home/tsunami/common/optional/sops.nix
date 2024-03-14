@@ -39,7 +39,14 @@ in {
         path = "${homeDir}/.task/key.pem";
         mode = "0400";
       };
-
+      "github/ssh-pub" = {
+        path = "${homeDir}/.ssh/github.pub";
+        mode = "0400";
+      };
+      "github/ssh-key" = {
+        path = "${homeDir}/.ssh/github";
+        mode = "0400";
+      };
       # "private_keys/id_ed25519" = {
       #   path = "/home/tsunami/.ssh/id_ed25519";
       # };

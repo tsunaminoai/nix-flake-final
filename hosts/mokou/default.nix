@@ -1,10 +1,16 @@
 #############################################################
 #
-#  Grief - Dev Lab
-#  NixOS running on VirtualBox VM
+#  Mokou - Desktop
+#  NixOS running on a Intel(R) Core(TM) i7-4790K CPU @ 4.00GHz
+#  32GB RAM, Nvidia 1080i
 #
 ###############################################################
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-intel
@@ -19,6 +25,8 @@
     # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
+    ../common/optional/nvidia.nix
+    ../common/optional/wayland
 
     #################### Users to Create ####################
     ../common/users/tsunami
@@ -30,13 +38,13 @@
   #services.pam.services.greetd.enableGnomeKeyring = true;
 
   networking = {
-    hostName = "ishtar";
-    #networkmanager.enable = true;
+    hostName = "mokou";
+    networkmanager.enable = true;
     enableIPv6 = false;
   };
   users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH2IrKNs2BLgup7rSVt7KJqRqeSxhU+B1FUrBlHNNmSJ tsunami@youmu"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBm4yzmOrF+MCV+w0yfd10R88iHR6QusZBCpEtPFm+f+ tsunami@mokou"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH2IrKNs2BLgup7rSVt7KJqRqeSxhU+B1FUrBlHNNmSJ tsunami@youmu"
   ];
 
   # VirtualBox settings for Hyprland to display correctly
@@ -49,4 +57,47 @@
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
+
+  # TODO: clean up the below, move to a more appropriate location
+
+  # virtualisation.containers.cdi.dynamic.nvidia.enable = true;
+
+  security.polkit.enable = true;
+  security.pam.services.swaylock = {};
+  # services.greetd = {
+  #   enable = true;
+  #   settings = {
+  #     default_session.command = ''
+  #       ${pkgs.greetd.tuigreet}/bin/tuigreet \
+  #         --time \
+  #         --asterisks \
+  #         --user-menu \
+  #         --cmd sway
+  #     '';
+  #   };
+  # };
+
+  # Razer stuff
+  hardware.openrazer = {
+    enable = true;
+    syncEffectsEnabled = true;
+    users = ["tsunami"];
+    keyStatistics = true;
+    devicesOffOnScreensaver = true;
+  };
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    # Razer stuff
+    razergenie
+    openrazer-daemon
+    polychromatic
+  ];
 }
