@@ -57,11 +57,9 @@
             root = {
               type = "ext4";
               device = "/dev/disk/by-uuid/431075cc-6f62-445b-b38a-a5362fcd83d5";
-              mountpoint = "/";
             };
             swap = {
               type = "swap";
-              mountOptions = ["noatime"];
               device = "/dev/disk/by-uuid/889938f7-8be0-46a5-a8e5-384da3fb4f74";
             };
           };
