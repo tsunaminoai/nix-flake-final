@@ -26,9 +26,7 @@
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
     ../common/optional/nvidia.nix
-    ../common/optional/hyprland.nix
-    ../common/optional/pipewire.nix
-    ../common/optional/vlc.nix
+    ../common/optional/wayland
 
     #################### Users to Create ####################
     ../common/users/tsunami
@@ -61,35 +59,23 @@
   system.stateVersion = "23.05";
 
   # TODO: clean up the below, move to a more appropriate location
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
-  };
+
   # virtualisation.containers.cdi.dynamic.nvidia.enable = true;
 
   security.polkit.enable = true;
   security.pam.services.swaylock = {};
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session.command = ''
-        ${pkgs.greetd.tuigreet}/bin/tuigreet \
-          --time \
-          --asterisks \
-          --user-menu \
-          --cmd sway
-      '';
-    };
-  };
-
-  environment.etc."greetd/environments".text = ''
-    sway
-  '';
+  # services.greetd = {
+  #   enable = true;
+  #   settings = {
+  #     default_session.command = ''
+  #       ${pkgs.greetd.tuigreet}/bin/tuigreet \
+  #         --time \
+  #         --asterisks \
+  #         --user-menu \
+  #         --cmd sway
+  #     '';
+  #   };
+  # };
 
   # Razer stuff
   hardware.openrazer = {
