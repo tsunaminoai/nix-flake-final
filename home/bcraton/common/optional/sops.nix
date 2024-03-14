@@ -14,19 +14,17 @@ in {
     # }
 
     # This is the ta/dev key and needs to have been copied to this location on the host
-    age.keyFile = builtins.toPath "/Users/tsunami/Library/Application Support/sops/age/keys.txt";
+    age.keyFile = builtins.toPath "/Users/bcraton/Library/Application Support/sops/age/keys.txt";
 
     defaultSopsFile = "${secretspath}/secrets.yaml";
     validateSopsFiles = false;
 
     secrets = {
       "taskwarrior/user-cert" = {
-        path = "/Users/tsunami/.task/cert.pem";
-        mode = "0400";
+        path = "/Users/bcraton/.task/cert.pem";
       };
       "taskwarrior/user-key" = {
-        path = "/Users/tsunami/.task/key.pem";
-        mode = "0400";
+        path = "/Users/bcraton/.task/key.pem";
       };
 
       # "private_keys/id_ed25519" = {

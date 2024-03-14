@@ -9,15 +9,15 @@
     [
       # Packages with custom configs go here
 
+      # ./atuin.nix # history manager
       ./bash.nix # backup shell
       ./bat.nix # cat with better syntax highlighting and extras like batgrep.
       ./direnv.nix # shell environment manager. Hooks inot shell direnv to look for .envrc before prompts
-      ./fonts.nix # core fonts
       ./fish.nix # fish shell
+      ./fonts.nix # core fonts
       ./git.nix # personal git config
       ./kitty.nix # terminal
-      # ./nixvim # vim goodness
-      ./nano.nix # nano editor
+      ./nano.nix # text editor
       ./screen.nix # hopefully rarely needed but good to have if so
       ./ssh.nix # personal ssh configs
       ./starship.nix # prompt
@@ -32,8 +32,8 @@
     ++ (builtins.attrValues outputs.homeManagerModules);
 
   home = {
-    username = lib.mkDefault "tsunami";
-    homeDirectory = lib.mkDefault "/home/${config.home.username}";
+    username = lib.mkDefault "bcraton";
+    homeDirectory = lib.mkDefault "/Users/${config.home.username}";
     stateVersion = lib.mkDefault "23.05";
     sessionPath = [
       "$HOME/.local/bin"
@@ -41,9 +41,9 @@
     ];
     sessionVariables = {
       FLAKE = "$HOME/src/nix-config";
-      SHELL = "zsh";
-      TERM = "kitty";
-      TERMINAL = "kitty";
+      SHELL = "fish";
+      TERM = "xterm";
+      TERMINAL = "xterm";
       EDITOR = "nano";
       MANPAGER = "batman"; # see ./cli/bat.nix
     };
@@ -55,8 +55,7 @@
       # Packages that don't have custom configs go here
       
       alejandra # formatter
-      # borgbackup # backups
-      
+      borgbackup # backups
       btop # resource monitor
       coreutils # basic gnu utils
       #curl
@@ -99,7 +98,4 @@
   programs = {
     home-manager.enable = true;
   };
-
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
 }
