@@ -3,7 +3,7 @@
     # Packages with custom configs go here
 
     ./hyprland
-    ./sparkle
+    # ./sparkle
 
     ########## Utilities ##########
     #    ./services/dunst.nix # Notification daemon

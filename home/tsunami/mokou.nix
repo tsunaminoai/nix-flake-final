@@ -15,6 +15,7 @@ in {
     common/optional/dev
     common/optional/desktops
     common/optional/browsers
+    common/optional/comms
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };
