@@ -40,8 +40,8 @@
       "$HOME/scripts/talon_scripts"
     ];
     sessionVariables = {
-      FLAKE = "$HOME/src/nix-config";
-      SHELL = "zsh";
+      FLAKE = "$HOME/code/nix/nix-flake-final";
+      SHELL = "fish";
       TERM = "kitty";
       TERMINAL = "kitty";
       EDITOR = "nano";
