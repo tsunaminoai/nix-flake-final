@@ -25,10 +25,10 @@
     # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
-    ../common/core/optional/nvidia.nix
-    ../common/core/optional/hyperland.nix
-    ../common/core/optional/pipewire.nix
-    ../common/core/optional/vlc.nix
+    ../common/optional/nvidia.nix
+    ../common/optional/hyperland.nix
+    ../common/optional/pipewire.nix
+    ../common/optional/vlc.nix
 
     #################### Users to Create ####################
     ../common/users/tsunami
