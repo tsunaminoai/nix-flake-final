@@ -5,7 +5,12 @@
 #  32GB RAM, Nvidia 1080i
 #
 ###############################################################
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-intel
@@ -50,4 +55,76 @@
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
+
+  # TODO: clean up the below, move to a more appropriate location
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
+  # virtualisation.containers.cdi.dynamic.nvidia.enable = true;
+
+  security.polkit.enable = true;
+  security.pam.services.swaylock = {};
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session.command = ''
+        ${pkgs.greetd.tuigreet}/bin/tuigreet \
+          --time \
+          --asterisks \
+          --user-menu \
+          --cmd sway
+      '';
+    };
+  };
+
+  environment.etc."greetd/environments".text = ''
+    sway
+  '';
+
+  # Razer stuff
+  hardware.openrazer = {
+    enable = true;
+    syncEffectsEnabled = true;
+    users = ["tsunami"];
+    keyStatistics = true;
+    devicesOffOnScreensaver = true;
+  };
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Enable sound with pipewire.
+  sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+
+    # use the example session manager (no others are packaged yet so this is enabled by default,
+    # no need to redefine it in your config for now)
+    #media-session.enable = true;
+  };
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    # Razer stuff
+    razergenie
+    openrazer-daemon
+    polychromatic
+  ];
 }
