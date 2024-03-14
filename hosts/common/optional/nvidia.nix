@@ -20,6 +20,16 @@
       powerManagement.enable = true;
       modesetting.enable = true;
     };
-    opengl.extraPackages = with pkgs; [nvidia-vaapi-driver];
+    pulseaudio.support32Bit = true;
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+      # extraPackages = with pkgs; [
+      #   vaapiVdpau
+      #   libvdpau-va-gl
+      # ];
+      extraPackages = with pkgs; [nvidia-vaapi-driver];
+    };
   };
 }
