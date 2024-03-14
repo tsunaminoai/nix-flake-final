@@ -45,12 +45,21 @@
         content = {
           type = "gpt";
           partitions = {
-            boot = {
-              size = "1M";
-              type = "EF02"; # for grub MBR
+            ESP = {
+              priority = 1;
+              name = "ESP";
+              start = "1M";
+              end = "512M";
+              type = "EF00";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+              };
             };
             root = {
               end = "-512M";
+              size = "100%";
               content = {
                 type = "btrfs";
                 extraArgs = ["-f"]; # Override existing partition
