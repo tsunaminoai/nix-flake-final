@@ -2,7 +2,8 @@
   imports = [
     # Packages with custom configs go here
 
-    ./hyprland
+    # ./hyprland
+    ./sparkle
 
     ########## Utilities ##########
     #    ./services/dunst.nix # Notification daemon
