@@ -126,6 +126,13 @@
         modules = [./hosts/ishtar];
         specialArgs = {inherit inputs outputs;};
       };
+      # Mokou Desktop
+      mokou = lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [./hosts/mokou];
+        specialArgs = {inherit inputs outputs;};
+      };
+
       # # theatre
       # gusto = lib.nixosSystem {
       #   modules = [./hosts/gusto];
@@ -165,6 +172,11 @@
       };
       "tsunami@ishtar" = lib.homeManagerConfiguration {
         modules = [./home/tsunami/ishtar.nix];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+      };
+      "tsunami@mokou" = lib.homeManagerConfiguration {
+        modules = [./home/tsunami/mokou.nix];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
