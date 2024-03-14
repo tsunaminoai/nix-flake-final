@@ -25,7 +25,9 @@
     # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
+    ../common/optional/services/distributed-builder.nix
     ../common/optional/nvidia.nix
+    ../common/optional/razer.nix
     ../common/optional/wayland
 
     #################### Users to Create ####################
@@ -64,40 +66,10 @@
 
   security.polkit.enable = true;
   security.pam.services.swaylock = {};
-  # services.greetd = {
-  #   enable = true;
-  #   settings = {
-  #     default_session.command = ''
-  #       ${pkgs.greetd.tuigreet}/bin/tuigreet \
-  #         --time \
-  #         --asterisks \
-  #         --user-menu \
-  #         --cmd sway
-  #     '';
-  #   };
-  # };
-
-  # Razer stuff
-  hardware.openrazer = {
-    enable = true;
-    syncEffectsEnabled = true;
-    users = ["tsunami"];
-    keyStatistics = true;
-    devicesOffOnScreensaver = true;
-  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    # Razer stuff
-    razergenie
-    openrazer-daemon
-    polychromatic
-  ];
 }

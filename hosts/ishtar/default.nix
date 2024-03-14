@@ -19,6 +19,7 @@
     # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
+    ../common/optional/services/distributed-client.nix
 
     #################### Users to Create ####################
     ../common/users/tsunami
@@ -26,8 +27,6 @@
   # set custom autologin options. see greetd.nix for details
 
   services.gnome.gnome-keyring.enable = true;
-  #TODO enable and move to greetd area? may need authentication dir or something?
-  #services.pam.services.greetd.enableGnomeKeyring = true;
 
   networking = {
     hostName = "ishtar";
@@ -38,10 +37,6 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH2IrKNs2BLgup7rSVt7KJqRqeSxhU+B1FUrBlHNNmSJ tsunami@youmu"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBm4yzmOrF+MCV+w0yfd10R88iHR6QusZBCpEtPFm+f+ tsunami@mokou"
   ];
-
-  # VirtualBox settings for Hyprland to display correctly
-  #environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
-  #environment.sessionVariables.WLR_RENDERER_ALLOW_SOFTWARE = "1";
 
   # Fix to enable VSCode to successfully remote SSH on a client to a NixOS host
   # https://nixos.wiki/wiki/Visual_Studio_Code#Remote_SSH

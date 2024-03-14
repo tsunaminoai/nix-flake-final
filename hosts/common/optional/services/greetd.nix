@@ -28,13 +28,14 @@ in {
 
       restart = true;
       settings = {
+        # TODO: make the WM configurable
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --asterisks --time --time-format '%I:%M %p | %a • %h | %F' --cmd Hyprland";
-          user = "ta";
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --asterisks --time --time-format '%I:%M %p | %a • %h | %F' --cmd sway";
+          user = "tsunami";
         };
 
         initial_session = lib.mkIf cfg.enable {
-          command = "${pkgs.hyprland}/bin/Hyprland";
+          command = "sway";
           user = "${cfg.username}";
         };
       };
