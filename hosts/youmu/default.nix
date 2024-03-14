@@ -13,6 +13,7 @@
     #################### Required Configs ####################
     ../common/darwin
     ../common/security
+    ../common/optional/yubikey
 
     #################### Users to Create ####################
     ../common/users/tsunami-darwin

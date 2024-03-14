@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+destination="$HOME/.ssh"
+
 serial=$(ykman list | awk '{print $NF}')
 # If it got unplugged before we ran, just don't bother
 if [ -z "$serial" ]; then
@@ -8,7 +10,8 @@ if [ -z "$serial" ]; then
     exit 0
 fi
 
-declare -A serials=([mara]="14574244" [maya]="12549033")
+# TODO: Add 5cNFC
+declare -A serials=([nano5c]="23183421" [dummy]="12345678")
 
 key_name=""
 for key in "${!serials[@]}"; do
@@ -25,5 +28,5 @@ fi
 echo "Creating links to /etc/ssh/id_${key_name}"
 # ln -sf "/etc/ssh/id_${key_name}" /etc/ssh/id_yubikey
 # ln -sf "/etc/ssh/id_${key_name}.pub" /etc/ssh/id_yubikey.pub
-ln -sf "/home/ta/.ssh/id_${key_name}" /home/ta/.ssh/id_yubikey
-ln -sf "/home/ta/.ssh/id_${key_name}.pub" /home/ta/.ssh/id_yubikey.pub
+ln -sf "${destination}/id_${key_name}" "${destination}/id_yubikey"
+ln -sf "${destination}/id_${key_name}.pub" "${destination}/id_yubikey.pub"
