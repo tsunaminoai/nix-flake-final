@@ -133,6 +133,14 @@
         specialArgs = {inherit inputs outputs;};
       };
 
+      installerIso = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/common/optional/installeriso.nix
+        ];
+      };
+
       # # theatre
       # gusto = lib.nixosSystem {
       #   modules = [./hosts/gusto];

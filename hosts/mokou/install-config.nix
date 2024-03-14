@@ -59,6 +59,7 @@
             };
             root = {
               end = "-512M";
+              type = "EF02";
               size = "100%";
               content = {
                 type = "btrfs";
