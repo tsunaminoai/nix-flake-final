@@ -40,10 +40,10 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
+    # extraPackages = with pkgs; [
+    #   vaapiVdpau
+    #   libvdpau-va-gl
+    # ];
   };
   hardware.pulseaudio.support32Bit = true;
 
