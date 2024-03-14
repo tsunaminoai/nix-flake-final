@@ -25,6 +25,10 @@
     # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
+    ../common/optional/nvidia.nix
+    ../common/optional/hyperland.nix
+    ../common/optional/pipewire.nix
+    ../common/optional/vlc.nix
 
     #################### Users to Create ####################
     ../common/users/tsunami
@@ -98,23 +102,6 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
