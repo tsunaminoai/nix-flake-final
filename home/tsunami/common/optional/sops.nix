@@ -2,7 +2,7 @@
 # TODO should I split secrtets.yaml into a home level and a hosts level or move to a single sops.nix entirely?
 {
   inputs,
-  system,
+  pkgs,
   ...
 }: let
   secretspath = builtins.toString inputs.mysecrets;
@@ -19,7 +19,7 @@ in {
 
     # This is the key and needs to have been copied to this location on the host
     age.keyFile =
-      if system == "x86_64-darwin"
+      if pkgs.system == "x86_64-darwin"
       then builtins.toPath "/Users/tsunami/Library/Application Support/sops/age/keys.txt"
       else builtins.toPath "/home/tsunami/.config/sops/age/keys.txt";
 
