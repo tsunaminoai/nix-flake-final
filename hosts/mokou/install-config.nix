@@ -54,16 +54,31 @@
         content = {
           type = "gpt";
           partitions = {
+            boot = {
+              size = "1M";
+              type = "EF02"; # for grub MBR
+            };
             root = {
-              type = "EF02";
+              end = "-1G";
               content = {
-                type = "ext4";
-                device = "/dev/disk/by-uuid/431075cc-6f62-445b-b38a-a5362fcd83d5";
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/";
               };
             };
-            swap = {
-              type = "swap";
-              device = "/dev/disk/by-uuid/889938f7-8be0-46a5-a8e5-384da3fb4f74";
+            encryptedSwap = {
+              size = "10M";
+              content = {
+                type = "swap";
+                randomEncryption = true;
+              };
+            };
+            plainSwap = {
+              size = "100%";
+              content = {
+                type = "swap";
+                resumeDevice = true; # resume from hiberation from this device
+              };
             };
           };
         };
