@@ -1,6 +1,7 @@
 {
   home,
   pkgs,
+  config,
   ...
 }: {
   # Yubikey private key stubs
@@ -22,6 +23,8 @@
         user = "git";
         hostname = "github.com";
         identityFile = [
+          config.sops.secrets."github/ssh-key".path
+
           "~/.ssh/id_ed25519"
           "~/.ssh/id_rsa_yubikey.5cNFC.pub"
           "~/.ssh/id_rsa_yubikey.nano5c.pub"

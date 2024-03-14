@@ -156,10 +156,10 @@
     "mysecrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1710378015,
-        "narHash": "sha256-I7M7jpVuZYyCOv5RSMVM4QUFpl5keoBauWusMzZ8mUQ=",
+        "lastModified": 1710425663,
+        "narHash": "sha256-urpxOLnE0ILmwAjBoMOggu5spnK6ZoprvVNT6ncgiNI=",
         "ref": "master",
-        "rev": "79ae8d5ba3ea6989cad17cc9f1bdd46287ad1a2f",
+        "rev": "7b36c96f8e4b569d819c0a96a52197df1197d667",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/tsunaminoai/nix-secrets.git"
