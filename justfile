@@ -1,42 +1,42 @@
 # Default recipe to display help information
 default:
-  @just --list
+  just --list
 
 # Run `git add .` and `./scripts/build.sh`
 build:
-	git add .
-	scripts/build.sh
+  git add .
+  scripts/build.sh
 
 # Switch boot config to current flake
 boot:
-    just rebuild
-    scripts/system-flake-boot.sh
-   
-# Build an ISO installer
+  just rebuild
+  scripts/system-flake-boot.sh
+
+# Build an (expiremental) ISO installer
 build-iso:
-	git add .
-	nix run nixpkgs#nixos-generators -- --format iso --flake .#installerIso -o result
+  git add .
+  nix run nixpkgs#nixos-generators -- --format iso --flake .#installerIso -o result
 
 # Stage all files to git, rebuild the flake for the current, or specified hosts, and then valdiation sops activation via `just check-sops`.
 rebuild:
-	git add .
-	scripts/system-flake-rebuild.sh
-	just check-sops
+  git add .
+  scripts/system-flake-rebuild.sh
+  just check-sops
 
 # Same as `just rebuild` except for the darwin flake.
 rebuild-darwin:
-	git add .
-	scripts/darwin-flake-rebuild.sh
+  git add .
+  scripts/darwin-flake-rebuild.sh
 
 # Same as `just rebuild` except with the `--show-trace` flag enabled.
 rebuild-trace:
-	git add .
-	scripts/system-flake-rebuild-trace.sh
-	just check-sops
+  git add .
+  scripts/system-flake-rebuild-trace.sh
+  just check-sops
 
 # Run `nix flake update`.
 update:
-	nix flake update
+  nix flake update
 
 # Formats the directory with alejandra
 format:
@@ -44,26 +44,26 @@ format:
 
 # Run `just update` followed by `just rebuild`.
 rebuild-update:
-	just update
-	just rebuild
+  just update
+  just rebuild
 
 # Run `git diff ':!flake.lock'`
 diff:
-	git diff ':!flake.lock'
+  git diff ':!flake.lock'
 
 #################### Home Manager #################### 
 
 # Run `home-manager --impure --flake . switch` and `just check-sops`
 home:
-	# HACK: This is is until the home manager bug is fixed, otherwise any adding extensions deletes all of them
-	#rm $HOME/.vscode/extensions/extensions.json || true
-	home-manager --impure --flake . switch
-	just check-sops
+  # HACK: This is is until the home manager bug is fixed, otherwise any adding extensions deletes all of them
+  #rm $HOME/.vscode/extensions/extensions.json || true
+  home-manager --impure --flake . switch
+  just check-sops
 
 # Run `just update` and `just home`
 home-update:
-	just update
-	just home
+  just update
+  just home
 
 #################### Secrets Management #################### 
 # TODO sops: update or relocate to nix-secrets?
@@ -79,17 +79,17 @@ home-update:
 # managing secrets.yaml. If you don't want to use existing ssh key
 # Generate a sops age key at `~/.config/sops/age/keys.txt`
 sops-init:
-	mkdir -p ~/.config/sops/age
-	nix-shell -p age --run "age-keygen -o ~/.config/sops/age/keys.txt"
+  mkdir -p ~/.config/sops/age
+  nix-shell -p age --run "age-keygen -o ~/.config/sops/age/keys.txt"
 
 # Generate an age key at `~/.age-key.txt` for the host to decrypt via home-manager
 age-keys:
-	nix-shell -p age --run "age-keygen -o ~/.age-key.txt"
+  nix-shell -p age --run "age-keygen -o ~/.age-key.txt"
 
 # Check for successful sops activation.
 check-sops:
-	scripts/check-sops.sh
+  scripts/check-sops.sh
 
 # Update the `mysecrets` flake input when changes have been made to the private nix-secrets repo
 secrets-update:
-	nix flake lock --update-input mysecrets
+  nix flake lock --update-input mysecrets
