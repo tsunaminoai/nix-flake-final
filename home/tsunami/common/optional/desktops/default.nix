@@ -2,7 +2,7 @@
   imports = [
     # Packages with custom configs go here
 
-    ./hyprland
+    #./hyprland
     # ./sparkle
 
     ########## Utilities ##########
@@ -15,4 +15,13 @@
     #    ./qt.nix # mainly in kde
     #./fonts.nix
   ];
+
+  wayland.windowManager.sway = {
+    enable = true;
+    config = rec {
+      modifier = "Mod4";
+      terminal = "alacritty";
+      startup = [];
+    };
+  };
 }

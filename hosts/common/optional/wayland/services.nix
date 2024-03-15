@@ -27,7 +27,7 @@
       enable = true;
       settings = rec {
         initial_session = {
-          command = "Hyprland";
+          command = "sway";
           user = "tsunami";
         };
         default_session = initial_session;

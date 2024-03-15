@@ -1,8 +1,6 @@
 {pkgs, ...}: {
   imports = [../fonts ./services.nix ./pipewire.nix];
-  environment.etc."greetd/environments".text = ''
-    Hyprland
-  '';
+
 
   environment = {
     variables = {
@@ -44,12 +42,12 @@
       pkgs.xdg-desktop-portal-hyprland
     ];
   };
-  programs.hyprland = {
-    # Install the packages from nixpkgs
-    enable = true;
-    # Whether to enable XWayland
-    xwayland.enable = true;
-  };
+ # programs.hyprland = {
+ #   # Install the packages from nixpkgs
+ #   enable = true;
+ #   # Whether to enable XWayland
+ #   xwayland.enable = true;
+ # };
 
   sound = {
     enable = true;
