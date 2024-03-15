@@ -4,7 +4,12 @@
   pkgs,
   outputs,
   ...
-}: {
+}: let
+  homeRoot =
+    if pkgs.stdenv.hostPlatform.system == "darwin"
+    then "/Users"
+    else "/home";
+in {
   # import the theme
   _module.args.theme = import ./theme;
 
@@ -15,12 +20,11 @@
       ./bash.nix # backup shell
       ./bat.nix # cat with better syntax highlighting and extras like batgrep.
       ./direnv.nix # shell environment manager. Hooks inot shell direnv to look for .envrc before prompts
-      ./fonts.nix # core fonts
       ./fish.nix # fish shell
+      ./fonts.nix # core fonts
       ./gh.nix # github cli
       ./git.nix # personal git config
       ./kitty.nix # terminal
-      # ./nixvim # vim goodness
       ./nano.nix # nano editor
       ./screen.nix # hopefully rarely needed but good to have if so
       ./ssh.nix # personal ssh configs
@@ -37,7 +41,7 @@
 
   home = {
     username = lib.mkDefault "tsunami";
-    homeDirectory = lib.mkDefault "/home/${config.home.username}";
+    homeDirectory = lib.mkDefault "/${homeRoot}/${config.home.username}";
     stateVersion = lib.mkDefault "23.05";
     sessionPath = [
       "$HOME/.local/bin"
@@ -59,7 +63,7 @@
       # Packages that don't have custom configs go here
       
       alejandra # formatter
-      # borgbackup # backups
+      borgbackup # backups
       
       btop # resource monitor
       coreutils # basic gnu utils
@@ -105,5 +109,5 @@
   };
 
   # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
+  systemd.user.startServices = lib.mkIf (pkgs.stdenv.hostPlatform.system != "darwin") "sd-switch";
 }

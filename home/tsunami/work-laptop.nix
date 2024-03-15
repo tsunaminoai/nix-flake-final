@@ -13,9 +13,18 @@ in {
 
     #################### Optional Configs ####################
     common/optional/neofetch
-    common/optional/alacritty.nix
-    common/optional/gh.nix
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };
+
+  # Overrides for work
+  home = {
+    homeDirectory = "/Users/bcraton";
+    username = "bcraton";
+  };
+
+  programs.git = {
+    userName = "Ben Craton";
+    userEmail = "bcraton@passageways.com";
+  };
 }

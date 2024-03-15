@@ -2,6 +2,7 @@
   pkgs,
   config,
   inputs,
+  home,
   ...
 }: let
   secretspath = builtins.toString inputs.mysecrets;
@@ -20,15 +21,15 @@ in {
 
   sops.secrets = {
     "bitwarden/client-id" = {
-      path = "/Users/tsunami/.config/bitwarden/client-id";
+      path = "${home.homeDirectory}/.config/bitwarden/client-id";
       mode = "0400";
     };
     "bitwarden/client-secret" = {
-      path = "/Users/tsunami/.config/bitwarden/client-secret";
+      path = "${home.homeDirectory}/.config/bitwarden/client-secret";
       mode = "0400";
     };
     "bitwarden/topsecret" = {
-      path = "/Users/tsunami/.config/bitwarden/topsecret";
+      path = "${home.homeDirectory}/.config/bitwarden/topsecret";
       mode = "0400";
     };
   };
