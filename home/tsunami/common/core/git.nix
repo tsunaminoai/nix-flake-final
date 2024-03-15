@@ -7,8 +7,8 @@
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
-    userName = "TsunamiNoAi";
-    userEmail = "spam@falseblue.com";
+    userName = lib.mkDefault "TsunamiNoAi";
+    userEmail = lib.mkDefault "spam@falseblue.com";
     aliases = {};
     extraConfig = {
       init.defaultBranch = "main";

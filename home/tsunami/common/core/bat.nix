@@ -1,12 +1,14 @@
 # https://github.com/sharkdp/bat
 # https://github.com/eth-p/bat-extras
 {pkgs, ...}: {
+  programs.fish.shellAliases.cat = "bat";
+
   programs.bat = {
     enable = true;
     config = {
       # Show line numbers, Git modifications and file header (but no grid)
       style = "numbers,changes,header";
-      theme = "gruvbox-dark";
+      theme = "TwoDark";
     };
     extraPackages = builtins.attrValues {
       inherit
