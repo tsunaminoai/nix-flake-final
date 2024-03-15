@@ -34,7 +34,7 @@
   boot.initrd.kernelModules = [];
   boot.kernelModules = [
     "coretemp"
-    "kvm-intel"
+    # "kvm-intel"
   ];
   # boot.kernelPackages = with pkgs; [
   #   nvidia-x11
