@@ -63,7 +63,8 @@ in {
       # Packages that don't have custom configs go here
       
       alejandra # formatter
-      borgbackup # backups
+      # TODO: fix borg backups on x86_64-darwin and find a holistic way to do backups automatically
+      # borgbackup # backups
       
       btop # resource monitor
       coreutils # basic gnu utils
