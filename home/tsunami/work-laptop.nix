@@ -20,7 +20,7 @@ in {
   # Overrides for work
   home = {
     homeDirectory = "/Users/bcraton";
-    home.username = "bcraton";
+    username = "bcraton";
   };
 
   programs.git = {
