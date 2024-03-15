@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   services.xserver.videoDrivers = ["nvidia"];
 
   environment.variables = {
@@ -17,8 +21,11 @@
   hardware = {
     nvidia = {
       open = false;
-      powerManagement.enable = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+      nvidiaSettings = true;
       modesetting.enable = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
     pulseaudio.support32Bit = true;
     opengl = {

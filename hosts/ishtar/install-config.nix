@@ -7,6 +7,7 @@
   inputs,
   modulesPath,
   lib,
+  pkgs,
   ...
 }: {
   #import modules used by nixos-anywhere
@@ -26,8 +27,8 @@
 
   boot.initrd.availableKernelModules = ["ata_piix" "xhci_pci" "ahci" "sd_mod" "sr_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
-  boot.extraModulePackages = [];
+  boot.kernelModules = ["kvm"];
+  # boot.kernelPackages = with pkgs; [];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
