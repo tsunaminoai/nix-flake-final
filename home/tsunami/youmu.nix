@@ -11,8 +11,6 @@ in {
     #################### Host-specific Optional Configs ####################
     common/optional/sops.nix
     common/optional/helper-scripts
-    common/optional/gh.nix
-    common/optional/alacritty.nix
     common/optional/neofetch
     # common/optional/bitwarden.nix # needs more evaluation and thought before enabling
   ];
