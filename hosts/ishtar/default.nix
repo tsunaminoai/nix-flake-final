@@ -47,6 +47,8 @@
   # https://nixos.wiki/wiki/Visual_Studio_Code#Remote_SSH
   programs.nix-ld.enable = true;
 
+  # Enable reporting to proxmox
+  services.qemuGuest.enable = true;
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
 }
