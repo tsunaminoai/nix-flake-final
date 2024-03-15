@@ -16,8 +16,12 @@ in {
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };
-  home.homeDirectory = "/Users/bcraton";
-  home.username = "bcraton";
+
+  # Overrides for work
+  home = {
+    homeDirectory = "/Users/bcraton";
+    home.username = "bcraton";
+  };
 
   programs.git = {
     userName = "Ben Craton";
