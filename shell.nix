@@ -16,19 +16,22 @@
 }: {
   default = pkgs.mkShell {
     NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
+    shellHook = ''
+      just --completions $SHELL
+    '';
     nativeBuildInputs = builtins.attrValues {
       inherit
         (pkgs)
-        nix
-        home-manager
-        git
-        just
-        pre-commit
-        alejandra
-        nano
         age
-        ssh-to-age
+        alejandra
+        git
+        home-manager
+        just
+        nano
+        nix
+        pre-commit
         sops
+        ssh-to-age
         ;
     };
   };
