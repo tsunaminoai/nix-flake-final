@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  isLinux = lib.version.platform.system == "linux";
+  isLinux = pkgs.stdenv.hostPlatform.system == "linux";
   yubikey-up = pkgs.writeShellApplication {
     name = "yubikey-up";
     runtimeInputs = builtins.attrValues {
@@ -41,31 +41,28 @@ in
         yubikey-manager # For ykman
       ];
 
-      services =
-        if pkgs.system == "x86_64-linux"
-        then {
-          # FIXME: Put this behind an option for yubikey ssh
-          # Create ssh files
+      services = lib.mkIf isLinux {
+        # FIXME: Put this behind an option for yubikey ssh
+        # Create ssh files
 
-          # FIXME: Not sure if we need the wheel one. Also my idProduct gruop is 0407
-          # Yubikey 4/5 U2F+CCID
-          # SUBSYSTEM == "usb", ATTR{idVendor}=="1050", ENV{ID_SECURITY_TOKEN}="1", GROUP="wheel"
-          # We already have a yubikey rule that sets the ENV variable
+        # FIXME: Not sure if we need the wheel one. Also my idProduct gruop is 0407
+        # Yubikey 4/5 U2F+CCID
+        # SUBSYSTEM == "usb", ATTR{idVendor}=="1050", ENV{ID_SECURITY_TOKEN}="1", GROUP="wheel"
+        # We already have a yubikey rule that sets the ENV variable
 
-          udev.extraRules = ''
-            # Link/unlink ssh key on yubikey add/remove
-            SUBSYSTEM=="usb", ACTION=="add", ATTR{idVendor}=="1050", RUN+="${lib.getBin yubikey-up}/bin/yubikey-up"
-            SUBSYSTEM=="input", ACTION=="remove", ENV{ID_VENDOR_ID}=="1050", RUN+="${lib.getBin yubikey-down}/bin/yubikey-down"
-          '';
-          # Yubikey required services and config. See Dr. Duh NixOS config for
-          # reference
-          pcscd.enable = true; # smartcard service
+        udev.extraRules = ''
+          # Link/unlink ssh key on yubikey add/remove
+          SUBSYSTEM=="usb", ACTION=="add", ATTR{idVendor}=="1050", RUN+="${lib.getBin yubikey-up}/bin/yubikey-up"
+          SUBSYSTEM=="input", ACTION=="remove", ENV{ID_VENDOR_ID}=="1050", RUN+="${lib.getBin yubikey-down}/bin/yubikey-down"
+        '';
+        # Yubikey required services and config. See Dr. Duh NixOS config for
+        # reference
+        pcscd.enable = true; # smartcard service
 
-          udev.packages = [
-            yubikey-personalization
-          ];
-        }
-        else {};
+        udev.packages = [
+          yubikey-personalization
+        ];
+      };
 
       security = lib.mkIf isLinux {
         # FIXME: Need to create symlinks to the sops-decrypted keys

@@ -53,7 +53,8 @@ in {
       TERM = "kitty";
       TERMINAL = "kitty";
       EDITOR = "nano";
-      MANPAGER = "batman"; # see ./cli/bat.nix
+      # TODO: investigate if this is needed
+      # MANPAGER = "batman"; # see ./cli/bat.nix
     };
   };
 
@@ -64,6 +65,7 @@ in {
       
       alejandra # formatter
       # TODO: fix borg backups on x86_64-darwin and find a holistic way to do backups automatically
+      
       # borgbackup # backups
       
       btop # resource monitor

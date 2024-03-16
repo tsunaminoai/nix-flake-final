@@ -4,12 +4,13 @@
   inputs,
   pkgs,
   config,
+  lib,
   ...
 }: let
   secretspath = builtins.toString inputs.mysecrets;
   homeDir = config.home.homeDirectory;
   keyLocation =
-    if (pkgs.system == "x86_64-darwin" || pkgs.system == "aarch64-darwin")
+    if (pkgs.stdenv.hostPlatform.system == "darwin")
     then builtins.toPath "${homeDir}/Library/Application Support/sops/age/keys.txt"
     else builtins.toPath "${homeDir}/.config/sops/age/keys.txt";
 in {
