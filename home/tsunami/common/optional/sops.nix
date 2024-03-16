@@ -10,7 +10,7 @@
   secretspath = builtins.toString inputs.mysecrets;
   homeDir = config.home.homeDirectory;
   keyLocation =
-    if (pkgs.stdenv.hostPlatform.system == "darwin")
+    if (pkgs.stdenv.hostPlatform.isDarwin)
     then builtins.toPath "${homeDir}/Library/Application Support/sops/age/keys.txt"
     else builtins.toPath "${homeDir}/.config/sops/age/keys.txt";
 in {

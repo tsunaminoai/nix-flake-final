@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  isLinux = pkgs.stdenv.hostPlatform.system == "linux";
+  isLinux = pkgs.stdenv.hostPlatform.isLinux;
   yubikey-up = pkgs.writeShellApplication {
     name = "yubikey-up";
     runtimeInputs = builtins.attrValues {

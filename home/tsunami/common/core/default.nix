@@ -6,7 +6,7 @@
   ...
 }: let
   homeRoot =
-    if pkgs.stdenv.hostPlatform.system == "darwin"
+    if pkgs.stdenv.hostPlatform.system.isDarwin
     then "/Users"
     else "/home";
 in {
@@ -112,5 +112,5 @@ in {
   };
 
   # Nicely reload system units when changing configs
-  systemd.user.startServices = lib.mkIf (pkgs.stdenv.hostPlatform.system != "darwin") "sd-switch";
+  systemd.user.startServices = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux) "sd-switch";
 }
