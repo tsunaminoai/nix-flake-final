@@ -11,10 +11,10 @@ in {
     shell = pkgs.fish; #default shell
 
     openssh.authorizedKeys.keys = [
-      (builtins.readFile ./keys/id_mokou_ed25519.pub)
-      (builtins.readFile ./keys/id_youmu_ed25519.pub)
-      (builtins.readFile ./keys/id_5cNFC.pub)
-      (builtins.readFile ./keys/id_nano5c.pub)
+      (builtins.readFile ../tsunami/keys/id_mokou_ed25519.pub)
+      (builtins.readFile ../tsunami/keys/id_youmu_ed25519.pub)
+      (builtins.readFile ../tsunami/keys/id_5cNFC.pub)
+      (builtins.readFile ../tsunami/keys/id_nano5c.pub)
     ];
 
     packages = [pkgs.home-manager];
