@@ -56,7 +56,7 @@ in {
     # reference
     pcscd.enable = true; # smartcard service
 
-    udev.packages = [
+    udev.packages = with pkgs; [
       yubikey-personalization
     ];
   };
