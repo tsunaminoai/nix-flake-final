@@ -30,8 +30,8 @@ in {
     openssh.authorizedKeys.keys = [
       (builtins.readFile ./keys/id_mokou_ed25519.pub)
       (builtins.readFile ./keys/id_youmu_ed25519.pub)
-      (builtins.readFile ./keys/id_rsa_yubikey.nano5c.nist256.pub)
-      (builtins.readFile ./keys/id_rsa_yubikey.nano5c.ec25519.pub)
+      (builtins.readFile ./keys/id_5cNFC.pub)
+      (builtins.readFile ./keys/id_nano5c.pub)
     ];
 
     packages = [pkgs.home-manager];

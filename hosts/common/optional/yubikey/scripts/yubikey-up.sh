@@ -10,9 +10,8 @@ if [ -z "$serial" ]; then
     exit 0
 fi
 
-# TODO: Add 5cNFC
 # TODO: Fix the symlinks
-declare -A serials=([nano5c]="23183421" [dummy]="12345678")
+declare -A serials=([nano5c]="23183421" [5cNFC]="24918246")
 
 key_name=""
 for key in "${!serials[@]}"; do
