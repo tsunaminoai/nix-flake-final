@@ -1,5 +1,9 @@
 # Modeled on https://github.com/Mic92/dotfiles for now
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   isLinux = lib.version.platform.system == "linux";
   yubikey-up = pkgs.writeShellApplication {
     name = "yubikey-up";
