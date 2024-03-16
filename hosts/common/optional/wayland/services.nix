@@ -23,16 +23,16 @@
 
   services = {
     mullvad-vpn.enable = true;
-    greetd = {
-      enable = true;
-      settings = rec {
-        initial_session = {
-          command = "sway";
-          user = "tsunami";
-        };
-        default_session = initial_session;
-      };
-    };
+#    greetd = {
+#      enable = true;
+#      settings = rec {
+#        initial_session = {
+#          command = "sway";
+#          user = "tsunami";
+#        };
+#        default_session = initial_session;
+#      };
+#    };
 
     gnome = {
       glib-networking.enable = true;

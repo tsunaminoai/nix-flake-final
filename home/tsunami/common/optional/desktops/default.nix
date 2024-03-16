@@ -4,7 +4,7 @@
 
     #./hyprland
     # ./sparkle
-
+    ./sway
     ########## Utilities ##########
     #    ./services/dunst.nix # Notification daemon
     #    ./waybar.nix # infobar
@@ -16,12 +16,4 @@
     #./fonts.nix
   ];
 
-  wayland.windowManager.sway = {
-    enable = true;
-    config = rec {
-      modifier = "Mod4";
-      terminal = "alacritty";
-      startup = [];
-    };
-  };
 }
