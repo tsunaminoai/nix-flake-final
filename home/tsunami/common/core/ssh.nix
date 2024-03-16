@@ -4,6 +4,9 @@
   config,
   ...
 }: {
+  home.file.".ssh/id_5cNFC.pub".source = ../../../../../../hosts/common/users/tsunami/keys/id_5cNFC.pub;
+  home.file.".ssh/id_nano5c.pub".source = ../../../../../../hosts/common/users/tsunami/keys/id_nano5c.pub;
+
   programs.ssh = {
     enable = true;
     forwardAgent = true;

@@ -35,6 +35,8 @@
     # Add all keys for ease of access depending on where install is occurring.
     (builtins.readFile ../hosts/common/users/tsunami/keys/id_mokou_ed25519.pub)
     (builtins.readFile ../hosts/common/users/tsunami/keys/id_youmu_ed25519.pub)
+    (builtins.readFile ../hosts/common/users/tsunami/keys/id_5cNFC.pub)
+    (builtins.readFile ../hosts/common/users/tsunami/keys/id_nano5c.pub)
   ];
 
   system.stateVersion = "23.11";
