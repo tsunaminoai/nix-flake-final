@@ -67,7 +67,20 @@ in
       security = lib.mkIf isLinux {
         # FIXME: Need to create symlinks to the sops-decrypted keys
         #
-
+        polkit.extraConfig = ''
+          polkit.addRule(function(action, subject) {
+                if (action.id == "org.debian.pcsc-lite.access_card" &&
+                          subject.isInGroup("wheel")) {
+                          return polkit.Result.YES;
+                  }
+          });
+          polkit.addRule(function(action, subject) {
+                  if (action.id == "org.debian.pcsc-lite.access_pcsc" &&
+                          subject.isInGroup("wheel")) {
+                          return polkit.Result.YES;
+                  }
+          });
+        '';
         # enable pam services to allow u2f auth for login and sudo
         pam.services = {
           login.u2fAuth = true;
