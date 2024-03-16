@@ -1,5 +1,6 @@
 # Modeled on https://github.com/Mic92/dotfiles for now
 {pkgs, ...}: let
+  isLinux = lib.version.platform.system == "linux";
   yubikey-up = pkgs.writeShellApplication {
     name = "yubikey-up";
     runtimeInputs = builtins.attrValues {
@@ -62,31 +63,28 @@ in
         }
         else {};
 
-      security =
-        if pkgs.system == "x86_64-linux"
-        then {
-          # FIXME: Need to create symlinks to the sops-decrypted keys
-          #
+      security = lib.mkIf isLinux {
+        # FIXME: Need to create symlinks to the sops-decrypted keys
+        #
 
-          # enable pam services to allow u2f auth for login and sudo
-          pam.services = {
-            login.u2fAuth = true;
-            sudo.u2fAuth = true;
-          };
+        # enable pam services to allow u2f auth for login and sudo
+        pam.services = {
+          login.u2fAuth = true;
+          sudo.u2fAuth = true;
+        };
 
-          # enable pam.u2f
-          # u2f_keys are extracted from secrets.yaml to default `~/.config/Yubico/u2f_keys` location via ../../core/sops.nix
+        # enable pam.u2f
+        # u2f_keys are extracted from secrets.yaml to default `~/.config/Yubico/u2f_keys` location via ../../core/sops.nix
 
-          #FIXME /etc/pam.d/sudo is being written but there is other stuff in there with higher order that may be interfering. Also doesn't seem that this will work over ssh either so may have to wait.
-          pam.u2f = {
-            enable = true;
-            control = "sufficient";
-            cue = true; # A reminder message will be displayed prompting user to use u2f device
+        #FIXME /etc/pam.d/sudo is being written but there is other stuff in there with higher order that may be interfering. Also doesn't seem that this will work over ssh either so may have to wait.
+        pam.u2f = {
+          enable = true;
+          control = "sufficient";
+          cue = true; # A reminder message will be displayed prompting user to use u2f device
 
-            # override defaults `pam://$HOSTNAME` so that they match the keys and work across hosts
-            origin = "pam://hostname";
-            appId = "pam://hostname";
-          };
-        }
-        else {};
+          # override defaults `pam://$HOSTNAME` so that they match the keys and work across hosts
+          origin = "pam://hostname";
+          appId = "pam://hostname";
+        };
+      };
     }
