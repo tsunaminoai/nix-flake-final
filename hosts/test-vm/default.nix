@@ -1,7 +1,5 @@
 # configuration.nix
 {
-  config,
-  lib,
   pkgs,
   inputs,
   ...
