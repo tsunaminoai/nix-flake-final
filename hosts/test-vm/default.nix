@@ -5,7 +5,10 @@
   ...
 }: {
   imports = [
+    ./install-config.nix
     ../common/core
+    ../common/users/tsunami
+
     ../common/optional/services/openssh.nix
     ../common/optional/services/smbclient.nix
     ../common/optional/services/kavita.nix
