@@ -55,6 +55,8 @@
         AppleShowAllFiles = true;
         AppleShowScrollBars = "Automatic";
         AppleTemperatureUnit = "Fahrenheit";
+        InitialKeyRepeat = 15;
+        KeyRepeat = 2;
 
         NSAutomaticCapitalizationEnabled = true;
         NSAutomaticDashSubstitutionEnabled = true;
