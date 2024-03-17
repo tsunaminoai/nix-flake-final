@@ -5,6 +5,7 @@
   lib,
   ...
 }: {
+  # See: https://daiderd.com/nix-darwin/manual/index.html
   imports = [
     inputs.home-manager.darwinModules.home-manager
     ../core/direnv.nix # direnv settings
