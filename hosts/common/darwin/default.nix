@@ -10,8 +10,7 @@
     inputs.home-manager.darwinModules.home-manager
     ../core/direnv.nix # direnv settings
     ../core/fish.nix # direnv settings
-    # ../core/nix.nix # nix settings and garbage collection
-    # ../core/zsh.nix # load a basic shell just incase we need it without home-manager
+    ../core/sops.nix # direnv settings
     ../security
   ];
 
