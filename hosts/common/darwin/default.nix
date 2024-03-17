@@ -29,7 +29,6 @@
     pam.enableSudoTouchIdAuth = true;
   };
 
-  programs.fish.enable = true;
   environment = {
     shells = with pkgs; [bash fish];
     loginShell = pkgs.fish;
@@ -37,13 +36,12 @@
     systemPath = ["/opt/homebrew/bin"];
     pathsToLink = ["/Applications"];
   };
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
+
   system = {
     defaults = {
       CustomSystemPreferences = {};
       CustomUserPreferences = {};
+      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
       NSGlobalDomain = {
         AppleEnableSwipeNavigateWithScrolls = true;
         AppleFontSmoothing = 2;
@@ -57,8 +55,7 @@
         AppleShowAllFiles = true;
         AppleShowScrollBars = "Automatic";
         AppleTemperatureUnit = "Fahrenheit";
-        enableKeyMapping = true;
-        remapCapsLockToEscape = true;
+
         NSAutomaticCapitalizationEnabled = true;
         NSAutomaticDashSubstitutionEnabled = true;
         NSAutomaticPeriodSubstitutionEnabled = true;
@@ -70,37 +67,36 @@
         "com.apple.mouse.tapBehavior" = 1;
         "com.apple.swipescrolldirection" = false;
         "com.apple.trackpad.enableSecondaryClick" = true;
-        "com.apple.trackpad.scaling" = 1;
-        SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
-        finder = {
-          _FXShowPosixPathInTitle = true;
-          AppleShowAllExtensions = true;
-          AppleShowAllFiles = true;
-          CreateDesktop = false;
-          FXDefaultSearchScope = "SCcf"; # Search current folder instead of the entire computer
-          FXEnableExtensionChangeWarning = false;
-          FXPreferredViewStyle = "Nlsv"; # List view
-          ShowPathbar = true;
-          ShowStatusBar = true;
-          LoginwindowText = "Welcome to Mac";
-        };
-        loginwindow = {
-          GuestEnabled = false;
-        };
-        menuExtraClock = {
-          Show24Hour = true;
-          showDate = true;
-        };
-        screensaver = {
-          askForPassword = true;
-          askForPasswordDelay = 15;
-        };
-        universalaccess.reduceTransparency = true;
-        keyboard = {
-          enableKeyMapping = true;
-          emapCapsLockToEscape = true;
-        };
+        "com.apple.trackpad.scaling" = null;
       };
+      finder = {
+        _FXShowPosixPathInTitle = true;
+        AppleShowAllExtensions = true;
+        AppleShowAllFiles = true;
+        CreateDesktop = false;
+        FXDefaultSearchScope = "SCcf"; # Search current folder instead of the entire computer
+        FXEnableExtensionChangeWarning = false;
+        FXPreferredViewStyle = "Nlsv"; # List view
+        ShowPathbar = true;
+        ShowStatusBar = true;
+      };
+      loginwindow = {
+        LoginwindowText = "Welcome to Mac";
+        GuestEnabled = false;
+      };
+      menuExtraClock = {
+        Show24Hour = true;
+        ShowDate = 0;
+      };
+      screensaver = {
+        askForPassword = true;
+        askForPasswordDelay = 15;
+      };
+      universalaccess.reduceTransparency = true;
+    };
+    keyboard = {
+      enableKeyMapping = true;
+      remapCapsLockToEscape = true;
     };
   };
   # fonts.fontDir.enable = true; # DANGER
@@ -110,20 +106,26 @@
 
   nix = {
     gc = {
-      auotmatic = true;
-      interval = "1d";
+      automatic = true;
+      interval = {
+        Hour = 3;
+        Minute = 15;
+      };
     };
     linux-builder = {
       enable = true;
       ephemeral = false;
     };
-    setttings = {
+    settings = {
       allowed-users = ["@admin"];
       auto-optimise-store = true;
       cores = 4;
       sandbox = true;
       trusted-users = ["@admin"];
     };
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
   };
 
   # backwards compat; don't change
