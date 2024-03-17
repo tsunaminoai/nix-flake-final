@@ -3,20 +3,15 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: {
-  # customize kernel version
-  boot.kernelPackages = pkgs.linuxPackages_5_15;
-
-  users.users = {
-    admin = {
-      isNormalUser = true;
-      extraGroups = ["wheel"];
-      password = "admin";
-      group = "admin";
-    };
-  };
-
+  imports = [
+    ../common/core
+    ../common/optional/services/openssh.nix
+    ../common/optional/services/smbclient.nix
+    ../common/optional/services/kavita.nix
+  ];
   virtualisation.vmVariant = {
     # following configuration is added only when building VM with build-vm
     virtualisation = {
