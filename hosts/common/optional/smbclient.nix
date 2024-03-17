@@ -12,8 +12,8 @@
     path = "/etc/nixos/smb-secrets";
   };
 
-  fileSystems."/mnt/mediashare" = {
-    device = "//ghost/mediashare";
+  fileSystems."/mnt/voile" = {
+    device = "//voile/Books";
     fsType = "cifs";
     options = let
       # separate options to prevent hanging on network split
