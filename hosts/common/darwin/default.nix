@@ -10,7 +10,6 @@
     inputs.home-manager.darwinModules.home-manager
     ../core/direnv.nix # direnv settings
     ../core/fish.nix # fish shell
-    ../core/sops.nix # secrets management
     ../core/services/tailscale.nix # tailscale settings
     ../security
   ];
