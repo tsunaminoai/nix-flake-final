@@ -1,7 +1,7 @@
 {pkgs, ...}: {
-  programs.dienv = {
+  programs.direnv = {
     enable = true;
-    package = pkgs.dienv;
+    package = pkgs.direnv;
     silent = true;
   };
 }
