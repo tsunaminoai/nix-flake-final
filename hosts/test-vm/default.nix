@@ -6,11 +6,10 @@
 }: {
   imports = [
     ./install-config.nix
-    ../common/core
-    ../common/users/tsunami
+    ../common/core/sops.nix
 
     ../common/optional/services/openssh.nix
-    ../common/optional/services/smbclient.nix
+    ../common/optional/smbclient.nix
     ../common/optional/services/kavita.nix
   ];
   virtualisation.vmVariant = {
@@ -20,6 +19,12 @@
       cores = 3;
       graphics = false;
     };
+  };
+
+  users.users.test = {
+  isNormalUser = true;
+  extraGroups = ["wheel"];
+  password = "demo";
   };
 
   networking.firewall.allowedTCPPorts = [22];

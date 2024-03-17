@@ -2,8 +2,9 @@
 {
   pkgs,
   config,
-  ...
-}: {
+  
+    ...
+}: let sops = config.sops; in {
   # required to mount cifs using domain name
   environment.systemPackages = [pkgs.cifs-utils];
 
@@ -13,7 +14,7 @@
   };
 
   fileSystems."/mnt/voile/Books" = {
-    device = "//voile/Books";
+    device = "//192.168.0.25/Books";
     fsType = "cifs";
     options = let
       # separate options to prevent hanging on network split
