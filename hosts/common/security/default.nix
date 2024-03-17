@@ -15,6 +15,8 @@
   isLinux = pkgs.stdenv.hostPlatform.system == "linux";
   linuxOptions = {
     sudo.wheelNeedsPassword = false;
+    pam.p11.enable = true;
+    audit.enable = true;
   };
   darwinOptions = {
     pam.enableSudoTouchIdAuth = true;
