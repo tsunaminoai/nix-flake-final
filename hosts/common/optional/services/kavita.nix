@@ -7,4 +7,5 @@
     port = 3000;
     dataDir = "/var/lib/kavita";
   };
+  networking.firewall.allowedTCPPorts = [3000];
 }
