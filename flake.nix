@@ -195,6 +195,13 @@
         ];
       };
 
+      test-vm = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/test-vm
+        ];
+      };
       # # theatre
       # gusto = lib.nixosSystem {
       #   modules = [./hosts/gusto];

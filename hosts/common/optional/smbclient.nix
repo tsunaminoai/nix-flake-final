@@ -12,7 +12,7 @@
     path = "/etc/nixos/smb-secrets";
   };
 
-  fileSystems."/mnt/voile" = {
+  fileSystems."/mnt/voile/Books" = {
     device = "//voile/Books";
     fsType = "cifs";
     options = let
