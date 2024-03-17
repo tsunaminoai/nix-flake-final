@@ -6,12 +6,12 @@
   imports =
     [
       inputs.home-manager.nixosModules.home-manager
+      ./direnv.nix # direnv
       ./locale.nix # loclalization settings
       ./nix.nix # nix settings and garbage collection
       ./sops.nix # secrets management
-      ./zsh.nix # load a basic shell just incase we need it without home-manager
       ./fish.nix # fish shell
-
+      ./services/tailscale.nix # tailscale
       ./services/auto-upgrade.nix # auto-upgrade service
     ]
     ++ (builtins.attrValues outputs.nixosModules);
