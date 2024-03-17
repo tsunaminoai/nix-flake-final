@@ -6,6 +6,7 @@
   imports =
     [
       inputs.home-manager.nixosModules.home-manager
+      ../security # security settings
       ./direnv.nix # direnv
       ./locale.nix # loclalization settings
       ./nix.nix # nix settings and garbage collection
