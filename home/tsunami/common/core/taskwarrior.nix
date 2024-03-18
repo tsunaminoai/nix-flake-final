@@ -101,48 +101,57 @@
           columns = "id,start.active,entry.age,depends.indicator,priority,project,tags,recur.indicator,wait.remaining,scheduled,due.relative,until,description.count";
           sort = "wait+,due+,entry+";
         };
-      };
 
-      # Triage
-      triage = {
-        description = "Personal - To-Do";
-        columns = "id,priority,start.active,urgency,due,description.desc,tags";
-        labels = "ID,Pri,A,Urg,Due,Description,Tags";
-        filter = "( proj: or proj:personal ) ( due.before:tomorrow or due: ) status:pending -WAITING -idea";
-        sort = "urgency-";
-      };
-
-      # Today
-      today = {
-        description = "Tasks for Today";
-        columns = "id,project,priority,start.active,urgency,due,description.desc,tags";
-        labels = "ID,Proj,Pri,A,Urg,Due,Description,Tags";
-        filter = "status:pending -BLOCKED -review and ( ( proj: and ( ( prio:H and due: ) or due.before:tomorrow or +respond or +today or +next or +inprogress or +yesterday) ) or +daytime )";
-        sort = "urgency-";
-      };
-
-      active = {
-        description = "Active Tasks";
-        columns = "id,description.desc,tags";
-        labels = "ID,Description,Tags";
-        filter = "status:pending +ACTIVE";
-        sort = "urgency-";
-      };
-      # lattice reports for pways
-      lattice = {
-        accomplished = {
-          description = "Lattice Completed This Week for Passageways";
-          columns = "project,priority,due,end,description";
-          labels = "Project,Priority,Due,Finished,Description";
-          filter = "status:completed pro:work and end.before:eoww and end.after:soww";
-          sort = "end-";
+        # Triage
+        triage = {
+          description = "Personal - To-Do";
+          columns = "id,priority,start.active,urgency,due,description.desc,tags";
+          labels = "ID,Pri,A,Urg,Due,Description,Tags";
+          filter = "( proj: or proj:personal ) ( due.before:tomorrow or due: ) status:pending -WAITING -idea";
+          sort = "urgency-";
         };
-        upcoming = {
-          description = "Lattice Upcoming Week for Passageways";
-          columns = "project,priority,scheduled,due,description";
-          labels = "Project,Priority,Scheduled,Due,Description";
-          filter = "status:pending pro:work and ( due.before:eoww+1w or scheduled.before:eoww+1w) and (due.after:eoww or scheduled.after:eoww)";
-          sort = "scheduled-,due-";
+
+        # Today
+        today = {
+          description = "Tasks for Today";
+          columns = "id,project,priority,start.active,urgency,due,description.desc,tags";
+          labels = "ID,Proj,Pri,A,Urg,Due,Description,Tags";
+          filter = "status:pending -BLOCKED -review and ( ( proj: and ( ( prio:H and due: ) or due.before:tomorrow or +respond or +today or +next or +inprogress or +yesterday) ) or +daytime )";
+          sort = "urgency-";
+        };
+
+        active = {
+          description = "Active Tasks";
+          columns = "id,description.desc,tags";
+          labels = "ID,Description,Tags";
+          filter = "status:pending +ACTIVE";
+          sort = "urgency-";
+        };
+
+        status = {
+          description = "Status Table";
+          #|Project|Description|Scheduled|Due|Status|
+          columns = "project,description.desc,scheduled,due,status";
+          labels = "Project,Description,Scheduled,Due,Status";
+          filter = "+COMPLETED";
+          sort = "urgency-,due-";
+        };
+        # lattice reports for pways
+        lattice = {
+          accomplished = {
+            description = "Lattice Completed This Week for Passageways";
+            columns = "project,priority,due,end,description";
+            labels = "Project,Priority,Due,Finished,Description";
+            filter = "status:completed pro:work and end.before:eoww and end.after:soww";
+            sort = "end-";
+          };
+          upcoming = {
+            description = "Lattice Upcoming Week for Passageways";
+            columns = "project,priority,scheduled,due,description";
+            labels = "Project,Priority,Scheduled,Due,Description";
+            filter = "status:pending pro:work and ( due.before:eoww+1w or scheduled.before:eoww+1w) and (due.after:eoww or scheduled.after:eoww)";
+            sort = "scheduled-,due-";
+          };
         };
       };
       taskd = {
