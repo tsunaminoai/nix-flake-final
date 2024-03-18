@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   imports = [../fonts ./services.nix ./pipewire.nix];
 
-
   environment = {
     variables = {
       NIXOS_OZONE_WL = "1";
@@ -34,20 +33,20 @@
     '';
   };
 
-  xdg.portal = {
-    enable = true;
-    config.common.default = "*";
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-hyprland
-    ];
-  };
- # programs.hyprland = {
- #   # Install the packages from nixpkgs
- #   enable = true;
- #   # Whether to enable XWayland
- #   xwayland.enable = true;
- # };
+  # xdg.portal = {
+  #   enable = true;
+  #   config.common.default = "*";
+  #   extraPortals = [
+  #     pkgs.xdg-desktop-portal-gtk
+  #     pkgs.xdg-desktop-portal-hyprland
+  #   ];
+  # };
+  # programs.hyprland = {
+  #   # Install the packages from nixpkgs
+  #   enable = true;
+  #   # Whether to enable XWayland
+  #   xwayland.enable = true;
+  # };
 
   sound = {
     enable = true;
