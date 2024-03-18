@@ -137,8 +137,8 @@
     caskArgs.no_quarantine = true;
     global.brewfile = true;
     masApps = {};
+    brews = [];
     casks = [
-      "alacritty"
     ];
   };
 
