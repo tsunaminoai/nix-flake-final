@@ -86,7 +86,8 @@ in {
       unzip # zip extraction
       unrar # rar extraction
       wget # downloader
-      zip
+      zip # zip compression
+      zoxide # cd replacement
       ; # zip compression
   };
 

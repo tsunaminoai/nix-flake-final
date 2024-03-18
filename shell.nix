@@ -18,6 +18,7 @@
     NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
     shell = pkgs.fish;
     shellHook = ''
+      just --completions (basename $SHELL)
     '';
     nativeBuildInputs = builtins.attrValues {
       inherit
