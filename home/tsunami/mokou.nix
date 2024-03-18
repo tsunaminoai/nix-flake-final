@@ -18,5 +18,5 @@ in {
     common/optional/comms
   ];
   # Disable impermanence
-  #home.persistence = lib.mkForce { };
+  home.persistence = lib.mkForce {};
 }

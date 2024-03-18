@@ -14,8 +14,6 @@ in {
     #################### Optional Configs ####################
     common/optional/neofetch
   ];
-  # Disable impermanence
-  #home.persistence = lib.mkForce { };
 
   # Overrides for work
   home = {
