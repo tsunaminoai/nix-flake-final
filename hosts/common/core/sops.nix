@@ -28,11 +28,10 @@ in {
     # secrets required for user creation are handled in respective ./users/<username>.nix files
     # because they will be output to /run/secrets-for-users and only when the user is assigned to a host.
     secrets = {
-      tailscale = {
-        "tailscale/auth-key" = {
-          path = "/var/lib/tailscale/tailscale.key";
-        };
+      "tailscale/auth-key" = {
+        path = "/var/lib/tailscale/tailscale.key";
       };
+
       # msmtp-host = {};
       # msmtp-address = {};
       # msmtp-password = {};
