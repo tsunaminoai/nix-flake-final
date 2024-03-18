@@ -14,7 +14,7 @@
   imports = [
     #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-intel
-    inputs.hardware.nixosModules.common-gpu-intel
+    # inputs.hardware.nixosModules.common-gpu-intel
 
     #################### Required Configs ####################
     ./install-config.nix
@@ -24,7 +24,7 @@
     ../common/optional/yubikey
     # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
-    ../common/optional/services/greetd.nix
+    # ../common/optional/services/greetd.nix
     ../common/optional/services/openssh.nix
     ../common/optional/nvidia.nix
     ../common/optional/wayland
