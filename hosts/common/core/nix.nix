@@ -3,6 +3,28 @@
   lib,
   ...
 }: {
+  nixpkgs = {
+    config = {
+      allowUnfree = false;
+      allowBroken = false;
+      allowUnfreePredicate = pkg:
+        builtins.elem (lib.getName pkg) [
+          "nvidia-x11"
+          "nvidia-settings"
+          "vscode"
+          "obsidian"
+        ];
+    };
+  };
+
+  # faster rebuild times
+  documentation = {
+    enable = true;
+    doc.enable = false;
+    man.enable = true;
+    dev.enable = false;
+  };
+
   nix = {
     settings = {
       trusted-users = ["root" "@wheel"];
