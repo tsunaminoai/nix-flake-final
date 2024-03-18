@@ -12,6 +12,10 @@ boot:
   just rebuild
   scripts/system-flake-boot.sh
 
+clean-home:
+  home-manager expire-generations "-3 days"
+  nix-collect-garbage -d
+
 # Build an (expiremental) ISO installer
 build-iso:
   git add .
