@@ -31,6 +31,7 @@
         pre-commit
         sops
         ssh-to-age
+        zoxide
         ;
     };
   };
