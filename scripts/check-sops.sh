@@ -2,8 +2,8 @@
 set -euo pipefail
 
 system=$(uname)
-if [[ system == "Darwin" ]]; then
-	echo "This script is not supported on Darwin"
+if [[ $system == "Darwin" ]]; then
+	echo "This script is not supported on Darwin. Skipping..."
 	exit 0
 fi
 
