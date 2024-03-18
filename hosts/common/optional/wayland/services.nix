@@ -35,8 +35,8 @@
           '';
           user = "tsunami";
         };
+        default_session = initial_session;
       };
-      default_session = initial_session;
     };
 
     gnome = {
