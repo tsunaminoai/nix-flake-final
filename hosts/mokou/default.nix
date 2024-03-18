@@ -17,7 +17,7 @@
     # inputs.hardware.nixosModules.common-gpu-intel
 
     #################### Required Configs ####################
-    ./install-config.nix
+    ./bootloader.nix
     ../common/core
 
     #################### Host-specific Optional Configs ####################
