@@ -12,7 +12,7 @@
     useRoutingFeatures = "client";
     authKeyFile = config.sops.secrets."tailscale/auth-key".path;
   };
-  firewall = {
+  networking.firewall = {
     enable = true;
     trustedInterfaces = ["tailscale0"];
     allowedUDPPorts = [config.services.tailscale.port];
