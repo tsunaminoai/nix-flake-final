@@ -94,7 +94,7 @@
         askForPassword = true;
         askForPasswordDelay = 15;
       };
-      universalaccess.reduceTransparency = true;
+      # universalaccess.reduceTransparency = true;
     };
     keyboard = {
       enableKeyMapping = true;
