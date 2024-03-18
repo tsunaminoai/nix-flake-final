@@ -41,7 +41,7 @@
       pkgs.xdg-desktop-portal-hyprland
     ];
   };
-  programs.sway.enable = true;
+
   # programs.hyprland = {
   #   # Install the packages from nixpkgs
   #   enable = true;

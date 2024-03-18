@@ -1,6 +1,5 @@
 {pkgs, ...}: {
-
-    systemd.user.services.kanshi = {
+  systemd.user.services.kanshi = {
     description = "kanshi daemon";
     serviceConfig = {
       Type = "simple";
@@ -23,16 +22,22 @@
 
   services = {
     mullvad-vpn.enable = true;
-#    greetd = {
-#      enable = true;
-#      settings = rec {
-#        initial_session = {
-#          command = "sway";
-#          user = "tsunami";
-#        };
-#        default_session = initial_session;
-#      };
-#    };
+    greetd = {
+      enable = true;
+      settings = rec {
+        initial_session = {
+          command = ''
+            ${pkgs.greetd.tuigreet}/bin/tuigreet \
+              --time \
+              --asterisks \
+              --user-menu \
+              --cmd sway
+          '';
+          user = "tsunami";
+        };
+      };
+      default_session = initial_session;
+    };
 
     gnome = {
       glib-networking.enable = true;
