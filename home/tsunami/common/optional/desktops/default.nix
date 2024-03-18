@@ -15,5 +15,4 @@
     #    ./qt.nix # mainly in kde
     #./fonts.nix
   ];
-
 }

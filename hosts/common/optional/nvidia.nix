@@ -6,9 +6,9 @@
   # Enable the X11 server, required for NVIDIA drivers
   # services.xserver.enable = true;
   services.xserver.videoDrivers = ["nvidia"];
-  boot.kernelParams = [ 
-   "nvidia-drm.modeset=1"
-   ];
+  boot.kernelParams = [
+    "nvidia-drm.modeset=1"
+  ];
 
   environment.variables = {
     ENABLE_VKBASALT = "1";
@@ -38,11 +38,11 @@
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
-       extraPackages = with pkgs; [
-         vaapiVdpau
-         libvdpau-va-gl
-      nvidia-vaapi-driver
-       ];
+      extraPackages = with pkgs; [
+        vaapiVdpau
+        libvdpau-va-gl
+        nvidia-vaapi-driver
+      ];
     };
   };
 }
