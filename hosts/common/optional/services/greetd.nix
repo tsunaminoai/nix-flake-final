@@ -29,7 +29,7 @@ in {
       restart = true;
       settings = {
         default_session = {
-          default_session.command = ''
+          command = ''
             ${pkgs.greetd.tuigreet}/bin/tuigreet \
               --time \
               --asterisks \
