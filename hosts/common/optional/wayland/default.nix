@@ -3,6 +3,7 @@
 
   environment = {
     variables = {
+#      WAYLAND_DISPLAY = "wayland-0";
       NIXOS_OZONE_WL = "1";
       __GL_GSYNC_ALLOWED = "0";
       __GL_VRR_ALLOWED = "0";
@@ -24,7 +25,7 @@
       SDL_VIDEODRIVER = "wayland";
       XDG_CACHE_HOME = "/home/tsunami/.cache";
       CLUTTER_BACKEND = "wayland";
-      WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
+      WLR_DRM_DEVICES = "/dev/dri/card0";
     };
     loginShellInit = ''
       dbus-update-activation-environment --systemd DISPLAY

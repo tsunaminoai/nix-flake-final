@@ -26,8 +26,8 @@
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     # ../common/optional/services/greetd.nix
     ../common/optional/services/openssh.nix
-    # ../common/optional/nvidia.nix
-    # ../common/optional/wayland
+    ../common/optional/nvidia.nix
+    ../common/optional/wayland
 
     #################### Users to Create ####################
     ../common/users/tsunami
