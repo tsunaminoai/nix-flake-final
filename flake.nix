@@ -230,7 +230,7 @@
 
     homeConfigurations = {
       "bcraton@MacBook-Pro-0432" = lib.homeManagerConfiguration {
-        modules = [./home/bcraton/work-laptop.nix];
+        modules = [./home/tsunami/work-laptop.nix];
         pkgs = pkgsFor.aarch64-darwin;
         extraSpecialArgs = {inherit inputs outputs;};
       };
