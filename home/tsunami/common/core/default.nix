@@ -73,6 +73,7 @@ in {
       #curl
       
       eza # ls replacement
+      dust # better du
       fd # tree style ls
       findutils # find
       fzf # fuzzy search
