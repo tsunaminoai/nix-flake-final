@@ -29,8 +29,13 @@ in {
       restart = true;
       settings = {
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --asterisks --time --time-format '%I:%M %p | %a • %h | %F' --cmd sway";
-          user = "tsunami";
+          default_session.command = ''
+            ${pkgs.greetd.tuigreet}/bin/tuigreet \
+              --time \
+              --asterisks \
+              --user-menu \
+              --cmd sway
+          '';
         };
 
         initial_session = lib.mkIf cfg.enable {
