@@ -133,7 +133,6 @@
           #|Project|Description|Scheduled|Due|Status|
           columns = "project,description.desc,scheduled,due,status";
           labels = "Project,Description,Scheduled,Due,Status";
-          filter = "+COMPLETED";
           sort = "urgency-,due-";
         };
         # lattice reports for pways
