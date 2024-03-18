@@ -10,7 +10,7 @@
     inputs.home-manager.darwinModules.home-manager
     ../core/direnv.nix # direnv settings
     ../core/fish.nix # fish shell
-#    ../core/services/tailscale.nix # tailscale settings
+    #    ../core/services/tailscale.nix # tailscale settings
     ../security
   ];
 
@@ -137,6 +137,9 @@
     caskArgs.no_quarantine = true;
     global.brewfile = true;
     masApps = {};
+    casks = [
+      "alacritty"
+    ];
   };
 
   nix.package = pkgs.nix;
