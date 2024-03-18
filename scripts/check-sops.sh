@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+system=$(uname)
+if [[ system == "Darwin" ]]; then
+	echo "This script is not supported on Darwin"
+	exit 0
+fi
+
 # FIXME: Make this better
 sops_result=$(journalctl --no-pager --no-hostname --since "10 minutes ago" |
 	tac |
