@@ -9,5 +9,5 @@ fi
 if [ $system != "Darwin" ]; then
 	sudo nixos-rebuild --flake .#$HOST switch
 else 
-    dawrin-rebuild --flake .#$HOST switch 
+    darwin-rebuild --flake .#$HOST switch 
 fi
