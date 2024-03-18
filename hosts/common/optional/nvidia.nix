@@ -6,6 +6,7 @@
   services.xserver.videoDrivers = ["nvidia"];
 
   environment.variables = {
+    ENABLE_VKBASALT = 1;
     GBM_BACKEND = "nvidia-drm";
     WLR_NO_HARDWARE_CURSORS = "1";
     LIBVA_DRIVER_NAME = "nvidia";
