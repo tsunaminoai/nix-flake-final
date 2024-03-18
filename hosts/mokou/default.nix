@@ -27,6 +27,7 @@
     # ../common/optional/services/greetd.nix
     ../common/optional/services/openssh.nix
     ../common/optional/nvidia.nix
+    ../common/optional/virtualization.nix
     ../common/optional/wayland
 
     #################### Users to Create ####################
