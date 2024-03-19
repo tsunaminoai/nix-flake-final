@@ -17,6 +17,7 @@ in {
     common/optional/desktops
     common/optional/browsers
     common/optional/comms
+    common/optional/bitwarden.nix
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };
