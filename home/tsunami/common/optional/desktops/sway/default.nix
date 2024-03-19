@@ -9,9 +9,32 @@
   ];
 
   home.sessionVariables.WLR_RENDERER = lib.mkForce "gles2";
+  programs.swaylock = {
+    enable = true;
+    settings = {
+      color = "808080";
+      font-size = 24;
+      indicator-idle-visible = false;
+      indicator-radius = 100;
+      line-color = "ffffff";
+      show-failed-attempts = true;
+    };
+  };
+  services.swayidle = {
+    enable = true;
+    timeouts = [
+      {
+        timeout = 60 * 10; # 10 minutes
+        command = "${pkgs.swaylock}/bin/swaylock -fF";
+      }
+      {
+        timeout = 60 * 60 * 6; # 6 hours
+        command = "${pkgs.systemd}/bin/systemctl suspend";
+      }
+    ];
+  };
 
   home.packages = with pkgs; [
-    swaylock
     swayidle
     wl-clipboard
     mako
