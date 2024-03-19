@@ -12,7 +12,7 @@
     "[${host}.gensokyo]:${port}"
     "[${host}.armadillo-banfish.ts.net]:${port}"
   ];
-  isLinux = pkgs.stdenv.hostPlatform.isLinux == "linux";
+  isLinux = pkgs.stdenv.hostPlatform.isLinux;
   linuxOptions = {
     sudo.wheelNeedsPassword = false;
     pam.p11.enable = true;
@@ -26,9 +26,9 @@
     then linuxOptions
     else darwinOptions;
 in {
-  programs.gnupg.agent = {
+  programs.gnupg.agent = lib.mkDefault {
     enable = true;
-    # enableSSHSupport = true;
+    enableSSHSupport = true;
   };
   programs.ssh.knownHosts = {
     "mokou" = {
