@@ -1,26 +1,23 @@
-#
-#  TODO stage 4 this is a placeholder list for now
-#
+# Various productivity tools
+{pkgs, ...}: {
+  imports = [
+    ./bitwarden.nix
+    ./vscode-server.nix
+  ];
+  home.packages = with pkgs; [
+    remmina # remote desktop client
+    libreoffice # office suite
+    gimp # image editor
+    inkscape # vector graphics editor
+    veracrypt # disk encryption
+    rpi-imager # raspberry pi image writer
+    ventoy-full # image writer
+    obsidian # note taking
+    tomb # file encryption
+  ];
 
-#imports
-#   ./dev
-
-
-# edc
-flameshot ?? maybe somewhere else
-
-# Productivity
-remmina
-libreoffice
-gimp
-draw.io
-inkscape
-
-# privacy:
-veracrypt
-keepassxc
-
-# imaging
-rpi-imager
-etcher
-
+  # Flameshot is a screenshot tool
+  services.flameshot = {
+    enable = true;
+  };
+}
