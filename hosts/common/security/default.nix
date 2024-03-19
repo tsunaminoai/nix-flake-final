@@ -12,7 +12,7 @@
     "[${host}.gensokyo]:${port}"
     "[${host}.armadillo-banfish.ts.net]:${port}"
   ];
-  isLinux = pkgs.stdenv.hostPlatform.isLinux;
+  isLinux = pkgs.stdenv.hostPlatform.isLinux == "linux";
   linuxOptions = {
     sudo.wheelNeedsPassword = false;
     pam.p11.enable = true;
