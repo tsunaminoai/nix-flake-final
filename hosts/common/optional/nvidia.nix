@@ -19,7 +19,7 @@
   hardware = {
     nvidia = {
       open = false;
-      powerManagement.enable = true;
+      powerManagement.enable = false;
       modesetting.enable = true;
     };
     opengl = {
@@ -28,7 +28,6 @@
       extraPackages = with pkgs; [
         vaapiVdpau
         libvdpau-va-gl
-        nvidia-vaapi-driver
       ];
     };
   };
