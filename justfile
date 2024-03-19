@@ -7,6 +7,14 @@ build:
   git add .
   scripts/build.sh
 
+# Test the flake configuration
+test-flake:
+  nix flake check
+
+# Test the system configuration
+test-system:
+  scripts/system-flake-test.sh
+
 # Switch boot config to current flake
 boot:
   just rebuild
