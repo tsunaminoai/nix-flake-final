@@ -21,23 +21,23 @@
         identityFile = [
           config.sops.secrets."github/ssh-key".path
 
-          "~/.ssh/id_ed25519"
           "~/.ssh/id_yubikey"
+          "~/.ssh/id_ed25519"
           "~/.ssh/id_rsa"
         ];
       };
       "*.gensokyo" = {
         forwardAgent = true;
         identityFile = [
-          "~/.ssh/id_ed25519"
           "~/.ssh/id_yubikey"
+          "~/.ssh/id_ed25519"
         ];
       };
       "*.armadillo-banfish.ts.net" = {
         forwardAgent = true;
         identityFile = [
-          "~/.ssh/id_ed25519"
           "~/.ssh/id_yubikey"
+          "~/.ssh/id_ed25519"
         ];
       };
       "pways" = {
