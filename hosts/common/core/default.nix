@@ -14,6 +14,7 @@
       ./fish.nix # fish shell
       ./services/tailscale.nix # tailscale
       ./services/auto-upgrade.nix # auto-upgrade service
+      ./tools.nix # tools for system administration
     ]
     ++ (builtins.attrValues outputs.nixosModules);
 
