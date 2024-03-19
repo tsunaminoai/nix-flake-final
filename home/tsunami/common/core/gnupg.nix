@@ -20,10 +20,8 @@ in {
       gpgconf --launch gpg-agent
     end
   '';
-  programs.gpg = {
-    enable = true;
-  };
-  home.file.".gnupg/gpg-agent.conf".text = ''
+
+  home.file.".gnupg/gpg-agent.reference".text = ''
     # https://github.com/drduh/config/blob/master/gpg-agent.conf
     # https://www.gnupg.org/documentation/manuals/gnupg/Agent-Options.html
     #pinentry-program /usr/bin/pinentry-gnome3
