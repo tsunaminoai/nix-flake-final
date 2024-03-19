@@ -22,10 +22,9 @@
 
   hardware = {
     nvidia = {
-      open = true;
+      open = false;
       powerManagement.enable = false;
       nvidiaSettings = false;
-
       modesetting.enable = true;
     };
   };
