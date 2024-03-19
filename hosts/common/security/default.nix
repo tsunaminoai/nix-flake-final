@@ -28,7 +28,12 @@
 in {
   programs.gnupg.agent = lib.mkDefault {
     enable = true;
-    enableSSHSupport = true;
+    # enableSSHSupport = true; # Do not enable at the system level. Use home-manager to enable per user.
+    # The issue was that a rule was being added to /etd/ssh/config that was using a bash shell.
+    # This resulted in:
+    # ❯ ssh -T git@github.com
+    # Shell "fish" is not executable: No such file or directory
+    # TODO: Fix the issue and enable this.
   };
   programs.ssh.knownHosts = {
     "mokou" = {
