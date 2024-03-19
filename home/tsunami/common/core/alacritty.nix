@@ -34,7 +34,7 @@
           family = "JetBrainsMono";
           style = "Regular";
         };
-        size = 11;
+        size = 14;
         builtin_box_drawing = true;
         glyph_offset = {
           x = 3;
