@@ -45,7 +45,14 @@
       pkgs.xdg-desktop-portal-hyprland
     ];
   };
-
+  hardware.opengl = {
+    driSupport = true;
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
   # programs.hyprland = {
   #   # Install the packages from nixpkgs
   #   enable = true;

@@ -7,6 +7,13 @@
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       NIXOS_OZONE_WL = "1"; # https://github.com/NixOS/nixpkgs/issues/224332#issuecomment-1528748548
     };
+    sessionVariables = {
+      WLR_DRM_NO_ATOMIC = "1";
+      WLR_NO_HARDWARE_CURSORS = "1";
+      LIBVA_DRIVER_NAME = "nvidia";
+      MOZ_DISABLE_RDD_SANDBOX = "1";
+      EGL_PLATFORM = "wayland";
+    };
 
     systemPackages = with pkgs; [
       vulkan-loader
@@ -18,17 +25,11 @@
 
   hardware = {
     nvidia = {
-      open = false;
+      open = true;
       powerManagement.enable = false;
+      nvidiaSettings = false;
+
       modesetting.enable = true;
-    };
-    opengl = {
-      driSupport = true;
-      driSupport32Bit = true;
-      extraPackages = with pkgs; [
-        vaapiVdpau
-        libvdpau-va-gl
-      ];
     };
   };
 
