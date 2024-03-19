@@ -10,7 +10,7 @@
   programs.ssh = {
     enable = true;
     forwardAgent = true;
-    # addKeysToAgent = "yes";
+    addKeysToAgent = "yes";
     compression = true;
     hashKnownHosts = true;
 
@@ -18,6 +18,7 @@
       "github.com" = {
         user = "git";
         hostname = "github.com";
+        identitiesOnly = true;
         identityFile = [
           config.sops.secrets."github/ssh-key".path
 
