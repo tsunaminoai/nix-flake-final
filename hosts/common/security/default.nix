@@ -21,6 +21,7 @@
   darwinSecOptions = {
     pam.enableSudoTouchIdAuth = true;
   };
+  # TODO: THIS IS THE PROPER WAY TO DO CONDITIONAL ATTRIBUTES
   conditionalAttrs =
     if isLinux
     then {
