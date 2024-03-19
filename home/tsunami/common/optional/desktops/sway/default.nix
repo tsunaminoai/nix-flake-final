@@ -29,13 +29,13 @@
       grace = 2;
       fade-in = 0.2;
     };
-    package = pkgs.swaylock-effects;
+    package = pkgs.swaylock-effects; # the effects currently dont work
   };
   services.swayidle = {
     enable = true;
     timeouts = [
       {
-        timeout = 60 * 10; # 10 minutes
+        timeout = 60 * 5; # 5 minutes
         command = "${pkgs.swaylock}/bin/swaylock -fF";
       }
       {
