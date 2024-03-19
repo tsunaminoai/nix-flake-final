@@ -165,7 +165,7 @@
   };
 
   services.taskwarrior-sync =
-    if pkgs.stdenv.isLinux
+    if pkgs.stdenv.hostPlatform.isLinux
     then {
       enable = true;
       frequency = "*:0/5";
