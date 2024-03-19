@@ -15,6 +15,7 @@
       ./services/tailscale.nix # tailscale
       ./services/auto-upgrade.nix # auto-upgrade service
       ./tools.nix # tools for system administration
+      ./root.nix # root user settings
     ]
     ++ (builtins.attrValues outputs.nixosModules);
 
