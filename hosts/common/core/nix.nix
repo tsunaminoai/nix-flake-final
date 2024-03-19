@@ -2,8 +2,19 @@
   config,
   inputs,
   lib,
+  pkgs,
   ...
 }: {
+  # tools for working with nix
+  environment.systemPackages = with pkgs; [
+    deadnix # dead code detection
+    alejandra # formats nix code
+    statix # lints and suggests improvements to nix code
+    nil # nix LSP
+    nix-output-monitor # monitor nix builds
+  ];
+
+  # Set up nix packages configuration
   nixpkgs = {
     config = {
       allowUnfree = false;
@@ -26,6 +37,7 @@
     dev.enable = false;
   };
 
+  # nix package manager configuration
   nix = {
     settings = {
       auto-optimise-store = lib.mkDefault true;
