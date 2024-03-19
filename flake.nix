@@ -105,6 +105,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # VSCode Server
+    vscode-server = {url = "github:nix-community/nixos-vscode-server";
+    inputs.nixpkgs.follows = "nixpkgs";};
+
     #################### Personal Repositories ####################
 
     # Private secrets repo.  See ./docs/secretsmgmt.md

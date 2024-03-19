@@ -10,7 +10,8 @@
     inputs.home-manager.darwinModules.home-manager
     ../core/direnv.nix # direnv settings
     ../core/fish.nix # fish shell
-    #    ../core/services/tailscale.nix # tailscale settings
+    # sops nix does not work on darwin. do not import it
+    # tailscale should only be imported on darwin using home-manager
     ../security
   ];
 
