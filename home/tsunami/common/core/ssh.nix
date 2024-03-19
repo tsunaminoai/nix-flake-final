@@ -22,7 +22,7 @@
         identityFile = [
           config.sops.secrets."github/ssh-key".path
 
-          "~/.ssh/id_yubikey"
+          "~/.ssh/id_yubikey.pub"
           "~/.ssh/id_ed25519"
           "~/.ssh/id_rsa"
         ];
@@ -30,14 +30,14 @@
       "*.gensokyo" = {
         forwardAgent = true;
         identityFile = [
-          "~/.ssh/id_yubikey"
+          "~/.ssh/id_yubikey.pub"
           "~/.ssh/id_ed25519"
         ];
       };
       "*.armadillo-banfish.ts.net" = {
         forwardAgent = true;
         identityFile = [
-          "~/.ssh/id_yubikey"
+          "~/.ssh/id_yubikey.pub"
           "~/.ssh/id_ed25519"
         ];
       };
@@ -45,7 +45,7 @@
         hostname = "100.68.115.114";
         user = "bcraton";
         forwardAgent = false;
-        identityFile = "~/.ssh/id_yubikey";
+        identityFile = "~/.ssh/id_yubikey.pub";
         identitiesOnly = true;
       };
     };
