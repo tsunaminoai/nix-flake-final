@@ -6,7 +6,7 @@
   ...
 }: let
   homeRoot =
-    if pkgs.stdenv.hostPlatform.system.isDarwin
+    if pkgs.stdenv.hostPlatform.isDarwin
     then "/Users"
     else "/home";
 in {
