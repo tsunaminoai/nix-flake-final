@@ -25,9 +25,9 @@
     # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
-    ../common/optional/nvidia.nix
+    # ../common/optional/nvidia.nix
     ../common/optional/virtualization.nix
-    ../common/optional/desktop.nix
+    ../common/optional/wayland
 
     #################### Users to Create ####################
     ../common/users/tsunami

@@ -6,7 +6,6 @@
 
   environment = {
     variables = {
-      WAYLAND_DISPLAY = "wayland-0";
       NIXOS_OZONE_WL = "1";
       __GL_GSYNC_ALLOWED = "0";
       __GL_VRR_ALLOWED = "0";
@@ -60,7 +59,7 @@
   #   # Whether to enable XWayland
   #   xwayland.enable = true;
   # };
-
+  programs.sway.enable = true;
   sound = {
     enable = true;
     mediaKeys.enable = true;
