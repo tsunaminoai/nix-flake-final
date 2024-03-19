@@ -4,6 +4,7 @@
   config,
   ...
 }: {
+  boot.kernelModules = ["kvm-intel"];
   environment.systemPackages = with pkgs; [
     podman-compose
   ];
