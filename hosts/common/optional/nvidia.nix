@@ -4,7 +4,7 @@
   ...
 }: {
   # Enable the X11 server, required for NVIDIA drivers
-  # services.xserver.enable = true;
+  services.xserver.enable = true;
   services.xserver.videoDrivers = ["nvidia"];
   boot.kernelParams = [
     "nvidia-drm.modeset=1"
