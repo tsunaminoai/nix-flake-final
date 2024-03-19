@@ -1,13 +1,10 @@
 {pkgs, ...}: {
   environment = {
-    variables = {
+    sessionVariables = {
       GBM_BACKEND = "nvidia-drm";
-      WLR_NO_HARDWARE_CURSORS = "1";
-      LIBVA_DRIVER_NAME = "nvidia";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       NIXOS_OZONE_WL = "1"; # https://github.com/NixOS/nixpkgs/issues/224332#issuecomment-1528748548
-    };
-    sessionVariables = {
+
       WLR_DRM_NO_ATOMIC = "1";
       WLR_NO_HARDWARE_CURSORS = "1";
       LIBVA_DRIVER_NAME = "nvidia";
