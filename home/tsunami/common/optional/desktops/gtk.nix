@@ -17,6 +17,15 @@
       name = "elementary-Xfce-dark";
       package = pkgs.elementary-xfce-icon-theme;
     };
+    cursorTheme = {
+      name = "Vanilla-DMZ";
+      package = pkgs.vanilla-dmz;
+      size = 22;
+    };
+    font = {
+      name = "DejaVu Sans";
+      size = 18;
+    };
 
     #TODO add ascendancy cursor pack
     #cursortTheme.name = "";
