@@ -24,7 +24,7 @@
     };
     font = {
       name = "DejaVu Sans";
-      size = 18;
+      size = 16;
     };
 
     #TODO add ascendancy cursor pack

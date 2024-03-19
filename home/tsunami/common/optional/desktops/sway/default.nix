@@ -41,7 +41,7 @@
       fonts = {
         names = ["DejaVu Sans Mono" "Terminus"];
         style = "Semi-Condensed";
-        size = 18.0;
+        size = 16.0;
       };
       floating = {
         titlebar = true;
