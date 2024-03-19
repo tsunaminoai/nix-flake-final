@@ -1,33 +1,91 @@
 {
+  config,
   inputs,
   lib,
   ...
 }: {
+  nixpkgs = {
+    config = {
+      allowUnfree = false;
+      allowBroken = false;
+      allowUnfreePredicate = pkg:
+        builtins.elem (lib.getName pkg) [
+          "nvidia-x11"
+          "nvidia-settings"
+          "vscode"
+          "obsidian"
+        ];
+    };
+  };
+
+  # faster rebuild times
+  documentation = {
+    enable = true;
+    doc.enable = false;
+    man.enable = true;
+    dev.enable = false;
+  };
+
   nix = {
     settings = {
-      trusted-users = ["root" "@wheel"];
-
       auto-optimise-store = lib.mkDefault true;
+      builders-use-substitutes = true;
+
       experimental-features = ["nix-command" "flakes" "repl-flake"];
       warn-dirty = false;
+      allowed-users = ["@wheel"];
+      trusted-users = ["@wheel"];
+      max-jobs = "auto";
+
+      # continue building derivations if one fails
+      keep-going = true;
+
+      log-lines = 20;
+      sandbox = true;
       system-features = ["kvm" "big-parallel" "nixos-test"];
       flake-registry = ""; # Disable global flake registry   This is a hold-over setting from Misterio77. Not sure significance but likely to do with nix.registry entry below.
+
+      # use binary cache, its not gentoo
+      substituters = [
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
+        "https://nixpkgs-unfree.cachix.org"
+      ];
+
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
+      ];
     };
 
-    # Add each flake input as a registry to make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
+    # Make builds run with low priority so the system stays responsive
+    daemonCPUSchedPolicy = "idle";
+    daemonIOSchedClass = "idle";
 
-    # Add nixpkgs input to NIX_PATH
-    # This lets nix2 commands still use <nixpkgs>
-    nixPath = ["nixpkgs=${inputs.nixpkgs.outPath}"];
+    # pin the registry to avoid downloading and evaling a new nixpkgs version every time
+    registry = lib.mapAttrs (_: v: {flake = v;}) inputs;
+
+    # This will additionally add your inputs to the system's legacy channels
+    # Making legacy nix commands consistent as well, awesome!
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     # Garbage Collection
     gc = {
       automatic = true;
-      dates = "weekly";
+      dates = "daily";
       randomizedDelaySec = "14m";
-      # Keep the last 5 generations
-      options = "--delete-older-than +5";
+      options = "--delete-older-than 3d";
     };
+
+    # Free up to 1GiB whenever there is less than 100MiB left.
+    extraOptions = ''
+      experimental-features = nix-command flakes recursive-nix
+      keep-outputs = true
+      warn-dirty = false
+      keep-derivations = true
+      min-free = ${toString (100 * 1024 * 1024)}
+      max-free = ${toString (1024 * 1024 * 1024)}
+    '';
   };
 }

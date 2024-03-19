@@ -17,16 +17,16 @@
     # inputs.hardware.nixosModules.common-gpu-intel
 
     #################### Required Configs ####################
-    ./install-config.nix
+    ./bootloader.nix
     ../common/core
 
     #################### Host-specific Optional Configs ####################
     ../common/optional/yubikey
     # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
-    # ../common/optional/services/greetd.nix
     ../common/optional/services/openssh.nix
-    ../common/optional/nvidia.nix
+    # ../common/optional/nvidia.nix
+    ../common/optional/virtualization.nix
     ../common/optional/wayland
 
     #################### Users to Create ####################
