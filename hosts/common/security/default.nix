@@ -26,6 +26,8 @@
     then linuxOptions
     else darwinOptions;
 in {
+  programs.fuse.userAllowOther = true; # Allow non-root users to use FUSE
+
   programs.gnupg.agent = lib.mkDefault {
     enable = true;
     # enableSSHSupport = true; # Do not enable at the system level. Use home-manager to enable per user.
