@@ -19,11 +19,8 @@ This module contains options required only for systems with a graphical desktop.
     # login manager
     greetd = {
       enable = true;
-      settings = {
-        initial_session = {
-          command = "sway";
-          user = "eisfunke";
-        };
+      settings = rec {
+        initial_session = default_session;
         default_session = {
           command = let
             timeFormat = "%Y-%m-%d | %H:%M:%S";
