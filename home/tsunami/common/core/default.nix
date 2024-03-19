@@ -23,6 +23,7 @@ in {
       ./fish.nix # fish shell
       ./fonts.nix # core fonts
       ./gh.nix # github cli
+      ./gnupg.nix # gpg and agent
       ./git.nix # personal git config
       ./kitty.nix # terminal
       ./nano.nix # nano editor
