@@ -1,4 +1,5 @@
 # Various productivity tools
+# TODO: Get darwin brew packages
 {pkgs, ...}: {
   imports = [
     ./bitwarden.nix
