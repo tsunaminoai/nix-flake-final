@@ -15,3 +15,5 @@ The purpose of this repository is to unify, finally, all of the IT stuff that I 
 - [ ] Pre-flight VM testing
 - [ ] Convert a majority of user configuration into a module
 - [ ] Remove all secrets and make this repo public
+- [ ] Move to numtide/devshell
+- [ ] Remove the old reference material
