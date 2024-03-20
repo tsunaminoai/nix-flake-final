@@ -254,15 +254,14 @@
 
   '';
 
-  # TODO: This should have a secret associated with it
-
   home.file.".local/share/taskopen/scripts/editobsidian".text = ''
     #!/bin/bash
     # Opens a Notes file and creates a header if file does not exist.
 
     OBSIDIAN_VAULT=~/Documents/FalseBlue-Personal
     OBSIDIAN_TASK_DIR="taskwarrior/tasknotes"
-    OBSIDIAN_API_KEY="6f1ca2595de798ee83b0aafada8563f4eeb2af0e3e9012f22ac4b2503dfe45da"
+    OBSIDIAN_API_KEY_FILE="${config.sops.secrets."obsidian/api-key".path}"
+    OBSIDIAN_API_KEY=$(cat $OBSIDIAN_API_KEY_FILE)
 
     get_task_info() {
         task $1 export
