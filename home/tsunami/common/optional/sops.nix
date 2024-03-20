@@ -46,8 +46,8 @@ in {
         path = "${homeDir}/.ssh/github";
         mode = "0400";
       };
-      "obsidian/apy-key" = {
-        path = "${homeDir}/.obsidian/apy-key";
+      "obsidian/api-key" = {
+        path = "${homeDir}/.obsidian/api-key";
         mode = "0400";
       };
     };
