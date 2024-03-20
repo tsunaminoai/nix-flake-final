@@ -12,7 +12,6 @@ in {
     common/optional/sops.nix
     common/optional/helper-scripts
     common/optional/neofetch
-    # common/optional/bitwarden.nix # needs more evaluation and thought before enabling
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };
