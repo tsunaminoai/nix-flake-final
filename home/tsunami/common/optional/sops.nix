@@ -47,7 +47,7 @@ in {
         mode = "0400";
       };
       "obsidian/api-key" = {
-        path = "${homeDir}/.obsidian/api-key";
+        path = "${homeDir}/.config/obsidian/api-key";
         mode = "0400";
       };
     };
