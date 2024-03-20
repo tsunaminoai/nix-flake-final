@@ -4,6 +4,9 @@
   config,
   ...
 }: {
+  home.packages = with pkgs; [
+    taskopen-custom
+  ];
   programs.taskwarrior = {
     enable = true;
     dataLocation = "~/.task";
@@ -177,6 +180,7 @@
     ts = "task sync";
     ta = "task add";
     tn = "task next";
+    topen = "taskopen";
   };
 
   home.file.".task/voile.ca.pem".text = ''
