@@ -1,5 +1,9 @@
 # General Instructions
 
+## Structural Reference
+
+See [EmergentMind's Documentation](original/anatomy.md)
+
 ## Adding a Host
 
 I would prefer to use [nixos-anywhere](https://nix-community.github.io/nixos-anywhere/), but for now:
