@@ -1,6 +1,6 @@
 # Tsunami's Nix Config
 
-Originally forked from: [EmergentMind](https://github.com/EmergentMind/nix-config)
+Originally forked from: [EmergentMind](https://github.com/EmergentMind/nix-config) after I saw his great videos on [youtube](https://www.youtube.com/watch?v=YHm7e3f87iY) detailing how he thought to structure his flake. It (mostly) jived with my intentions, so here we are.
 
 See [Docs](./docs/Readme.md)
 
