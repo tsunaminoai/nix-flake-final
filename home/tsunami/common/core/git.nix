@@ -16,9 +16,6 @@
         "ssh://git@github.com" = {
           insteadOf = "https://github.com";
         };
-        "ssh://git@gitlab.com" = {
-          insteadOf = "https://gitlab.com";
-        };
       };
 
       user.signing.key = "E48B9BA13823B0D8D065C1107467B45313F55526";
