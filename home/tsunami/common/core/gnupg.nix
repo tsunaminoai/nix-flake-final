@@ -11,6 +11,10 @@ in {
       enableSshSupport = true;
       enableExtraSocket = true;
       pinentryPackage = pkgs.pinentry-curses;
+      defaultCacheTtl = 60 * 60; # 1 hour
+      defaultCacheTtlSsh = 2 * 60 * 60; # 2 hours
+      maxCacheTtl = 2 * 60 * 60; # 2 hours
+      maxCacheTtlSsh = 4 * 60 * 60; # 4 hours
     };
   };
   programs.fish.interactiveShellInit = ''

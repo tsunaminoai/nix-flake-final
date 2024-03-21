@@ -4,6 +4,9 @@
   config,
   ...
 }: {
+  home.packages = with pkgs; [
+    taskopen-custom
+  ];
   programs.taskwarrior = {
     enable = true;
     dataLocation = "~/.task";
@@ -177,6 +180,7 @@
     ts = "task sync";
     ta = "task add";
     tn = "task next";
+    topen = "taskopen";
   };
 
   home.file.".task/voile.ca.pem".text = ''
@@ -212,5 +216,105 @@
     IGK22TgZlmpdEar6zVtkmQGsqHcEh+ipf2gaD/5gxPzsyS372j3fi2ByoS1qM3UR
     RILvT4TcM9C1me7Bgq1l3/bBpjHak72F8bP8ABtQRKGp1A==
     -----END CERTIFICATE-----
+  '';
+
+  home.file.".config/taskopen/taskopenrc".text = ''
+    [General]
+    taskbin=task
+    taskargs
+    no_annotation_hook="addnote $ID"
+    task_attributes="priority,project,tags,description"
+    --sort:"urgency-,annot"
+    --active-tasks:"+PENDING"
+    EDITOR=nano
+    path_ext="~/.local/share/taskopen/scripts"
+
+    [Actions]
+    files.target=annotations
+    files.labelregex=".*"
+    files.regex="^[\\.\\/~]+.*\\.(.*)"
+    files.command="open $FILE"
+    files.modes="batch,any,normal"
+    notes.target=annotations
+    notes.labelregex=".*"
+    notes.regex="^Notes(\\..*)?"
+    notes.command="""editobsidian $UUID"""
+    notes.modes="batch,any,normal"
+    url.target=annotations
+    url.labelregex=".*"
+    url.regex="((?:www|http).*)"
+    url.command="open $LAST_MATCH"
+    url.modes="batch,any,normal"
+
+    obsidian.target=annotations
+    obsidian.labelregex=".*"
+    obsidian.regex="((?:obsidian).*)"
+    obsidian.command="open $LAST_MATCH"
+    obsidian.modes="batch,any,normal"
+
+  '';
+
+  home.file.".local/share/taskopen/scripts/editobsidian".text = ''
+    #!/bin/bash
+    # Opens a Notes file and creates a header if file does not exist.
+
+    OBSIDIAN_VAULT=~/Documents/FalseBlue-Personal
+    OBSIDIAN_TASK_DIR="taskwarrior/tasknotes"
+    OBSIDIAN_API_KEY_FILE="${config.sops.secrets."obsidian/api-key".path}"
+    OBSIDIAN_API_KEY=$(cat $OBSIDIAN_API_KEY_FILE)
+
+    get_task_info() {
+        task $1 export
+    }
+
+    write_to_obsidian() {
+        UUID=$1
+        TASK=$(get_task_info $UUID)
+
+        tag_string=$(echo $TASK | jq -r '.[0].tags | join(", ")')
+
+        title=$(echo $TASK | jq -r '.[0].description')
+        taskid=$UUID
+        project=$(echo $TASK | jq -r '.[0].project')
+
+        markdown_block="---
+    title: $title
+    alias: $title
+    taskid: $taskid
+    project: $project
+    tags: ''${tag_string}, $taskid
+    ---
+
+    # $title
+
+    * [ ] $title
+    "
+
+
+        # send the markdown to Obsidian
+        # https://coddingtonbear.github.io/obsidian-local-rest-api/
+        curl -s \
+        --insecure \
+        -X POST \
+        -H "Authorization: Bearer ''${OBSIDIAN_API_KEY}" \
+        -H "Content-Type: text/markdown" \
+        -d "''${markdown_block}" \
+        "https://localhost:27124/vault/$OBSIDIAN_TASK_DIR/$1.md"
+    }
+
+    if [ $# -eq 1 ]; then
+        FILE=$OBSIDIAN_VAULT/$OBSIDIAN_TASK_DIR/$1.md
+        if [ ! -e $1 ]; then
+            write_to_obsidian $1 $2
+    	fi
+        if [ ! -e $FILE ]; then
+            echo "Couldnt create the file using REST"
+            exit 1
+        fi
+        # open the file in the default editor
+    	$EDITOR $FILE
+    else
+    	echo "Usage: $0 <uuid>"
+    fi
   '';
 }

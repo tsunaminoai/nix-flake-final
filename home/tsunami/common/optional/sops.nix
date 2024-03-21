@@ -1,5 +1,4 @@
 # home level sops. see hosts/common/optional/sops.nix for hosts level
-# TODO should I split secrtets.yaml into a home level and a hosts level or move to a single sops.nix entirely?
 {
   inputs,
   pkgs,
@@ -45,6 +44,10 @@ in {
       };
       "github/ssh-key" = {
         path = "${homeDir}/.ssh/github";
+        mode = "0400";
+      };
+      "obsidian/api-key" = {
+        path = "${homeDir}/.config/obsidian/api-key";
         mode = "0400";
       };
     };
