@@ -12,6 +12,7 @@
   programs.swaylock = {
     enable = true;
     settings = {
+      screenshots = true;
       clock = true;
       color = "808080";
       font-size = 24;
@@ -36,7 +37,7 @@
     timeouts = [
       {
         timeout = 60 * 5; # 5 minutes
-        command = "${pkgs.swaylock}/bin/swaylock -fF";
+        command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
       }
       {
         timeout = 60 * 60 * 6; # 6 hours
