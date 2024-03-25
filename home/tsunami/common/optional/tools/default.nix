@@ -1,5 +1,6 @@
 # Various productivity tools
 # TODO: Get darwin brew packages
+# TODO: Use flatpak for some apps
 {pkgs, ...}: {
   imports = [
     ./bitwarden.nix
@@ -13,7 +14,7 @@
     veracrypt # disk encryption
     rpi-imager # raspberry pi image writer
     ventoy-full # image writer
-    obsidian # note taking
+    # obsidian # note taking
     tomb # file encryption
   ];
 
