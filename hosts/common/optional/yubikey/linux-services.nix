@@ -2,7 +2,9 @@
 {
   pkgs,
   scripts,
+  lib,
   ...
+  
 }: {
   services = {
     # FIXME: Put this behind an option for yubikey ssh
