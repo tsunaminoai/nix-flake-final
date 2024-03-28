@@ -4,30 +4,8 @@
   lib,
   ...
 }: let
-  isLinux = pkgs.stdenv.hostPlatform.isLinux;
-
-  scripts = {
-    yubikey-up = pkgs.writeShellApplication {
-      name = "yubikey-up";
-      runtimeInputs = builtins.attrValues {
-        inherit
-          (pkgs)
-          gawk
-          yubikey-manager
-          ;
-      };
-      text = builtins.readFile ./scripts/yubikey-up.sh;
-    };
-    yubikey-down = pkgs.writeShellApplication {
-      name = "yubikey-down";
-      text = builtins.readFile ./scripts/yubikey-down.sh;
-    };
-  };
-  linux-services = import ./linux-services.nix {inherit pkgs lib scripts;};
+  scripts = import ./scripts {inherit pkgs;};
 in {
-  imports = [
-    (lib.mkIf isLinux linux-services)
-  ];
   environment.systemPackages = with pkgs; [
     gnupg
     # yubikey-personalization
@@ -44,6 +22,4 @@ in {
     scripts.yubikey-down
     yubikey-manager # For ykman
   ];
-  # system = lib.mkIf isLinux linux-services;
-  # security = lib.mkIf isLinux linux-services.security;
 }

@@ -23,6 +23,7 @@
 
     #################### Host-specific Optional Configs ####################
     ../common/optional/yubikey
+    ../common/optional/yubikey/linux-services.nix
     # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
