@@ -1,0 +1,162 @@
+[[commands]]
+name = "build"
+command ='''
+git add .
+scripts/build.sh
+'''
+help = "Builds the flake"
+category = "Build"
+
+[[commands]]
+name = "test-flake"
+command ='''
+nix flake check
+'''
+help = "Tests the flake"
+category = "Test"
+
+[[commands]]
+name = "test-system"
+command ='''
+scripts/system-flake-test.sh
+'''
+help = "Tests the system configuration"
+category = "Test"
+
+[[commands]] 
+name = "boot"
+command ='''
+rebuild
+scripts/system-flake-boot.sh
+'''
+help = "Switches boot to the new system configuration"
+category = "Build"
+
+[[commands]]
+name = "rebuild-system"
+command ='''
+git add .
+scripts/system-flake-rebuild.sh
+check-sops
+'''
+help = "Rebuilds the system configuration"
+category = "Build"
+
+[[commands]]
+name = "clean-home"
+command ='''
+home-manager expire-generations "-3 days"
+nix-collect-garbage -d
+'''
+help = "Cleans up the home-manager generations"
+category = "Clean"
+
+[[commands]]
+name = "rebuild-system-trace"
+command ='''
+git add .
+scripts/system-flake-rebuild-trace.sh
+check-sops
+'''
+help = "Rebuilds the system configuration with tracing"
+category = "Build"
+
+[[commands]]
+name = "update-flake"
+command ='''
+nix flake update
+'''
+help = "Updates the flake"
+category = "Update"
+
+[[commands]]
+name = "format"
+command ='''
+alejandra .
+'''
+help = "Formats the configuration"
+category = "Format"
+
+[[commands]]
+name = "update-rebuild"
+command ='''
+update-flake
+rebuild-system
+'''
+help = "Updates and rebuilds the system configuration"
+category = "Update"
+
+[[commands]]
+name = "diff"
+command ='''
+git diff ':!flake.lock'
+'''
+help = "Shows the changes"
+category = "Diff"
+
+[[commands]]
+name = "home-switch"
+command ='''
+home-manager --flake . switch
+check-sops
+'''
+help = "Switches the home-manager configuration"
+category = "Build"
+
+[[commands]]
+name = "update-home"
+command ='''
+update-system
+home-switch
+'''
+help = "Updates and switches the home-manager configuration"
+category = "Update"
+
+[[commands]]
+name = "sops-init"
+command ='''
+mkdir -p ~/.config/sops/age
+nix-shell -p age --run "age-keygen -o ~/.config/sops/age/keys.txt"
+'''
+help = "Initializes sops with age"
+category = "SOPS"
+
+[[commands]]
+name = "age-keys"
+command ='''
+  nix-shell -p age --run "age-keygen -o ~/.age-key.txt"
+'''
+help = "Generates a new age key"
+category = "SOPS"
+
+[[commands]]
+name = "check-sops"
+command ='''
+scripts/check-sops.sh
+'''
+help = "Checks the sops configuration"
+category = "SOPS"
+
+[[commands]]
+name = "update-secrets"
+command ='''
+  nix flake lock --update-input mysecrets
+'''
+help = "Updates the secrets for the flake"
+category = "Secrets"
+
+
+[devshell]
+packages = [
+  "age",
+  "alejandra",
+  "git",
+  "home-manager",
+  "just",
+  "nano",
+  "nix",
+  "pre-commit",
+  "sops",
+  "ssh-to-age",
+  "zoxide",
+]

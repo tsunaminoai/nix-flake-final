@@ -1,5 +1,5 @@
 {
-  description = "EmergentMind's Nix-Config";
+  description = "TsunamiNoAi's Nix-Config";
 
   inputs = {
     #################### Official NixOS Package Sources ####################
@@ -44,6 +44,19 @@
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    # Numtide's utilities
+
+    # Devshell for declarative shell environments
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # Flake utilities
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # vim4LMFQR!
@@ -106,8 +119,10 @@
     };
 
     # VSCode Server
-    vscode-server = {url = "github:nix-community/nixos-vscode-server";
-    inputs.nixpkgs.follows = "nixpkgs";};
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     #################### Personal Repositories ####################
 
@@ -123,6 +138,7 @@
     self,
     nixpkgs,
     nix-darwin,
+    devshell,
     home-manager,
     ...
   } @ inputs: let
@@ -140,9 +156,10 @@
       import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        overlays = [devshell.overlays.default];
       });
   in {
-    inherit lib;
+    inherit lib; # Expose lib for use in custom modules
 
     # Custom modules to enable special functionality for nixos or home-manager oriented configs.
     nixosModules = import ./modules/nixos;
@@ -159,7 +176,11 @@
     formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
 
     # Shell configured with packages that are typically only needed when working on or with nix-config.
-    devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
+    devShells = forEachSystem (pkgs: {
+      default = pkgs.devshell.mkShell {
+        imports = [(pkgs.devshell.importTOML ./devshell.toml)];
+      };
+    });
 
     #################### NixOS Configurations ####################
     #
@@ -274,5 +295,7 @@
       #   extraSpecialArgs = {inherit inputs outputs;};
       # };
     };
+
+    #################### DevShell Configurations ####################
   };
 }
