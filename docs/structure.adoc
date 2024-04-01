@@ -1,0 +1,23 @@
+== Project Structure
+
+docs:: Documentation files
+home:: Configuration files for home-manager per user per host
+  <user>::: User-level configuration files per user
+    common:::: Common configuration files for all hosts for the user
+      core::::: Core configuration files for the user that should always be included
+      optional::::: All other configuration files for the user
+    <host>:::: Host-level configuration files per user
+hosts:: System-level configuration files per host
+  common::: Common configuration files for all hosts
+    core::::: Core configuration files for the host that should always be included
+    optional::::: All other configuration files for the host
+  <host>::: Host-level configuration files per host
+modules:: Flake specific NixOS modules
+nixos-installer:: NixOS installer configuration.
+footnote:[This is a work in progress and still mainly the original author's work.]
+
+overlays:: Flake specific Nix overlays
+pkgs:: Flake specific Nix packages
+scripts:: Scripts for managing the flake.
+footnote:[These should be consolidated into something more manageable.]
+
