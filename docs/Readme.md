@@ -4,6 +4,8 @@
 
 See [EmergentMind's Documentation](original/anatomy.md)
 
+[Sructure](structure.adoc)
+
 ## Adding a Host
 
 I would prefer to use [nixos-anywhere](https://nix-community.github.io/nixos-anywhere/), but for now:
