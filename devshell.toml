@@ -49,7 +49,7 @@ home-manager expire-generations "-3 days"
 nix-collect-garbage -d
 '''
 help = "Cleans up the home-manager generations"
-category = "Clean"
+category = "Utils"
 
 [[commands]]
 name = "rebuild-system-trace"
@@ -75,7 +75,7 @@ command ='''
 alejandra .
 '''
 help = "Formats the configuration"
-category = "Format"
+category = "Utils"
 
 [[commands]]
 name = "update-rebuild"
@@ -92,7 +92,7 @@ command ='''
 git diff ':!flake.lock'
 '''
 help = "Shows the changes"
-category = "Diff"
+category = "Utils"
 
 [[commands]]
 name = "home-switch"
@@ -143,7 +143,7 @@ command ='''
   nix flake lock --update-input mysecrets
 '''
 help = "Updates the secrets for the flake"
-category = "Secrets"
+category = "Update"
 
 
 [devshell]
