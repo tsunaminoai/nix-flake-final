@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  scripts = import ./scripts.nix {inherit pkgs;};
+  scripts = import ./scripts {inherit pkgs;};
 in {
   services = {
     # FIXME: Put this behind an option for yubikey ssh
