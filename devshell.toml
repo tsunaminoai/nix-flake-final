@@ -26,7 +26,7 @@ category = "Test"
 [[commands]] 
 name = "boot"
 command ='''
-rebuild
+rebuild-system
 scripts/system-flake-boot.sh
 '''
 help = "Switches boot to the new system configuration"
