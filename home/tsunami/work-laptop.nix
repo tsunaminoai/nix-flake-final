@@ -10,7 +10,6 @@ in {
 
     #################### Host-specific Optional Configs ####################
     common/optional/sops.nix
-    common/optional/dev/java.nix
 
     #################### Optional Configs ####################
     common/optional/neofetch
