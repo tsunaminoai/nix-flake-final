@@ -52,8 +52,12 @@
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
   topology.self = {
-    interfaces.eth0 = {
+    interfaces.ens18 = {
       network = "gensokyo"; # Use the network we define below
+    };
+    interfaces.tailscale0 = {
+      network = "tailscale";
+      addresses = ["100.101.153.99/32"];
     };
   };
 }
