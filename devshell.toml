@@ -8,6 +8,14 @@ help = "Builds the flake"
 category = "Build"
 
 [[commands]]
+name = "build-topology"
+command ='''
+nix build .#topology.`hostname`.config.output
+'''
+help = "Builds the topology diagrams"
+category = "Build"
+
+[[commands]]
 name = "test-flake"
 command ='''
 nix flake check

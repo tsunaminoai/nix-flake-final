@@ -124,6 +124,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     #################### Personal Repositories ####################
 
     # Private secrets repo.  See ./docs/secretsmgmt.md
@@ -139,7 +144,9 @@
     nixpkgs,
     nix-darwin,
     devshell,
+    flake-utils,
     home-manager,
+    nix-topology,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -156,139 +163,174 @@
       import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [devshell.overlays.default];
+        overlays = [
+          devshell.overlays.default
+        ];
       });
-  in {
-    inherit lib; # Expose lib for use in custom modules
+  in
+    {
+      inherit lib; # Expose lib for use in custom modules
 
-    # Custom modules to enable special functionality for nixos or home-manager oriented configs.
-    nixosModules = import ./modules/nixos;
-    homeManagerModules = import ./modules/home-manager;
+      # Custom modules to enable special functionality for nixos or home-manager oriented configs.
+      nixosModules = import ./modules/nixos;
+      homeManagerModules = import ./modules/home-manager;
 
-    # Custom modifications/overrides to upstream packages.
-    overlays = import ./overlays {inherit inputs outputs;};
+      # Custom modifications/overrides to upstream packages.
+      overlays = import ./overlays {inherit inputs outputs;};
 
-    # Your custom packages meant to be shared or upstreamed.
-    # Accessible through 'nix build', 'nix shell', etc
-    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
+      # Your custom packages meant to be shared or upstreamed.
+      # Accessible through 'nix build', 'nix shell', etc
+      packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
 
-    # Nix formatter available through 'nix fmt' https://nix-community.github.io/nixpkgs-fmt
-    formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
+      # Nix formatter available through 'nix fmt' https://nix-community.github.io/nixpkgs-fmt
+      formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
 
-    # Shell configured with packages that are typically only needed when working on or with nix-config.
-    devShells = forEachSystem (pkgs: {
-      default = pkgs.devshell.mkShell {
-        imports = [(pkgs.devshell.importTOML ./devshell.toml)];
+      # Shell configured with packages that are typically only needed when working on or with nix-config.
+      devShells = forEachSystem (pkgs: {
+        default = pkgs.devshell.mkShell {
+          imports = [(pkgs.devshell.importTOML ./devshell.toml)];
+        };
+      });
+
+      #################### NixOS Configurations ####################
+      #
+      # Available through 'nixos-rebuild --flake .#hostname'
+      # Typically adopted using 'sudo nixos-rebuild switch --flake .#hostname'
+
+      nixosConfigurations = {
+        # # devlab
+        # grief = lib.nixosSystem {
+        #   modules = [./hosts/grief];
+        #   specialArgs = {inherit inputs outputs;};
+        # };
+        # # remote install lab
+        # guppy = lib.nixosSystem {
+        #   system = "x86_64-linux";
+        #   modules = [./hosts/guppy];
+        #   specialArgs = {inherit inputs outputs;};
+        # };
+        # Ishtar VM on Ereshkigal (Proxmox)
+        ishtar = lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/ishtar
+            nix-topology.nixosModules.default
+          ];
+          specialArgs = {inherit inputs outputs;};
+        };
+        # Mokou Desktop
+        mokou = lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/mokou
+            nix-topology.nixosModules.default
+          ];
+          specialArgs = {inherit inputs outputs;};
+        };
+
+        installerIso = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {inherit inputs;};
+          modules = [
+            ./hosts/common/optional/installeriso.nix
+            nix-topology.nixosModules.default
+          ];
+        };
+
+        # # theatre
+        # gusto = lib.nixosSystem {
+        #   modules = [./hosts/gusto];
+        #   specialArgs = {inherit inputs outputs;};
+        # };
       };
-    });
 
-    #################### NixOS Configurations ####################
-    #
-    # Available through 'nixos-rebuild --flake .#hostname'
-    # Typically adopted using 'sudo nixos-rebuild switch --flake .#hostname'
-
-    nixosConfigurations = {
-      # # devlab
-      # grief = lib.nixosSystem {
-      #   modules = [./hosts/grief];
-      #   specialArgs = {inherit inputs outputs;};
-      # };
-      # # remote install lab
-      # guppy = lib.nixosSystem {
-      #   system = "x86_64-linux";
-      #   modules = [./hosts/guppy];
-      #   specialArgs = {inherit inputs outputs;};
-      # };
-      # Ishtar VM on Ereshkigal (Proxmox)
-      ishtar = lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [./hosts/ishtar];
-        specialArgs = {inherit inputs outputs;};
-      };
-      # Mokou Desktop
-      mokou = lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [./hosts/mokou];
-        specialArgs = {inherit inputs outputs;};
+      darwinConfigurations = {
+        # Work Laptop
+        "MacBook-Pro-0432" = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [
+            ./hosts/work-laptop
+            nix-topology.nixosModules.default
+          ];
+          specialArgs = {inherit inputs outputs;};
+        };
+        "youmu" = nix-darwin.lib.darwinSystem {
+          system = "x86_64-darwin";
+          modules = [
+            ./hosts/youmu
+            nix-topology.nixosModules.default
+          ];
+          specialArgs = {inherit inputs outputs;};
+        };
       };
 
-      installerIso = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
+      #################### User-level Home-Manager Configurations ####################
+      #
+      # Available through 'home-manager --flake .#primary-username@hostname'
+      # Typically adopted using 'home-manager switch --flake .#primary-username@hostname'
+
+      homeConfigurations = {
+        "bcraton@MacBook-Pro-0432" = lib.homeManagerConfiguration {
+          modules = [./home/tsunami/work-laptop.nix];
+          pkgs = pkgsFor.aarch64-darwin;
+          extraSpecialArgs = {inherit inputs outputs;};
+        };
+        "tsunami@youmu" = lib.homeManagerConfiguration {
+          modules = [./home/tsunami/youmu.nix];
+          pkgs = pkgsFor.x86_64-darwin;
+          extraSpecialArgs = {inherit inputs outputs;};
+        };
+        "tsunami@ishtar" = lib.homeManagerConfiguration {
+          modules = [./home/tsunami/ishtar.nix];
+          pkgs = pkgsFor.x86_64-linux;
+          extraSpecialArgs = {inherit inputs outputs;};
+        };
+        "tsunami@mokou" = lib.homeManagerConfiguration {
+          modules = [./home/tsunami/mokou.nix];
+          pkgs = pkgsFor.x86_64-linux;
+          extraSpecialArgs = {inherit inputs outputs;};
+        };
+        # "ta@grief" = lib.homeManagerConfiguration {
+        #   modules = [./home/ta/grief.nix];
+        #   pkgs = pkgsFor.x86_64-linux;
+        #   extraSpecialArgs = {inherit inputs outputs;};
+        # };
+        # "ta@guppy" = lib.homeManagerConfiguration {
+        #   modules = [./home/ta/guppy.nix];
+        #   pkgs = pkgsFor.x86_64-linux;
+        #   extraSpecialArgs = {inherit inputs outputs;};
+        # };
+        # "media@gusto" = lib.homeManagerConfiguration {
+        #   modules = [./home/media/gusto.nix];
+        #   pkgs = pkgsFor.x86_64-linux;
+        #   extraSpecialArgs = {inherit inputs outputs;};
+        # };
+        # "ta@gusto" = lib.homeManagerConfiguration {
+        #   modules = [./home/ta/gusto.nix];
+        #   pkgs = pkgsFor.x86_64-linux;
+        #   extraSpecialArgs = {inherit inputs outputs;};
+        # };
+      };
+    }
+    #################### Toplocy Configuration Mixin ####################
+    # See: https://oddlama.github.io/nix-topology/intro.html
+    // flake-utils.lib.eachDefaultSystem (system: rec {
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [nix-topology.overlays.default];
+      };
+
+      # This is the global topology module.
+      topology = import nix-topology {
+        inherit pkgs;
         modules = [
-          ./hosts/common/optional/installeriso.nix
+          ({config, ...}: let
+            inherit (config.lib.topology) mkInternet mkRouter mkConnection;
+          in {
+            inherit (self) nixosConfigurations;
+            inherit (self) darwinConfigurations;
+          })
         ];
       };
-
-      # # theatre
-      # gusto = lib.nixosSystem {
-      #   modules = [./hosts/gusto];
-      #   specialArgs = {inherit inputs outputs;};
-      # };
-    };
-
-    darwinConfigurations = {
-      # Work Laptop
-      "MacBook-Pro-0432" = nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        modules = [./hosts/work-laptop];
-        specialArgs = {inherit inputs outputs;};
-      };
-      "youmu" = nix-darwin.lib.darwinSystem {
-        system = "x86_64-darwin";
-        modules = [./hosts/youmu];
-        specialArgs = {inherit inputs outputs;};
-      };
-    };
-
-    #################### User-level Home-Manager Configurations ####################
-    #
-    # Available through 'home-manager --flake .#primary-username@hostname'
-    # Typically adopted using 'home-manager switch --flake .#primary-username@hostname'
-
-    homeConfigurations = {
-      "bcraton@MacBook-Pro-0432" = lib.homeManagerConfiguration {
-        modules = [./home/tsunami/work-laptop.nix];
-        pkgs = pkgsFor.aarch64-darwin;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-      "tsunami@youmu" = lib.homeManagerConfiguration {
-        modules = [./home/tsunami/youmu.nix];
-        pkgs = pkgsFor.x86_64-darwin;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-      "tsunami@ishtar" = lib.homeManagerConfiguration {
-        modules = [./home/tsunami/ishtar.nix];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-      "tsunami@mokou" = lib.homeManagerConfiguration {
-        modules = [./home/tsunami/mokou.nix];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-      # "ta@grief" = lib.homeManagerConfiguration {
-      #   modules = [./home/ta/grief.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
-      # "ta@guppy" = lib.homeManagerConfiguration {
-      #   modules = [./home/ta/guppy.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
-      # "media@gusto" = lib.homeManagerConfiguration {
-      #   modules = [./home/media/gusto.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
-      # "ta@gusto" = lib.homeManagerConfiguration {
-      #   modules = [./home/ta/gusto.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
-    };
-
-    #################### DevShell Configurations ####################
-  };
+    });
 }
