@@ -103,4 +103,14 @@
     openrazer-daemon
     polychromatic
   ];
+
+  topology.self = {
+    interfaces.eth0 = {
+      network = "gensokyo"; # Use the network we define below
+    };
+    interfaces.tailscale0 = {
+      network = "tailscale";
+      type = "wireguard";
+    };
+  };
 }

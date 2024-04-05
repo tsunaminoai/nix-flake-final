@@ -51,4 +51,9 @@
   services.qemuGuest.enable = true;
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
+  topology.self = {
+    interfaces.eth0 = {
+      network = "gensokyo"; # Use the network we define below
+    };
+  };
 }

@@ -308,7 +308,15 @@
             inherit (config.lib.topology) mkInternet mkRouter mkConnection;
           in {
             inherit (self) nixosConfigurations;
-            inherit (self) darwinConfigurations;
+
+            networks.gensokyo = {
+              name = "Gensokyo Home Network";
+              cidrv4 = "192.168.0.1/24";
+            };
+            networks.tailscale = {
+              name = "Tailscale Network";
+              cidrv4 = "100.100.0.0/16";
+            };
           })
         ];
       };
