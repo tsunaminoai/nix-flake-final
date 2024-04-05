@@ -290,26 +290,6 @@
           pkgs = pkgsFor.x86_64-linux;
           extraSpecialArgs = {inherit inputs outputs;};
         };
-        # "ta@grief" = lib.homeManagerConfiguration {
-        #   modules = [./home/ta/grief.nix];
-        #   pkgs = pkgsFor.x86_64-linux;
-        #   extraSpecialArgs = {inherit inputs outputs;};
-        # };
-        # "ta@guppy" = lib.homeManagerConfiguration {
-        #   modules = [./home/ta/guppy.nix];
-        #   pkgs = pkgsFor.x86_64-linux;
-        #   extraSpecialArgs = {inherit inputs outputs;};
-        # };
-        # "media@gusto" = lib.homeManagerConfiguration {
-        #   modules = [./home/media/gusto.nix];
-        #   pkgs = pkgsFor.x86_64-linux;
-        #   extraSpecialArgs = {inherit inputs outputs;};
-        # };
-        # "ta@gusto" = lib.homeManagerConfiguration {
-        #   modules = [./home/ta/gusto.nix];
-        #   pkgs = pkgsFor.x86_64-linux;
-        #   extraSpecialArgs = {inherit inputs outputs;};
-        # };
       };
     }
     #################### Toplocy Configuration Mixin ####################
