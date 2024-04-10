@@ -220,11 +220,12 @@
         ];
       };
 
-      # # theatre
-      # gusto = lib.nixosSystem {
-      #   modules = [./hosts/gusto];
-      #   specialArgs = {inherit inputs outputs;};
-      # };
+      # Yuyuko VM
+      yuyuko = lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [./hosts/yuyuko];
+        specialArgs = {inherit inputs outputs;};
+      };
     };
 
     darwinConfigurations = {
