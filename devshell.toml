@@ -43,12 +43,11 @@ help = "Rebuilds the system configuration"
 category = "Build"
 
 [[commands]]
-name = "clean-home"
+name = "clean-nix"
 command ='''
-home-manager expire-generations "-3 days"
-nix-collect-garbage -d
+nh clean all --keep-since 3d
 '''
-help = "Cleans up the home-manager generations"
+help = "Cleans up the nix store"
 category = "Utils"
 
 [[commands]]
@@ -97,7 +96,7 @@ category = "Utils"
 [[commands]]
 name = "home-switch"
 command ='''
-home-manager --flake . switch
+nh home switch
 check-sops
 '''
 help = "Switches the home-manager configuration"
@@ -152,8 +151,8 @@ packages = [
   "alejandra",
   "git",
   "home-manager",
-  "just",
   "nano",
+  "nh",
   "nix",
   "pre-commit",
   "sops",
