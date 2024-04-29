@@ -146,6 +146,12 @@ category = "Update"
 
 
 [devshell]
+name = "Tsunamis Nix Flake"
+motd = '''
+  {202}🔨 Welcome to Tsunamis Flake{reset}
+  Type {202}menu{reset} to view commands.
+'''
+
 packages = [
   "age", # sops
   "alejandra", # formatter
