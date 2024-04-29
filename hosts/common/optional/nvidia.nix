@@ -16,7 +16,7 @@
       vulkan-loader
       vulkan-validation-layers
       vulkan-tools
-      nvtop
+      nvtopPackages.full
     ];
   };
 

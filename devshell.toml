@@ -27,7 +27,7 @@ category = "Test"
 name = "boot"
 command ='''
 rebuild-system
-scripts/system-flake-boot.sh
+nh os boot
 '''
 help = "Switches boot to the new system configuration"
 category = "Build"
