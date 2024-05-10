@@ -108,6 +108,7 @@
   services.nix-daemon.enable = true;
 
   nix = {
+    nixPath = ["$HOME/.nix-defexpr/darwin"];
     gc = {
       automatic = true;
       interval = {
