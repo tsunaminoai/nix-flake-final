@@ -20,8 +20,10 @@
     };
 
     # Official NixOS hardware packages
-    hardware.url = "github:nixos/nixos-hardware";
-
+    hardware = {
+      url = "github:nixos/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Secrets management. See ./docs/secretsmgmt.md
     sops-nix = {
       url = "github:mic92/sops-nix";
