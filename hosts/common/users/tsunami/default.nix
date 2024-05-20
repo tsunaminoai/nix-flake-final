@@ -32,6 +32,7 @@ in {
       (builtins.readFile ./keys/id_youmu_ed25519.pub)
       (builtins.readFile ./keys/id_5cNFC.pub)
       (builtins.readFile ./keys/id_nano5c.pub)
+      (builtins.readFile ./keys/id_blink.pub)
     ];
 
     packages = [pkgs.home-manager];
