@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
   environment = {
     sessionVariables = {
       GBM_BACKEND = "nvidia-drm";
@@ -24,11 +24,18 @@
     nvidia = {
       open = false;
       powerManagement.enable = false;
-      nvidiaSettings = false;
+      powerManagement.finegrained = false;
+      nvidiaSettings = true;
       modesetting.enable = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+    };
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
     };
   };
-
+  boot.kernelParams = [ "module_blacklist=i915" ];
   boot.initrd.kernelModules = ["nvidia"];
   services.xserver.videoDrivers = ["nvidia"];
 }
