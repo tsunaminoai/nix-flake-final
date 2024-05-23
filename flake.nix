@@ -271,7 +271,7 @@
         extraSpecialArgs = {inherit inputs outputs;};
       };
       "tsunami@mokou" = lib.homeManagerConfiguration {
-        modules = [./home/tsunami/mokou.nix];
+        modules = [ stylix.homeManagerModules.stylix ./home/tsunami/mokou.nix];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
