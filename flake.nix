@@ -119,6 +119,10 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # VSCode Server
     vscode-server = {
@@ -142,6 +146,7 @@
     nix-darwin,
     devshell,
     home-manager,
+    stylix,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -247,6 +252,7 @@
     #
     # Available through 'home-manager --flake .#primary-username@hostname'
     # Typically adopted using 'home-manager switch --flake .#primary-username@hostname'
+
 
     homeConfigurations = {
       "bcraton@MacBook-Pro-0432" = lib.homeManagerConfiguration {
