@@ -45,10 +45,19 @@ category = "Build"
 [[commands]]
 name = "clean-nix"
 command ='''
-nh clean all --keep-since 3d
+nh clean all --keep-since 3d --keep 1
 '''
-help = "Cleans up the nix store"
+help = "Removes all generations before 3 days ago but keeps at least 1. Will remove direnvs"
 category = "Utils"
+
+[[commands]]
+name = "clean-home"
+command = '''
+nh clean user --nogcroots --keep 1
+'''
+help = "Removes non-current home generations. Does not remove direnvs"
+category = "Utils"
+
 
 [[commands]]
 name = "rebuild-system-trace"
