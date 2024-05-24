@@ -1,9 +1,9 @@
 # https://github.com/sharkdp/bat
 # https://github.com/eth-p/bat-extras
-{pkgs, ...}: {
+{pkgs, lib, ...}: {
   programs.fish.shellAliases.cat = "bat";
 
-  programs.bat = {
+  programs.bat = lib.mkDefault {
     enable = true;
     config = {
       # Show line numbers, Git modifications and file header (but no grid)
