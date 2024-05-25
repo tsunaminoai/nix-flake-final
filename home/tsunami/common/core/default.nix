@@ -31,7 +31,6 @@ in {
       ./screen.nix # hopefully rarely needed but good to have if so
       ./ssh.nix # personal ssh configs
       ./starship.nix # prompt
-      ./stylix.nix # personal theme
       ./taskwarrior.nix # task manager
       ./tmux.nix # terminal multiplexer
       ./zoxide.nix # cd replacement
@@ -61,6 +60,7 @@ in {
     };
   };
 
+        
   home.packages = builtins.attrValues {
     inherit
       (pkgs)
@@ -92,7 +92,7 @@ in {
       wget # downloader
       zip # zip compression
       zoxide # cd replacement
-      ; # zip compression
+      ;
   };
 
   nixpkgs = {

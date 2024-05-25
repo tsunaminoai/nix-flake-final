@@ -8,7 +8,7 @@
   imports = [
     #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-intel
-    inputs.hardware.nixosModules.common-gpu-intel
+#    inputs.hardware.nixosModules.common-gpu-intel
 
     #################### Required Configs ####################
     ./install-config.nix
