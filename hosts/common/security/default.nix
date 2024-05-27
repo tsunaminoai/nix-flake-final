@@ -37,6 +37,8 @@ in {
   config = {
     inherit (conditionalAttrs);
 
+    programs.mosh.enable = true;
+
     programs.gnupg.agent = lib.mkDefault {
       enable = true;
       # enableSSHSupport = true; # Do not enable at the system level. Use home-manager to enable per user.
