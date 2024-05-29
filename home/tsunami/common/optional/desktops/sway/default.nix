@@ -9,7 +9,7 @@
   ];
 
   home.sessionVariables.WLR_RENDERER = lib.mkForce "gles2";
-  programs.swaylock = lib.mkDefault{
+  programs.swaylock = lib.mkDefault {
     enable = true;
     settings = {
       screenshots = true;

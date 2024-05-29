@@ -1,6 +1,10 @@
 # https://github.com/sharkdp/bat
 # https://github.com/eth-p/bat-extras
-{pkgs, lib, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   programs.fish.shellAliases.cat = "bat";
 
   programs.bat = lib.mkDefault {
