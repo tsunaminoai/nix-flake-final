@@ -56,10 +56,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Flake utilities
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # flake-utils = {
+    #   url = "github:numtide/flake-utils";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # vim4LMFQR!
     nixvim = {
@@ -147,6 +147,7 @@
     devshell,
     home-manager,
     stylix,
+    hardware,
     ...
   } @ inputs: let
     inherit (self) outputs;
