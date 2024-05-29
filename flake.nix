@@ -257,7 +257,7 @@
     homeConfigurations = {
       "bcraton@MacBook-Pro-0432" = lib.homeManagerConfiguration {
         modules = [
-          # stylix.homeManagerModules.stylix
+          stylix.homeManagerModules.stylix
           ./home/tsunami/work-laptop.nix
         ];
         pkgs = pkgsFor.aarch64-darwin;
@@ -265,7 +265,7 @@
       };
       "tsunami@youmu" = lib.homeManagerConfiguration {
         modules = [
-          # stylix.homeManagerModules.stylix
+          stylix.homeManagerModules.stylix
           ./home/tsunami/youmu.nix
         ];
         pkgs = pkgsFor.x86_64-darwin;
@@ -273,7 +273,7 @@
       };
       "tsunami@ishtar" = lib.homeManagerConfiguration {
         modules = [
-          # stylix.homeManagerModules.stylix
+          stylix.homeManagerModules.stylix
           ./home/tsunami/ishtar.nix
         ];
         pkgs = pkgsFor.x86_64-linux;
@@ -281,7 +281,7 @@
       };
       "tsunami@mokou" = lib.homeManagerConfiguration {
         modules = [
-          # stylix.homeManagerModules.stylix
+          stylix.homeManagerModules.stylix
           ./home/tsunami/mokou.nix
         ];
         pkgs = pkgsFor.x86_64-linux;

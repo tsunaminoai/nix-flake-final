@@ -14,41 +14,37 @@ in {
   # import the theme
   _module.args.theme = import ./theme;
 
-  stylix = {
-    #    image = pkgs.fetchurl {
-    #        url = "https://www.pixelstalk.net/wp-content/uploads/2016/05/Epic-Anime-Awesome-Wallpapers.jpg";
-    #        sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
-    #    };
-    image = config.lib.stylix.pixel "base0A";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
-    polarity = "dark";
-  };
-  imports =
-    [
-      # Packages with custom configs go here
-      ./alacritty.nix # terminal
-      ./bash.nix # backup shell
-      ./bat.nix # cat with better syntax highlighting and extras like batgrep.
-      ./direnv.nix # shell environment manager. Hooks inot shell direnv to look for .envrc before prompts
-      ./fish.nix # fish shell
-      ./fonts.nix # core fonts
-      ./gh.nix # github cli
-      ./gnupg.nix # gpg and agent
-      ./git.nix # personal git config
-      ./kitty.nix # terminal
-      ./nano.nix # nano editor
-      ./screen.nix # hopefully rarely needed but good to have if so
-      ./ssh.nix # personal ssh configs
-      ./starship.nix # prompt
-      ./taskwarrior.nix # task manager
-      ./tmux.nix # terminal multiplexer
-      ./zoxide.nix # cd replacement
-      # ./zsh # primarly shell: includes zsh, oh-my-zsh, and p10k theme
+  # stylix = {
+  #   image = pkgs.fetchurl {
+  #     url = "https://www.pixelstalk.net/wp-content/uploads/2016/05/Epic-Anime-Awesome-Wallpapers.jpg";
+  #     sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
+  #   };
 
-      # TODO Not set, need to investigate but will need custom config if used:
-      #./shellcolor.nix
-    ]
-    ++ (builtins.attrValues outputs.homeManagerModules);
+  #   base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+  #   polarity = "dark";
+  # };
+  imports = [
+    # Packages with custom configs go here
+    ./alacritty.nix # terminal
+    ./bash.nix # backup shell
+    ./bat.nix # cat with better syntax highlighting and extras like batgrep.
+    ./direnv.nix # shell environment manager. Hooks inot shell direnv to look for .envrc before prompts
+    ./fish.nix # fish shell
+    ./fonts.nix # core fonts
+    ./gh.nix # github cli
+    ./gnupg.nix # gpg and agent
+    ./git.nix # personal git config
+    ./kitty.nix # terminal
+    ./nano.nix # nano editor
+    ./screen.nix # hopefully rarely needed but good to have if so
+    ./ssh.nix # personal ssh configs
+    ./starship.nix # prompt
+    ./taskwarrior.nix # task manager
+    ./tmux.nix # terminal multiplexer
+    ./zoxide.nix # cd replacement
+    ./stylix.nix # theme
+  ];
+  # ++ (builtins.attrValues outputs.homeManagerModules);
 
   home = {
     username = lib.mkDefault "tsunami";
