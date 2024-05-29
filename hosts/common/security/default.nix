@@ -26,6 +26,7 @@
     if isLinux
     then {
       programs.fuse.userAllowOther = true; # Allow non-root users to use FUSE
+      programs.mosh.enable = true; # Enable mosh
     }
     else {};
 

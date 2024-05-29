@@ -56,10 +56,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Flake utilities
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # flake-utils = {
+    #   url = "github:numtide/flake-utils";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # vim4LMFQR!
     nixvim = {
@@ -147,6 +147,7 @@
     devshell,
     home-manager,
     stylix,
+    hardware,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -253,25 +254,36 @@
     # Available through 'home-manager --flake .#primary-username@hostname'
     # Typically adopted using 'home-manager switch --flake .#primary-username@hostname'
 
-
     homeConfigurations = {
       "bcraton@MacBook-Pro-0432" = lib.homeManagerConfiguration {
-        modules = [ stylix.homeManagerModules.stylix ./home/tsunami/work-laptop.nix];
+        modules = [
+          # stylix.homeManagerModules.stylix
+          ./home/tsunami/work-laptop.nix
+        ];
         pkgs = pkgsFor.aarch64-darwin;
         extraSpecialArgs = {inherit inputs outputs;};
       };
       "tsunami@youmu" = lib.homeManagerConfiguration {
-        modules = [ stylix.homeManagerModules.stylix ./home/tsunami/youmu.nix];
+        modules = [
+          # stylix.homeManagerModules.stylix
+          ./home/tsunami/youmu.nix
+        ];
         pkgs = pkgsFor.x86_64-darwin;
         extraSpecialArgs = {inherit inputs outputs;};
       };
       "tsunami@ishtar" = lib.homeManagerConfiguration {
-        modules = [ stylix.homeManagerModules.stylix ./home/tsunami/ishtar.nix];
+        modules = [
+          # stylix.homeManagerModules.stylix
+          ./home/tsunami/ishtar.nix
+        ];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
       "tsunami@mokou" = lib.homeManagerConfiguration {
-        modules = [ stylix.homeManagerModules.stylix ./home/tsunami/mokou.nix];
+        modules = [
+          # stylix.homeManagerModules.stylix
+          ./home/tsunami/mokou.nix
+        ];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
