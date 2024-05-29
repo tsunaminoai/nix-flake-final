@@ -2,7 +2,7 @@
   home.packages = with pkgs; [
     vscode
     shellcheck
-    nixfmt
+    nixfmt-rfc-style
     alejandra
   ];
 }
