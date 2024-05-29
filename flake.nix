@@ -61,12 +61,6 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    # vim4LMFQR!
-    nixvim = {
-      url = "github:nix-community/nixvim/nixos-23.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Windows management
 
     hyprland = {
@@ -111,12 +105,6 @@
     # tui editor
     helix = {
       url = "github:helix-editor/helix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
-    };
-    # Pure and reproducible nix overlay of binary distributed rust toolchains
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
@@ -196,17 +184,6 @@
     # Typically adopted using 'sudo nixos-rebuild switch --flake .#hostname'
 
     nixosConfigurations = {
-      # # devlab
-      # grief = lib.nixosSystem {
-      #   modules = [./hosts/grief];
-      #   specialArgs = {inherit inputs outputs;};
-      # };
-      # # remote install lab
-      # guppy = lib.nixosSystem {
-      #   system = "x86_64-linux";
-      #   modules = [./hosts/guppy];
-      #   specialArgs = {inherit inputs outputs;};
-      # };
       # Ishtar VM on Ereshkigal (Proxmox)
       ishtar = lib.nixosSystem {
         system = "x86_64-linux";
@@ -228,6 +205,7 @@
         ];
       };
 
+<<<<<<< HEAD
       test-vm = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
@@ -240,6 +218,8 @@
       #   modules = [./hosts/gusto];
       #   specialArgs = {inherit inputs outputs;};
       # };
+=======
+>>>>>>> d34b018 (Clean up unused inputs. Fix issue with darwin store caching)
     };
 
     darwinConfigurations = {
