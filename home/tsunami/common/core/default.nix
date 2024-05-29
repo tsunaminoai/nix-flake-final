@@ -60,7 +60,6 @@ in {
     };
   };
 
-        
   home.packages = builtins.attrValues {
     inherit
       (pkgs)

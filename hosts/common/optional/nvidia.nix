@@ -1,4 +1,8 @@
-{pkgs, config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   environment = {
     sessionVariables = {
       GBM_BACKEND = "nvidia-drm";
@@ -35,7 +39,7 @@
       driSupport32Bit = true;
     };
   };
-  boot.kernelParams = [ "module_blacklist=i915" ];
+  boot.kernelParams = ["module_blacklist=i915"];
   boot.initrd.kernelModules = ["nvidia"];
   services.xserver.videoDrivers = ["nvidia"];
 }

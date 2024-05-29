@@ -18,7 +18,6 @@
     pam.p11.enable = true;
     audit.enable = true;
     programs.mosh.enable = true;
-
   };
   darwinSecOptions = {
     pam.enableSudoTouchIdAuth = true;
@@ -38,7 +37,6 @@
 in {
   config = {
     inherit (conditionalAttrs);
-
 
     programs.gnupg.agent = lib.mkDefault {
       enable = true;
