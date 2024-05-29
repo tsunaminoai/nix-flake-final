@@ -164,6 +164,8 @@ motd = '''
 packages = [
   "age", # sops
   "alejandra", # formatter
+  "deadnix", # deadnix
+  "direnv", # direnv
   "git", # git
   "home-manager", # home-manager
   "nano", # editor
