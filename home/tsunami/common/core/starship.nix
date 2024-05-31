@@ -66,10 +66,10 @@
 
       directory = {
         style = "bg:#DA627D";
-        truncate_to_repo = true;
+        truncation_length = 100;
+        truncate_to_repo = false;
         format = "[ $path ]($style)";
         truncation_symbol = "…/";
-        truncation_length = 2;
         read_only = "";
         home_symbol = "~";
         substitutions = {
