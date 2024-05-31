@@ -26,5 +26,5 @@ in {
   '';
 
   # Import this user's personal/home configurations
-  home-manager.users.tsunami = import ../../../../home/tsunami/${config.networking.hostName}.nix;
+  # home-manager.users.tsunami = import ../../../../home/tsunami/${config.networking.hostName}.nix;
 }

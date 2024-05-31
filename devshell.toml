@@ -2,7 +2,7 @@
 name = "build"
 command ='''
 git add .
-scripts/build.sh
+scripts/build.sh |& nom
 '''
 help = "Builds the flake"
 category = "Build"
@@ -18,7 +18,7 @@ category = "Build"
 [[commands]]
 name = "test-flake"
 command ='''
-nix flake check
+nix flake check |& nom
 '''
 help = "Tests the flake"
 category = "Test"
@@ -26,7 +26,7 @@ category = "Test"
 [[commands]]
 name = "test-system"
 command ='''
-scripts/system-flake-test.sh
+scripts/system-flake-test.sh |& nom
 '''
 help = "Tests the system configuration"
 category = "Test"
@@ -35,7 +35,7 @@ category = "Test"
 name = "boot"
 command ='''
 rebuild-system
-scripts/system-flake-boot.sh
+nh os boot
 '''
 help = "Switches boot to the new system configuration"
 category = "Build"
@@ -44,26 +44,34 @@ category = "Build"
 name = "rebuild-system"
 command ='''
 git add .
-scripts/system-flake-rebuild.sh
+scripts/system-flake-rebuild.sh |& nom
 check-sops
 '''
 help = "Rebuilds the system configuration"
 category = "Build"
 
 [[commands]]
-name = "clean-home"
+name = "clean-nix"
 command ='''
-home-manager expire-generations "-3 days"
-nix-collect-garbage -d
+nh clean all --keep-since 3d --keep 1
 '''
-help = "Cleans up the home-manager generations"
+help = "Removes all generations before 3 days ago but keeps at least 1. Will remove direnvs"
 category = "Utils"
+
+[[commands]]
+name = "clean-home"
+command = '''
+nh clean user --nogcroots --keep 1
+'''
+help = "Removes non-current home generations. Does not remove direnvs"
+category = "Utils"
+
 
 [[commands]]
 name = "rebuild-system-trace"
 command ='''
 git add .
-scripts/system-flake-rebuild-trace.sh
+scripts/system-flake-rebuild-trace.sh |& nom
 check-sops
 '''
 help = "Rebuilds the system configuration with tracing"
@@ -72,7 +80,7 @@ category = "Build"
 [[commands]]
 name = "update-flake"
 command ='''
-nix flake update
+nix flake update |& nom
 '''
 help = "Updates the flake"
 category = "Update"
@@ -105,7 +113,7 @@ category = "Utils"
 [[commands]]
 name = "home-switch"
 command ='''
-home-manager --flake . switch
+nh home switch
 check-sops
 '''
 help = "Switches the home-manager configuration"
@@ -155,16 +163,27 @@ category = "Update"
 
 
 [devshell]
+name = "Tsunamis Nix Flake"
+motd = '''
+  {202}🔨 Welcome to Tsunamis Flake{reset}
+  Type {202}menu{reset} to view commands.
+'''
+
 packages = [
-  "age",
-  "alejandra",
-  "git",
-  "home-manager",
-  "just",
-  "nano",
-  "nix",
-  "pre-commit",
-  "sops",
-  "ssh-to-age",
-  "zoxide",
+  "age", # sops
+  "alejandra", # formatter
+  "deadnix", # deadnix
+  "direnv", # direnv
+  "git", # git
+  "home-manager", # home-manager
+  "nano", # editor
+  "nh", # nix-helper
+  "nil", # nix-language-server
+  "nix-output-monitor", # drop in replacement for nix
+  "nvd", # nix diff
+  "nix", # nix
+  "pre-commit", # pre-commit
+  "sops", # sops
+  "ssh-to-age", # sops
+  "zoxide", # zoxide
 ]

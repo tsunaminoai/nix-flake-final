@@ -1,6 +1,7 @@
 {
   lib,
   inputs,
+  pkgs,
   ...
 }: let
 in {
@@ -21,6 +22,9 @@ in {
   home = {
     homeDirectory = "/Users/bcraton";
     username = "bcraton";
+    packages = with pkgs; [
+      azure-cli
+    ];
   };
 
   programs.git = {
