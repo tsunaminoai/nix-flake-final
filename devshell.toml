@@ -170,6 +170,7 @@ packages = [
   "home-manager", # home-manager
   "nano", # editor
   "nh", # nix-helper
+  "nil", # nix-linter
   "nix-output-monitor", # drop in replacement for nix
   "nvd", # nix diff
   "nix", # nix
