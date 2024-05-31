@@ -2,7 +2,7 @@
 name = "build"
 command ='''
 git add .
-scripts/build.sh
+scripts/build.sh |& nom
 '''
 help = "Builds the flake"
 category = "Build"
@@ -10,7 +10,7 @@ category = "Build"
 [[commands]]
 name = "test-flake"
 command ='''
-nix flake check
+nix flake check |& nom
 '''
 help = "Tests the flake"
 category = "Test"
@@ -18,7 +18,7 @@ category = "Test"
 [[commands]]
 name = "test-system"
 command ='''
-scripts/system-flake-test.sh
+scripts/system-flake-test.sh |& nom
 '''
 help = "Tests the system configuration"
 category = "Test"
@@ -36,7 +36,7 @@ category = "Build"
 name = "rebuild-system"
 command ='''
 git add .
-scripts/system-flake-rebuild.sh
+scripts/system-flake-rebuild.sh |& nom
 check-sops
 '''
 help = "Rebuilds the system configuration"
@@ -63,7 +63,7 @@ category = "Utils"
 name = "rebuild-system-trace"
 command ='''
 git add .
-scripts/system-flake-rebuild-trace.sh
+scripts/system-flake-rebuild-trace.sh |& nom
 check-sops
 '''
 help = "Rebuilds the system configuration with tracing"
@@ -72,7 +72,7 @@ category = "Build"
 [[commands]]
 name = "update-flake"
 command ='''
-nix flake update
+nix flake update |& nom
 '''
 help = "Updates the flake"
 category = "Update"
@@ -170,7 +170,7 @@ packages = [
   "home-manager", # home-manager
   "nano", # editor
   "nh", # nix-helper
-  "nil", # nix-linter
+  "nil", # nix-language-server
   "nix-output-monitor", # drop in replacement for nix
   "nvd", # nix diff
   "nix", # nix
