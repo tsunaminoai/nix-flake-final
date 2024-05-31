@@ -1,8 +1,11 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    netscanner
+    # netscanner
     wakeonlan
-    nload
+    # nload
     nmap
+    iperf3
+    # ipmiutil
+    dhcping
   ];
 }
