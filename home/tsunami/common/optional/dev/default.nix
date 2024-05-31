@@ -1,6 +1,10 @@
 {pkgs, ...}: {
+  imports = [
+    ./vscode.nix
+  ];
+
   home.packages = with pkgs; [
-    vscode
+    devbox
     shellcheck
     nixfmt-rfc-style
     alejandra
