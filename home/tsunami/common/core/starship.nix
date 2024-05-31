@@ -1,9 +1,4 @@
-{
-  home,
-  pkgs,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
