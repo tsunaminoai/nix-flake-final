@@ -1,12 +1,11 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     ffmpeg
-    imagemagic
-    fluid-synth
+    imagemagick
+    fluidsynth
     lame
     mpg123
     sox
-    vlc
     youtube-dl
   ];
 }

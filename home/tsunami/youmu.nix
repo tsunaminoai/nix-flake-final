@@ -7,6 +7,7 @@
     common/optional/sops.nix
     common/optional/dev
     common/optional/neofetch
+    common/optional/media
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };

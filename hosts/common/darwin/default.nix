@@ -3,7 +3,6 @@
   outputs,
   pkgs,
   lib,
-  nix,
   ...
 }: {
   # See: https://daiderd.com/nix-darwin/manual/index.html
@@ -15,7 +14,6 @@
     # tailscale should only be imported on darwin using home-manager
     ../security
   ];
-
 
   home-manager.extraSpecialArgs = {inherit inputs outputs;};
   time.timeZone = lib.mkDefault "America/Indiana/Indianapolis";
