@@ -61,30 +61,6 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    # Windows management
-
-    hyprland = {
-      url = "github:hyprwm/Hyprland/";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprcontrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
-    # Status bar
-    barbie = {
-      url = "github:sioodmy/barbie";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
-        flake-parts.follows = "flake-parts";
-      };
-    };
-
     # a tree-wide formatter
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -161,6 +137,7 @@
         config.allowUnfree = true;
         overlays = [
           devshell.overlays.default
+          nix-topology.overlays.default
         ];
       });
   in {
@@ -196,13 +173,19 @@
       # Ishtar VM on Ereshkigal (Proxmox)
       ishtar = lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [./hosts/ishtar];
+        modules = [
+          ./hosts/ishtar
+          nix-topology.nixosModules.default
+        ];
         specialArgs = {inherit inputs outputs;};
       };
       # Mokou Desktop
       mokou = lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [./hosts/mokou];
+        modules = [
+          ./hosts/mokou
+          nix-topology.nixosModules.default
+        ];
         specialArgs = {inherit inputs outputs;};
       };
 
@@ -274,28 +257,16 @@
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
-      # "ta@grief" = lib.homeManagerConfiguration {
-      #   modules = [./home/ta/grief.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
-      # "ta@guppy" = lib.homeManagerConfiguration {
-      #   modules = [./home/ta/guppy.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
-      # "media@gusto" = lib.homeManagerConfiguration {
-      #   modules = [./home/media/gusto.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
-      # "ta@gusto" = lib.homeManagerConfiguration {
-      #   modules = [./home/ta/gusto.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
     };
 
-    #################### DevShell Configurations ####################
+    topology = import nix-topology {
+      pkgs = pkgsFor.x86_64-darwin; # Only this package set must include nix-topology.overlays.default
+      modules = [
+        # Your own file to define global topology. Works in principle like a nixos module but uses different options.
+        ./docs/topology
+        # Inline module to inform topology of your existing NixOS hosts.
+        {nixosConfigurations = self.nixosConfigurations;}
+      ];
+    };
   };
 }
