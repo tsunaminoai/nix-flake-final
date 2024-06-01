@@ -71,7 +71,7 @@
         disabled = false;
         loaded_msg = "󰉋 ";
         allowed_msg = "󰇵 ";
-        not_allowed_msg = " ";
+        # not_allowed_msg = " ";
         denied_msg = "  ";
         unloaded_msg = " ";
       };
