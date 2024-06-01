@@ -4,7 +4,11 @@
 #  NixOS running on VirtualBox VM
 #
 ###############################################################
-{inputs, ...}: {
+{
+  inputs,
+  config,
+  ...
+}: {
   imports = [
     #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-intel
@@ -24,6 +28,27 @@
     ../common/users/tsunami
   ];
   # set custom autologin options. see greetd.nix for details
+
+  toplogy.self = {
+    name = "Ishtar";
+    interfaces.ens18 = {
+      network = "gensokyo";
+      renderer.hidePhysicalConnections = true;
+      virtual = true;
+      type = "wireguard";
+    };
+    interfaces.tailscale0 = {
+      network = "tailscale";
+      renderer.hidePhysicalConnections = true;
+      virtual = true;
+      type = "wireguard";
+    };
+
+    hardware.info = "Proxmox VM";
+    # physicalConnections = [
+    #   (config.lib.topology.mkConnection "mokou" "wg0")
+    # ];
+  };
 
   services.gnome.gnome-keyring.enable = true;
   #TODO enable and move to greetd area? may need authentication dir or something?

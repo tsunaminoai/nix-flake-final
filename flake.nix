@@ -265,7 +265,9 @@
         # Your own file to define global topology. Works in principle like a nixos module but uses different options.
         ./docs/topology
         # Inline module to inform topology of your existing NixOS hosts.
-        {nixosConfigurations = self.nixosConfigurations;}
+        {
+          nixosConfigurations = self.nixosConfigurations;
+        }
       ];
     };
   };
