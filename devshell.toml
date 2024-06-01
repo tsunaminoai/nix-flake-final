@@ -95,7 +95,7 @@ help = "Updates and rebuilds the system configuration"
 category = "Update"
 
 [[commands]]
-name = "diff"
+name = "diff-flake"
 command ='''
 git diff ':!flake.lock'
 '''
