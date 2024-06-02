@@ -1,5 +1,9 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
+    imports = [
+      ./newsboat.nix
+    ];
+    
+    home.packages = with pkgs; [
     asciidoctor
     asciigraph
     asciinema

@@ -57,8 +57,8 @@ in {
     sessionVariables = {
       FLAKE = "$HOME/code/nix/nix-flake-final";
       SHELL = "fish";
-      TERM = "kitty";
-      TERMINAL = "kitty";
+#      TERM = "kitty";
+#      TERMINAL = "kitty";
       EDITOR = "nano";
       # TODO: investigate if this is needed
       # MANPAGER = "batman"; # see ./cli/bat.nix
