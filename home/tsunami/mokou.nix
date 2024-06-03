@@ -17,6 +17,9 @@ in {
     common/optional/browsers
     common/optional/comms
     common/optional/tools
+    common/optional/office
+    common/optional/editors
+  
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };

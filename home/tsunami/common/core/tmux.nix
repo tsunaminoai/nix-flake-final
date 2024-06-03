@@ -14,13 +14,13 @@
     mouse = true;
     prefix = "C-a";
     # terminal = "xterm-256color";
-    # terminal = "tmux-256color";
+    terminal = "tmux-256color";
     escapeTime = 50;
     historyLimit = 30000;
-     extraConfig = ''
-set -ga terminal-overrides ",xterm-256color:RGB"
-'';
-#        sensibleOnTop = true;
+    extraConfig = ''
+      set -ga terminal-overrides ",xterm-256color:RGB"
+    '';
+    sensibleOnTop = true;
     plugins = with pkgs.tmuxPlugins; [
 #      cpu
 #      yank
@@ -40,13 +40,13 @@ set -ga terminal-overrides ",xterm-256color:RGB"
 #          set -g @scroll-speed-num-lines-per-scroll "1"
 #        '';
 #      }
-#      {
-#        plugin = catppuccin;
-#        extraConfig = ''
-#          set -g @catppuccin_flavour 'macchiato'
-#          set -g @catppuccin_date_time "%a %b-%d %H:%M"
-#        '';
-#      }
+      {
+        plugin = catppuccin;
+        extraConfig = ''
+          set -g @catppuccin_flavour 'macchiato'
+          set -g @catppuccin_date_time "%a %b-%d %H:%M"
+        '';
+      }
     ];
   };
 }
