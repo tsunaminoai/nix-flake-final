@@ -9,6 +9,7 @@
     common/optional/neofetch
     common/optional/media
     common/optional/office
+    common/optional/editors
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };
