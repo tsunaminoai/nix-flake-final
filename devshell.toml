@@ -168,7 +168,8 @@ packages = [
   "direnv", # direnv
   "git", # git
   "home-manager", # home-manager
-  "nano", # editor
+"manix", # help docs in terminal
+    "nano", # editor
   "nh", # nix-helper
   "nil", # nix-language-server
   "nix-output-monitor", # drop in replacement for nix
