@@ -13,7 +13,8 @@ in {
     common/optional/sops.nix
 
     #################### Optional Configs ####################
-    common/optional/neofetch
+    common/optional/editors
+    common/optional/dev
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };
