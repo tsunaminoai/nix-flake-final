@@ -41,7 +41,7 @@
 
   disko.devices = {
     disk = {
-      vdb = {
+      vbd = {
         device = "/dev/vda";
         type = "disk";
         content = {
@@ -62,6 +62,12 @@
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/";
+              };
+            };
+            swap = {
+              size = "1G";
+              content = {
+                type = "swap";
               };
             };
           };

@@ -20,7 +20,7 @@
     ../common/optional/services/openssh.nix
 
     #################### Users to Create ####################
-    ../common/users/tsunami
+    #  ../common/users/tsunami
   ];
   # set custom autologin options. see greetd.nix for details
 
@@ -35,8 +35,15 @@
   ];
 
   # Enable reporting to proxmox
-  services.qemuGuest.enable = true;
+  # services.qemuGuest.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
+
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 2048;
+    } # 2GB swap file
+  ];
 }

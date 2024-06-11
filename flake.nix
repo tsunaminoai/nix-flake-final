@@ -4,7 +4,7 @@
   inputs = {
     #################### Official NixOS Package Sources ####################
 
-    nixpkgs.url = "github:NixOS/nixpkgs/release-24.05"; 
+    nixpkgs.url = "github:NixOS/nixpkgs/release-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # also see 'unstable-packages' overlay at 'overlays/default.nix"
 
     nix-darwin.url = "github:LnL7/nix-darwin";
@@ -21,7 +21,6 @@
     # Official NixOS hardware packages
     hardware = {
       url = "github:nixos/nixos-hardware";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     # Secrets management. See ./docs/secretsmgmt.md
     sops-nix = {
@@ -41,6 +40,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Impermenence
+    impermanence = {
+      url = "github:nix-community/impermanence";
+    };
     # Simplify Nix Flakes with the module system
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -134,7 +137,7 @@
     devshell,
     home-manager,
     stylix,
-    hardware,
+    impermanence,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -153,7 +156,7 @@
         config.allowUnfree = true;
         overlays = [devshell.overlays.default];
       });
-  in {
+  in rec {
     inherit lib; # Expose lib for use in custom modules
 
     # Custom modules to enable special functionality for nixos or home-manager oriented configs.
@@ -165,7 +168,16 @@
 
     # Your custom packages meant to be shared or upstreamed.
     # Accessible through 'nix build', 'nix shell', etc
-    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
+    packages =
+      forEachSystem (pkgs:
+        import ./pkgs {
+          inherit self pkgs inputs;
+        })
+      // {
+        x86_64-linux = {
+          bootstrap-image = self.nixosConfigurations.bootstrap.config.system.build.diskoImages;
+        };
+      };
 
     # Nix formatter available through 'nix fmt' https://nix-community.github.io/nixpkgs-fmt
     formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
@@ -208,6 +220,16 @@
       yuyuko = lib.nixosSystem {
         system = "x86_64-linux";
         modules = [./hosts/yuyuko];
+        specialArgs = {inherit inputs outputs;};
+      };
+      bootstrap = lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          inputs.disko.nixosModules.disko
+          inputs.impermanence.nixosModules.impermanence
+
+          ./hosts/bootstrap
+        ];
         specialArgs = {inherit inputs outputs;};
       };
     };
@@ -264,28 +286,6 @@
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
-      # "ta@grief" = lib.homeManagerConfiguration {
-      #   modules = [./home/ta/grief.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
-      # "ta@guppy" = lib.homeManagerConfiguration {
-      #   modules = [./home/ta/guppy.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
-      # "media@gusto" = lib.homeManagerConfiguration {
-      #   modules = [./home/media/gusto.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
-      # "ta@gusto" = lib.homeManagerConfiguration {
-      #   modules = [./home/ta/gusto.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
     };
-
-    #################### DevShell Configurations ####################
   };
 }
