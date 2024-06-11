@@ -1,8 +1,13 @@
 {pkgs, ...}: {
+  imports = [
+    ./vscode.nix
+    ./network-tools.nix
+  ];
+
   home.packages = with pkgs; [
-    vscode
+    devbox
     shellcheck
-    nixfmt
+    nixfmt-rfc-style
     alejandra
   ];
 }

@@ -14,32 +14,32 @@
     mouse = true;
     prefix = "C-a";
     # terminal = "xterm-256color";
-    terminal = "screen-256color";
+    terminal = "tmux-256color";
     escapeTime = 50;
     historyLimit = 30000;
-    # extraConfig = ''
-    #   set-option -g allow-passthrough on;
-    # '';
+    extraConfig = ''
+      set -ga terminal-overrides ",xterm-256color:RGB"
+    '';
     sensibleOnTop = true;
     plugins = with pkgs.tmuxPlugins; [
-      cpu
-      yank
-      {
-        plugin = weather;
-        extraConfig = ''
-          set-option -g @tmux-weather-location "klaf"
-          set-option -g @tmux-weather-units "u"
-          set-option -g @tmux-weather-format "%c+%t+%w"
-          set-option -g status-left "#{weather}"
-        '';
-      }
-      {
-        plugin = better-mouse-mode;
-        extraConfig = ''
-          set -g @scroll-without-changing-pane "on"
-          set -g @scroll-speed-num-lines-per-scroll "1"
-        '';
-      }
+#      cpu
+#      yank
+#      {
+#        plugin = weather;
+#        extraConfig = ''
+#          set-option -g @tmux-weather-location "klaf"
+#          set-option -g @tmux-weather-units "u"
+#          set-option -g @tmux-weather-format "%c+%t+%w"
+#          set-option -g status-left "#{weather}"
+#        '';
+#      }
+#      {
+#        plugin = better-mouse-mode;
+#        extraConfig = ''
+#          set -g @scroll-without-changing-pane "on"
+#          set -g @scroll-speed-num-lines-per-scroll "1"
+#        '';
+#      }
       {
         plugin = catppuccin;
         extraConfig = ''

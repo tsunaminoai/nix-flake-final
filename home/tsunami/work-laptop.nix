@@ -1,6 +1,7 @@
 {
   lib,
   inputs,
+  pkgs,
   ...
 }: let
 in {
@@ -12,7 +13,8 @@ in {
     common/optional/sops.nix
 
     #################### Optional Configs ####################
-    common/optional/neofetch
+    common/optional/editors
+    common/optional/dev
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };
@@ -21,6 +23,9 @@ in {
   home = {
     homeDirectory = "/Users/bcraton";
     username = "bcraton";
+    packages = with pkgs; [
+      azure-cli
+    ];
   };
 
   programs.git = {

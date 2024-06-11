@@ -26,5 +26,5 @@ in {
   '';
 
   # Import this user's personal/home configurations
-  home-manager.users.bcraton = import ../../../../home/tsunami/work-laptop.nix;
+  # home-manager.users.bcraton = import ../../../../home/tsunami/work-laptop.nix;
 }

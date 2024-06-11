@@ -9,7 +9,7 @@
   ];
 
   home.sessionVariables.WLR_RENDERER = lib.mkForce "gles2";
-  programs.swaylock = {
+  programs.swaylock = lib.mkDefault {
     enable = true;
     settings = {
       screenshots = true;
@@ -54,7 +54,7 @@
     waybar
   ];
 
-  wayland.windowManager.sway = {
+  wayland.windowManager.sway = lib.mkDefault {
     extraOptions = ["--unsupported-gpu"];
     enable = true;
     config = rec {

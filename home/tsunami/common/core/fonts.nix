@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  fonts.fontconfig.enable = false;
+  #  fonts.fontconfig.enable = false;
   home.packages = [
     pkgs.noto-fonts
     (pkgs.nerdfonts.override {fonts = ["DejaVuSansMono" "Iosevka" "JetBrainsMono"];})

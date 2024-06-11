@@ -108,6 +108,7 @@
   services.nix-daemon.enable = true;
 
   nix = {
+    nixPath = ["$HOME/.nix-defexpr/darwin"];
     gc = {
       automatic = true;
       interval = {
@@ -121,7 +122,7 @@
     };
     settings = {
       allowed-users = ["@admin"];
-      auto-optimise-store = true;
+      auto-optimise-store = false;
       cores = 4;
       sandbox = true;
       trusted-users = ["@admin"];
