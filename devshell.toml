@@ -58,6 +58,23 @@ nh clean user --nogcroots --keep 1
 help = "Removes non-current home generations. Does not remove direnvs"
 category = "Utils"
 
+[[commands]]
+name = "build-bootstrap-image"
+command = '''
+  nom build .#bootstrap-image
+'''
+help = "Builds bootstrap image for low memory VMs. Contains only root."
+category = "Build"
+
+[[commands]]
+name = "deploy-bootstrap-image"
+command = '''
+  build-bootstrap-image
+  cat result/main.raw |pv| ssh root@$1 "dd of=/dev/$2"
+  ssh root@$1 "reboot"
+'''
+help = "Builds and deploys the bootstrap image to <$1> on device <$2>"
+category = "Build"
 
 [[commands]]
 name = "rebuild-system-trace"
@@ -168,14 +185,15 @@ packages = [
   "direnv", # direnv
   "git", # git
   "home-manager", # home-manager
-"manix", # help docs in terminal
-    "nano", # editor
+  "manix", # help docs in terminal
+  "nano", # editor
   "nh", # nix-helper
   "nil", # nix-language-server
   "nix-output-monitor", # drop in replacement for nix
   "nvd", # nix diff
   "nix", # nix
   "pre-commit", # pre-commit
+  "pv", # pive viewer
   "sops", # sops
   "ssh-to-age", # sops
   "zoxide", # zoxide
