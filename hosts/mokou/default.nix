@@ -27,6 +27,7 @@
     # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
+    ../common/optional/services/linux-builder.nix
     ../common/optional/nvidia.nix
     ../common/optional/virtualization.nix
     ../common/optional/wayland

@@ -130,7 +130,20 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+    buildMachines = [
+      {
+        hostName = "ishtar";
+        system = "x86_64-linux";
+        maxJobs = 4; # Adjust based on your NixOS machine's capabilities
+        supportedFeatures = [ "kvm" "big-parallel" ];
+        mandatoryFeatures = [ "big-parallel" ];
+        sshUser = "tsunami";
+        sshKey = "$HOME/.ssh/id_ed25519";
+      }
+    ];
   };
+
+  
 
   # backwards compat; don't change
   system.stateVersion = 4;
@@ -145,4 +158,6 @@
   };
 
   nix.package = pkgs.nix;
+
+
 }

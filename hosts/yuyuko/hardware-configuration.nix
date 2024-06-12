@@ -60,14 +60,8 @@
               size = "100%";
               content = {
                 type = "filesystem";
-                format = "ext4";
+                format = "brtfs";
                 mountpoint = "/";
-              };
-            };
-            swap = {
-              size = "1G";
-              content = {
-                type = "swap";
               };
             };
           };
