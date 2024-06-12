@@ -176,6 +176,7 @@
       // {
         x86_64-linux = {
           bootstrap-image = self.nixosConfigurations.bootstrap.config.system.build.diskoImages;
+          yuyuko-image = self.nixosConfigurations.yuyuko.config.system.build.diskoImages;
         };
       };
 
