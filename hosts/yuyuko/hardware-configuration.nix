@@ -39,17 +39,21 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
+
   disko.devices = {
     disk = {
-      vbd = {
-        device = "/dev/vda";
+      vdb = {
         type = "disk";
+        device = "/dev/disk/by-diskseq/1";
         content = {
           type = "gpt";
           partitions = {
             ESP = {
-              type = "EF02";
-              size = "500M";
+              priority = 1;
+              name = "ESP";
+              start = "1M";
+              end = "128M";
+              type = "EF00";
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -59,9 +63,10 @@
             root = {
               size = "100%";
               content = {
-                type = "filesystem";
-                format = "brtfs";
+                type = "btrfs";
+                extraArgs = [ "-f" ]; # Override existing partition
                 mountpoint = "/";
+                mountOptions = [ "compress=zstd" "noatime" ];
               };
             };
           };
@@ -69,4 +74,7 @@
       };
     };
   };
+
+
+
 }

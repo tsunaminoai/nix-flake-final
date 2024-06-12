@@ -30,7 +30,7 @@
   };
 
   # faster rebuild times
-  documentation = {
+  documentation = lib.mkDefault {
     enable = true;
     doc.enable = false;
     man.enable = true;

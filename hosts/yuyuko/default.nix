@@ -11,7 +11,12 @@
 
     #################### Required Configs ####################
     ./hardware-configuration.nix
-    ../common/core
+    ../common/security
+    ../common/core/locale.nix    
+    ../common/core/nix.nix    
+    ../common/core/sops.nix    
+    ../common/core/services/tailscale.nix    
+    ../common/core/services/auto-upgrade.nix    
 
     #################### Host-specific Optional Configs ####################
     # ../common/optional/yubikey
@@ -34,16 +39,12 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBm4yzmOrF+MCV+w0yfd10R88iHR6QusZBCpEtPFm+f+ tsunami@mokou"
   ];
 
+  documentation.enable = false;
+  
   # Enable reporting to proxmox
   # services.qemuGuest.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
-
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 2048;
-    } # 2GB swap file
-  ];
 }
+
