@@ -1,4 +1,4 @@
-{flake-env,...}: {
+{flake-env, ...}: {
   programs.direnv = {
     enable = true;
     enableBashIntegration = true;
