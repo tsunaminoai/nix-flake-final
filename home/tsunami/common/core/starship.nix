@@ -5,6 +5,10 @@
 }: let
   style = config.lib.stylix.colors;
 in {
+  # disable devbox prompt interaction
+  home.sessionVariables = {
+    DEVBOX_NO_PROMPT = "true";
+  };
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
