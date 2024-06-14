@@ -1,6 +1,5 @@
 {
   home,
-  pkgs,
   config,
   ...
 }: {

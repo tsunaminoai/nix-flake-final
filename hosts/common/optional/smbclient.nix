@@ -1,7 +1,6 @@
 # create a systemd service to automatically mount the ghost mediashare at boot
 {
   pkgs,
-  config,
   ...
 }: {
   # required to mount cifs using domain name

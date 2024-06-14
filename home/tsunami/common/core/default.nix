@@ -3,7 +3,6 @@
   lib,
   pkgs,
   outputs,
-  stylix,
   ...
 }: let
   homeRoot =

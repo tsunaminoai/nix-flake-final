@@ -36,7 +36,6 @@
     else darwinSecOptions;
 in {
   config = {
-    inherit (conditionalAttrs);
 
     programs.gnupg.agent = lib.mkDefault {
       enable = true;

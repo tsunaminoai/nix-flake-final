@@ -1,12 +1,9 @@
 {
   pkgs,
-  config,
   inputs,
   home,
   ...
-}: let
-  secretspath = builtins.toString inputs.mysecrets;
-in {
+}: {
   imports = [
     #    inputs.sops-nix.homeManagerModules.sops
   ];

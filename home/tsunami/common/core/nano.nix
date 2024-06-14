@@ -1,7 +1,5 @@
 {
   home,
-  pkgs,
-  config,
   ...
 }: {
   home.file.".nanorc".text = ''

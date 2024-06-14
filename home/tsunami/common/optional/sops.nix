@@ -3,7 +3,6 @@
   inputs,
   pkgs,
   config,
-  lib,
   ...
 }: let
   secretspath = builtins.toString inputs.mysecrets;

@@ -1,6 +1,4 @@
 {
-  home,
-  pkgs,
   ...
 }: {
   programs.gh = {
