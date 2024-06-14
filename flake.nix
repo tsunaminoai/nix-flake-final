@@ -4,7 +4,7 @@
   inputs = {
     #################### Official NixOS Package Sources ####################
 
-    nixpkgs.url = "github:NixOS/nixpkgs/release-24.05"; 
+    nixpkgs.url = "github:NixOS/nixpkgs/release-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # also see 'unstable-packages' overlay at 'overlays/default.nix"
 
     nix-darwin.url = "github:LnL7/nix-darwin";
@@ -203,22 +203,6 @@
           ./hosts/common/optional/installeriso.nix
         ];
       };
-
-<<<<<<< HEAD
-      test-vm = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./hosts/test-vm
-        ];
-      };
-      # # theatre
-      # gusto = lib.nixosSystem {
-      #   modules = [./hosts/gusto];
-      #   specialArgs = {inherit inputs outputs;};
-      # };
-=======
->>>>>>> d34b018 (Clean up unused inputs. Fix issue with darwin store caching)
     };
 
     darwinConfigurations = {

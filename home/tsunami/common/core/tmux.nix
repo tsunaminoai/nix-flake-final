@@ -22,24 +22,24 @@
     '';
     sensibleOnTop = true;
     plugins = with pkgs.tmuxPlugins; [
-#      cpu
-#      yank
-#      {
-#        plugin = weather;
-#        extraConfig = ''
-#          set-option -g @tmux-weather-location "klaf"
-#          set-option -g @tmux-weather-units "u"
-#          set-option -g @tmux-weather-format "%c+%t+%w"
-#          set-option -g status-left "#{weather}"
-#        '';
-#      }
-#      {
-#        plugin = better-mouse-mode;
-#        extraConfig = ''
-#          set -g @scroll-without-changing-pane "on"
-#          set -g @scroll-speed-num-lines-per-scroll "1"
-#        '';
-#      }
+      #      cpu
+      #      yank
+      #      {
+      #        plugin = weather;
+      #        extraConfig = ''
+      #          set-option -g @tmux-weather-location "klaf"
+      #          set-option -g @tmux-weather-units "u"
+      #          set-option -g @tmux-weather-format "%c+%t+%w"
+      #          set-option -g status-left "#{weather}"
+      #        '';
+      #      }
+      #      {
+      #        plugin = better-mouse-mode;
+      #        extraConfig = ''
+      #          set -g @scroll-without-changing-pane "on"
+      #          set -g @scroll-speed-num-lines-per-scroll "1"
+      #        '';
+      #      }
       {
         plugin = catppuccin;
         extraConfig = ''
