@@ -7,7 +7,6 @@
   inputs,
   modulesPath,
   lib,
-  pkgs,
   ...
 }: {
   #import modules used by nixos-anywhere

@@ -134,7 +134,6 @@
     devshell,
     home-manager,
     stylix,
-    hardware,
     ...
   } @ inputs: let
     inherit (self) outputs;

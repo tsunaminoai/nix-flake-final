@@ -1,7 +1,6 @@
 # Modeled on https://github.com/Mic92/dotfiles for now
 {
   pkgs,
-  lib,
   ...
 }: let
   scripts = import ./scripts {inherit pkgs;};
