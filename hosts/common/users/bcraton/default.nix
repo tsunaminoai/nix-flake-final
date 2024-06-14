@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   users.users.bcraton = {
     home = "/Users/bcraton";
     shell = pkgs.fish; #default shell
