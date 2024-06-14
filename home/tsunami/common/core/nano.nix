@@ -1,7 +1,4 @@
-{
-  home,
-  ...
-}: {
+{home, ...}: {
   home.file.".nanorc".text = ''
 
     set tabsize 2

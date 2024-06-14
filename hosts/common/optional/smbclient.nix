@@ -1,8 +1,5 @@
 # create a systemd service to automatically mount the ghost mediashare at boot
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # required to mount cifs using domain name
   environment.systemPackages = [pkgs.cifs-utils];
 

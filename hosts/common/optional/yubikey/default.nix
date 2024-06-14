@@ -1,8 +1,5 @@
 # Modeled on https://github.com/Mic92/dotfiles for now
-{
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   scripts = import ./scripts {inherit pkgs;};
 in {
   environment.systemPackages = with pkgs; [
