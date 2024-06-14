@@ -1,4 +1,10 @@
-{lib, ...}: {
+{
+  lib,
+  config,
+  ...
+}: let
+  style = config.lib.stylix.colors;
+in {
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
@@ -11,12 +17,12 @@
         "$username"
         "$os"
         "$hostname"
-        "[](bg:color_green fg:color_blue)"
+        "[ ](bg:color_cyan fg:color_blue)"
         "$directory"
-        "[](bg:color_aqua fg:color_green)"
+        "[ ](bg:color_green fg:color_cyan)"
         "$git_branch"
         "$git_status"
-        "[](bg:color_yellow fg:color_aqua)"
+        "[ ](bg:color_yellow fg:color_green)"
         "$direnv"
         "$c"
         "$elixir"
@@ -40,39 +46,41 @@
         "[](fg:color_purple)"
       ];
 
-      palette = "gruvbox_dark";
-      palettes.gruvbox_dark = {
-        color_fg0 = "#fbf1c7";
-        color_bg1 = "#3c3836";
-        color_bg3 = "#665c54";
-        color_blue = "#458588";
-        color_aqua = "#689d6a";
-        color_green = "#98971a";
-        color_orange = "#d65d0e";
-        color_purple = "#b16286";
-        color_red = "#cc241d";
-        color_yellow = "#d79921";
+      palette = "stylix";
+      palettes.stylix = {
+        color_fg0 = "#" + style.base05;
+        color_fg1 = "#" + style.base04;
+        color_bg0 = "#" + style.base00;
+        color_bg1 = "#" + style.base01;
+        color_blue = "#" + style.base0D;
+        color_cyan = "#" + style.base0C;
+        color_green = "#" + style.base0B;
+        color_orange = "#" + style.base09;
+        color_purple = "#" + style.base0E;
+        color_red = "#" + style.base08;
+        color_yellow = "#" + style.base0A;
+        color_brown = "#" + style.base0F;
       };
 
       username = {
-        show_always = true;
+        disabled = false;
         style_user = "fg:color_fg0 bg:color_blue";
         style_root = "fg:color_red bg:color_blue";
         format = "[$user]($style)";
-        disabled = false;
+        show_always = true;
       };
 
       hostname = {
         style = "fg:color_fg0 bg:color_blue";
-       ssh_only = false;
-        ssh_symbol = "󰢩";
         format = "[$hostname $ssh_symbol]($style)";
+        ssh_only = false;
+        ssh_symbol = "󰢩";
       };
 
       os = {
-        style = "fg:color_fg0 bg:color_blue";
         disabled = false;
-        format = "[$symbol]($style)";
+        style = "fg:color_fg0 bg:color_blue";
+        format = "[ $symbol ]($style)";
         symbols = {
           Macos = "";
           Debian = "";
@@ -81,10 +89,10 @@
         };
       };
       direnv = {
-        symbol = "";
+        disabled = false;
         style = "bg:color_yellow fg:color_fg0";
         format = "[$symbol$loaded ]($style)";
-        disabled = false;
+        symbol = "";
         loaded_msg = "󰉋";
         # allowed_msg = "󰇵 ";
         # not_allowed_msg = " ";
@@ -93,10 +101,10 @@
       };
 
       directory = {
-        style = "bg:color_green fg:color_fg0";
+        style = "bg:color_cyan fg:color_fg0";
+        format = "[$path ]($style)";
         fish_style_pwd_dir_length = 10;
         truncate_to_repo = true;
-        format = "[$path ]($style)";
         truncation_symbol = "…/";
         truncation_length = 20;
         read_only = "";
@@ -111,14 +119,17 @@
       };
 
       git_branch = {
-        style = "bg:color_aqua fg:color_fg0";
+        disabled = false;
+        style = "bg:color_green fg:color_fg0";
         format = "[$symbol$branch ]($style)";
         symbol = "";
-        disabled = false;
         truncation_length = 20;
       };
 
       git_status = {
+        disabled = false;
+        style = "bg:color_green fg:color_fg0";
+        format = "[$conflicted$staged$modified$untracked$stashed$renamed$deleted ]($style)";
         ahead = "↑";
         behind = "↓";
         diverged = "↕";
@@ -129,29 +140,26 @@
         stashed = "✭";
         renamed = "➜";
         deleted = "✖";
-        format = "[$conflicted$staged$modified$untracked$stashed$renamed$deleted ]($style)";
-        style = "bg:color_aqua fg:color_fg0";
-        disabled = false;
       };
       nix_shell = {
-        symbol = "";
-        style = "bg:color_yellow fg:color_fg0";
-        format = "[$symbol$name ]($style)";
         disabled = false;
+        style = "bg:color_yellow fg:color_fg0";
+        format = "[$symbol $name ]($style)";
+        symbol = "";
       };
 
       time = {
         disabled = false;
-        time_format = "%R"; # Hour:Minute Format
         style = "bg:color_purple fg:color_fg0";
         format = "[$time ]($style)";
+        time_format = "%R"; # Hour:Minute Format
       };
 
       zig = {
-        symbol = "⚡️ ";
         style = "bg:color_yellow fg:color_fg0";
+        format = "[$symbol ($version) ]($style)";
         version_format = "v\${raw}";
-        format = "[$symbol($version) ]($style)";
+        symbol = "⚡️";
       };
     };
   };
