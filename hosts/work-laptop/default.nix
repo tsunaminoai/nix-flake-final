@@ -4,9 +4,7 @@
 #  Macbook Pro 13" M1 (apple-silicon) Running nix-darwin
 #
 ###############################################################
-{
-  ...
-}: {
+{...}: {
   imports = [
     #################### Required Configs ####################
     ../common/darwin
