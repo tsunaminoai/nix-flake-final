@@ -10,5 +10,5 @@
     youtube-dl
     youtube-tui
     ytfzf
-    ];
+  ];
 }

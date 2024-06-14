@@ -18,13 +18,13 @@ in {
       maxCacheTtlSsh = 4 * 60 * 60; # 4 hours
     };
   };
-#  programs.fish.interactiveShellInit = ''
-#    if test -f $HOME/.gnupg/gpg-agent.conf
-#      set -x GPG_TTY (tty)
-#      set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-#      gpgconf --launch gpg-agent
-#    end
-#  '';
+  #  programs.fish.interactiveShellInit = ''
+  #    if test -f $HOME/.gnupg/gpg-agent.conf
+  #      set -x GPG_TTY (tty)
+  #      set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+  #      gpgconf --launch gpg-agent
+  #    end
+  #  '';
 
   home.file.".gnupg/gpg-agent.reference".text = ''
     # https://github.com/drduh/config/blob/master/gpg-agent.conf

@@ -1,4 +1,4 @@
-{...}:{
+{...}: {
   programs.newsboat = {
     enable = true;
     autoReload = true;
@@ -9,26 +9,21 @@
         tags = ["ciso"];
         title = "Cybereason";
       }
-       {
+      {
         url = "https://cisomag.com/feed";
         tags = ["ciso"];
         title = "CISO Mag";
       }
- {
+      {
         url = "https://cisostreet.com/feed";
         tags = ["ciso"];
         title = "CISO Street";
       }
- {
+      {
         url = "https://welivesecurity.com/feed";
         tags = ["security"];
         title = "WeLiveSecurity";
       }
-
     ];
   };
 }
-
-
-
-
