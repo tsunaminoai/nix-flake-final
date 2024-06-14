@@ -1,6 +1,4 @@
-{
-  ...
-}: {
+{...}: {
   imports = [
     # custom key binds
     ./binds.nix

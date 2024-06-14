@@ -1,8 +1,5 @@
 # hosts level sops. see home/[user]/common/optional/sops.nix for home/user level
-{
-  inputs,
-  ...
-}: let
+{inputs, ...}: let
   secretspath = builtins.toString inputs.mysecrets;
 in {
   imports = [
