@@ -9,7 +9,6 @@
   inputs,
   pkgs,
   config,
-  scripts,
   ...
 }: {
   imports = [

@@ -117,7 +117,6 @@
     home-manager,
     nix-topology,
     stylix,
-    hardware,
     ...
   } @ inputs: let
     inherit (self) outputs;

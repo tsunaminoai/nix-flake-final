@@ -1,10 +1,7 @@
 {
-  lib,
-  inputs,
   pkgs,
   ...
-}: let
-in {
+}: {
   imports = [
     #################### Required Configs ####################
     ./common/core #required

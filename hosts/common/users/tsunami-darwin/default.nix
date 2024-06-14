@@ -1,11 +1,8 @@
 {
   pkgs,
-  inputs,
   config,
   ...
-}: let
-  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
-in {
+}: {
   users.users.tsunami = {
     home = "/Users/tsunami";
     shell = pkgs.fish; #default shell
