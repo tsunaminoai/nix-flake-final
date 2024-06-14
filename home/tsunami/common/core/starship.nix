@@ -163,7 +163,7 @@ in {
         style = "bg:color_yellow fg:color_fg0";
         format = "[$symbol ($version) ]($style)";
         version_format = "v\${raw}";
-        symbol = "⚡️";
+        symbol = "󱐋";
       };
     };
   };
