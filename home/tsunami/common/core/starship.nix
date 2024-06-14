@@ -48,8 +48,8 @@ in {
 
       palette = "stylix";
       palettes.stylix = {
-        color_fg0 = "#" + style.base05;
-        color_fg1 = "#" + style.base04;
+        color_fg0 = "#" + style.base04;
+        color_fg1 = "#" + style.base05;
         color_bg0 = "#" + style.base00;
         color_bg1 = "#" + style.base01;
         color_blue = "#" + style.base0D;
