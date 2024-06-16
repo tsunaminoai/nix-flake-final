@@ -2,79 +2,16 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-  config,
-  lib,
-  pkgs,
-  modulesPath,
-  inputs,
+ modulesPath,
   ...
 }: {
-  imports = [
-    (modulesPath + "/profiles/qemu-guest.nix")
-    inputs.disko.nixosModules.disko
-  ];
 
-  boot.initrd.availableKernelModules = ["ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sr_mod" "virtio_blk"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
-  boot.extraModulePackages = [];
-
-  boot.loader = {
-    grub = {
-      # no need to set devices, disko will add all devices that have a EF02 partition to the list already
-      # devices = [ ];
-      efiSupport = true;
-      efiInstallAsRemovable = true;
-    };
-    timeout = 3;
-  };
-
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.ens3.useDHCP = lib.mkDefault true;
-  # networking.interfaces.ens4.useDHCP = lib.mkDefault true;
-
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
-
-  disko.devices = {
-    disk = {
-      vdb = {
-        type = "disk";
-        device = "/dev/disk/by-diskseq/1";
-        content = {
-          type = "gpt";
-          partitions = {
-            ESP = {
-              priority = 1;
-              name = "ESP";
-              start = "1M";
-              end = "128M";
-              type = "EF00";
-              content = {
-                type = "filesystem";
-                format = "vfat";
-                mountpoint = "/boot";
-              };
-            };
-            root = {
-              size = "100%";
-              content = {
-                type = "btrfs";
-                extraArgs = [ "-f" ]; # Override existing partition
-                mountpoint = "/";
-                mountOptions = [ "compress=zstd" "noatime" ];
-              };
-            };
-          };
-        };
-      };
-    };
-  };
-
+  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+  boot.loader.grub.device = "/dev/vda";
+  boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "xen_blkfront" "vmw_pvscsi" ];
+  boot.initrd.kernelModules = [ "nvme" ];
+  fileSystems."/" = { device = "/dev/vda1"; fsType = "ext4"; };
+  swapDevices = [ { device = "/dev/vda5"; } ];
 
 
 }
