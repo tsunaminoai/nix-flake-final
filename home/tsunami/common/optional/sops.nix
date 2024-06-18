@@ -26,11 +26,13 @@ in {
     age.keyFile = keyLocation;
 
     defaultSopsFile = "${secretspath}/secrets.yaml";
-    validateSopsFiles = false;
+    validateSopsFiles = true;
 
     secrets = {
-      "taskchampion/tsunami/client_id" = {};
-      "taskchampion/tsunami/encryption_secret" = {};
+      "taskchampion/tsunami" = {
+        path = "${homeDir}/.config/task/taskchamption-sync";
+        mode = "0400";
+      };
       "github/ssh-pub" = {
         path = "${homeDir}/.ssh/github.pub";
         mode = "0400";

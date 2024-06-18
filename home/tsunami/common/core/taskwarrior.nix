@@ -156,15 +156,10 @@
           };
         };
       };
-      sync = {
-        server = {
-          origin = "voile.armadillo-banfish.ts.net:9898";
-          client_id = config.sops.secrets."taskchampion/tsunami/client_id";
-        };
-
-        encryption_secret = config.sops.secrets."taskchampion/tsunami/encryption_secret";
-      };
     };
+    extraConfig = ''
+      include  ${config.home.homeDirectory}/.config/task/taskchamption-sync
+    '';
   };
 
   services.taskwarrior-sync =
