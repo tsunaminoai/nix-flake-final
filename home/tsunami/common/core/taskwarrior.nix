@@ -158,7 +158,7 @@
       };
     };
     extraConfig = ''
-      include  ~/.config/task/taskchamption-sync
+      include  ~/.config/task/taskchampion-sync
     '';
   };
 
