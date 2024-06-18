@@ -1,4 +1,5 @@
-# hosts level sops. see home/[user]/common/optional/sops.nix for home/user level
+# hosts level sops.
+# ** see home/[user]/common/optional/sops.nix for home/user level **
 {inputs, ...}: let
   secretspath = builtins.toString inputs.mysecrets;
 in {
@@ -27,7 +28,6 @@ in {
       "tailscale/auth-key" = {
         path = "/var/lib/tailscale/tailscale.key";
       };
-
       # msmtp-host = {};
       # msmtp-address = {};
       # msmtp-password = {};

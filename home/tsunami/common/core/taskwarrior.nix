@@ -8,6 +8,7 @@
   ];
   programs.taskwarrior = {
     enable = true;
+    package = pkgs.taskwarrior3;
     dataLocation = "~/.task";
     colorTheme = "dark-blue-256";
     config = {
@@ -155,13 +156,13 @@
           };
         };
       };
-      taskd = {
-        certificate = config.sops.secrets."taskwarrior/user-cert".path;
-        key = config.sops.secrets."taskwarrior/user-key".path;
-        ca = "~/.task/voile.ca.pem";
-        server = "voile.armadillo-banfish.ts.net:53589";
-        credentials = "Falseblue/Ben Craton/309bdd58-1026-4213-83d4-ad92e085ac92";
-        trust = "ignore hostname";
+      sync = {
+        server = {
+          origin = "voile.armadillo-banfish.ts.net:9898";
+          client_id = config.sops.secrets."taskchampion/tsunami/client_id";
+        };
+
+        encryption_secret = config.sops.secrets."taskchampion/tsunami/encryption_secret";
       };
     };
   };
@@ -181,41 +182,6 @@
     tn = "task next";
     topen = "taskopen";
   };
-
-  home.file.".task/voile.ca.pem".text = ''
-    -----BEGIN CERTIFICATE-----
-    MIIFjjCCA3agAwIBAgIUY3e3WdfYvpKfKY+Ymc/fDw4/GBswDQYJKoZIhvcNAQEM
-    BQAwXzELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAklOMRIwEAYDVQQHEwlMYWZheWV0
-    dGUxEjAQBgNVBAoTCUZhbHNlQmx1ZTEbMBkGA1UEAxMSdGFzay5mYWxzZWJsdWUu
-    Y29tMB4XDTI0MDEyNTA0NDgzOFoXDTI1MDEyNDA0NDgzOFowXzELMAkGA1UEBhMC
-    VVMxCzAJBgNVBAgTAklOMRIwEAYDVQQHEwlMYWZheWV0dGUxEjAQBgNVBAoTCUZh
-    bHNlQmx1ZTEbMBkGA1UEAxMSdGFzay5mYWxzZWJsdWUuY29tMIICIjANBgkqhkiG
-    9w0BAQEFAAOCAg8AMIICCgKCAgEA7txLsxOKl6dI82ut/Uxi0dT9Jo709st1MzDe
-    C5dBo5PK24zz8CSVraMoFEleGCtNYTciVuNqTpoOstVVJI+7dH328E5XxGgFmqow
-    x3bDx84AB2b1aiBvwYPg3EUeb0Z4JSXayw7EXkgzJ4VZUVSBEQqpXKACJ9okhenA
-    D1Z6725mQu+nm69k070uH+WlWBXOLrFY5Defni94VV/DZT0pb1xugVny1STIZAOk
-    fbkh7e+NCKyofN1DXiOjUqmJH0j6O2nHmG4shCufHhCpcNy0j0JRDCKjf0P6yCZ3
-    6TOTFCl9Soko3uLCOXYpzQmAdnqbPYLtIry8jvtC881n6g+eGOWFlWNLJ3wb3w8C
-    r31i+QHlHjB0OlOVmP63a06vEjWWVyLf+bjP9+3PscyDCivq0ef2P1eSAl9vjITS
-    HbZ/kUQLo8EffO1AqYQhzDRRDrBNHY7lf5u1HHCKsy+vYs0ZHWvbQjStwULfPeAU
-    sQWTsR1c2uHIZKFyX8eoGR/IEck8Dokm/kTYHjK0pDnZh6KIh7WMEXM68idNrHrK
-    ZBcVnTPSl/rDCn2LOuOQE+eKrvl20SMz1U7D7ms4mDzMauDq6pdvTjnrCu4hhzwv
-    Dt6JA3WmixHw+8Hr+iWor9Cmp8sFU7GCOGW1VxEzaeEyFePZDDEYWhVvlcfwRSHO
-    EOaaiC0CAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAgQw
-    HQYDVR0OBBYEFMjE91/NAB4fj+Fu4FYcU7VQm+2jMA0GCSqGSIb3DQEBDAUAA4IC
-    AQCFEnB5x5K2tB8GQPq58Dsk0lL2WqA+K6rz+Gu7yHn4grC8EQP5VsAF/FJAgQq5
-    OAmSyP9l3RgkyzF5f80rcKEIo+f4v/IR329HcSgZ6wU+NP8gBEPKIrgE73ztL9+B
-    j1s2fN1ENEv2vB4WX3sO9kz9kZREEeUXDji0ARukzRjq93sPD8KBmd9Up0xtTOOX
-    RJcotJp9a6W3vVPJ1S1vZL+OkAsdLuft0OKFNoWxbxQe0st6rz+3ecAuwZ2KLLb1
-    q+5g6PEcNCD5unD+KSSElIASJL1CPF2p/T6f8zglvm5lp9DNCxmsXFzZZXmwhsse
-    +U2kXbZBybMGaCbSh0z5C/nIR+avwuABrd2amjiAjyuuX6D4quDYcTW8BX7k8Gel
-    CwdUO7eko25VVuU9VrxkVWUHPw1h7bliz4F6iaP1NlUaTFA5qaW83M6T/3v60ZJY
-    8ZJnTtIvsemjdQ+cVRRt4AyVIVC4SHIkwxDmsP6D1L2R0Lu9Cc+rqq1ql7m1xfjt
-    jI9I1msmNgMlqB/VNUWrqG5NkKa4tqj2JqQMcsjeXZUA17WihVT3IddunODvvxPO
-    IGK22TgZlmpdEar6zVtkmQGsqHcEh+ipf2gaD/5gxPzsyS372j3fi2ByoS1qM3UR
-    RILvT4TcM9C1me7Bgq1l3/bBpjHak72F8bP8ABtQRKGp1A==
-    -----END CERTIFICATE-----
-  '';
 
   home.file.".config/taskopen/taskopenrc".text = ''
     [General]
@@ -254,7 +220,7 @@
   '';
 
   home.file.".local/share/taskopen/scripts/editobsidian".text = ''
-    #!/bin/bash
+    #!/usr/bin/env bash
     # Opens a Notes file and creates a header if file does not exist.
 
     OBSIDIAN_VAULT=~/Documents/FalseBlue-Personal
