@@ -29,14 +29,8 @@ in {
     validateSopsFiles = false;
 
     secrets = {
-      "taskwarrior/user-cert" = {
-        path = "${homeDir}/.task/cert.pem";
-        mode = "0400";
-      };
-      "taskwarrior/user-key" = {
-        path = "${homeDir}/.task/key.pem";
-        mode = "0400";
-      };
+      "taskchampion/tsunami/client_id" = {};
+      "taskchampion/tsunami/encryption_secret" = {};
       "github/ssh-pub" = {
         path = "${homeDir}/.ssh/github.pub";
         mode = "0400";
