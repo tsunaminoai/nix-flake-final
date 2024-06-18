@@ -30,7 +30,7 @@ in {
 
     secrets = {
       "taskchampion/tsunami" = {
-        path = "${homeDir}/.config/task/taskchamption-sync";
+        path = "${homeDir}/.config/task/taskchampion-sync";
         mode = "0400";
       };
       "github/ssh-pub" = {
