@@ -158,7 +158,7 @@
       };
     };
     extraConfig = ''
-      include  ${config.home.homeDirectory}/.config/task/taskchamption-sync
+      include  ~/.config/task/taskchamption-sync
     '';
   };
 
