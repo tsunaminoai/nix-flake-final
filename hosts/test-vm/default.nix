@@ -22,9 +22,9 @@
   };
 
   users.users.test = {
-  isNormalUser = true;
-  extraGroups = ["wheel"];
-  password = "demo";
+    isNormalUser = true;
+    extraGroups = ["wheel"];
+    password = "demo";
   };
 
   networking.firewall.allowedTCPPorts = [22];

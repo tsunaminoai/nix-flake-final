@@ -2,7 +2,9 @@
   pkgs,
   config,
   ...
-}:let sops = config.sops; in {
+}: let
+  sops = config.sops;
+in {
   # environment.systemPackages = with pkgs; [
   #   kavita
   # ];
@@ -15,6 +17,6 @@
     port = 3000;
     tokenKeyFile = config.sops.secrets."kavita-token-key".path;
   };
-  
+
   networking.firewall.allowedTCPPorts = [3000];
 }

@@ -2,9 +2,9 @@
 {
   pkgs,
   config,
-  
-    ...
-}: let sops = config.sops;
+  ...
+}: let
+  sops = config.sops;
   mkVoileMount = mount: {
     device = "//192.168.0.25/${mount}";
     fsType = "cifs";
@@ -14,7 +14,7 @@
       separate_options = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
     in ["${separate_options},credentials=/etc/nixos/smb-secrets"];
   };
- in {
+in {
   # required to mount cifs using domain name
   environment.systemPackages = [pkgs.cifs-utils];
 

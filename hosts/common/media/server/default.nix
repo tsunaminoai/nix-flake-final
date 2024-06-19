@@ -1,4 +1,4 @@
- {
+{
   imports = [
     ./smbclient.nix
     ./kavita.nix
@@ -16,5 +16,4 @@
     openFirewall = true;
     host = "0.0.0.0";
   };
-  
 }
