@@ -15,6 +15,7 @@
     common/optional/office
     common/optional/editors
   ];
-  # Disable impermanence
+  services.vscode-server.enable = true;
+    # Disable impermanence
   #home.persistence = lib.mkForce { };
 }
