@@ -36,7 +36,7 @@ category = "Build"
 name = "rebuild-system"
 command ='''
 git add .
-scripts/system-flake-rebuild.sh |& nom
+scripts/system-flake-rebuild.sh
 check-sops
 '''
 help = "Rebuilds the system configuration"

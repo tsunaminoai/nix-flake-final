@@ -7,8 +7,8 @@ else
 fi
 
 if [ $system != "Darwin" ]; then
-	sudo nixos-rebuild --show-trace --flake .#$HOST switch
+	sudo nixos-rebuild --show-trace --flake .#$HOST switch |& nom
 else 
-    dawrin-rebuild --show-trace --flake .#$HOST switch 
+    dawrin-rebuild --show-trace --flake .#$HOST switch |& nom
 fi
 

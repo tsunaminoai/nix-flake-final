@@ -1,7 +1,12 @@
-{...}: {
-
+ {
+  imports = [
+    ./smbclient.nix
+    ./kavita.nix
+  ];
+  # the config diretory by default is /var/lib/jellyfin/config
+  #todo: should this be simply backedup or could we do XML/DB generation from here
   services.jellyfin = {
     enable = true;
-    openFireall = true;
+    openFirewall = true;
   };
 }
