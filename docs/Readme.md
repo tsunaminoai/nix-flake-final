@@ -100,3 +100,25 @@ Using image colors for Starship. See the [general guidelines](https://stylix.dan
 - Blue: base0D
 - Purple: base0E
 - Brown: base0F
+
+## Media Server module concept
+```mermaid
+flowchart TD
+    subgraph V["Voile"]
+    subgraph I["Inaba Share"]
+            Video
+            Music
+            Books
+            Audiobooks
+        end
+    end
+
+    subgraph M[Media Server]
+
+        Jellyfin --> Video & Music
+        Kavita --> Books
+        AudioBookShelf --> Audiobooks
+    end
+
+    M ==>|"SMB Mount"| I
+```
