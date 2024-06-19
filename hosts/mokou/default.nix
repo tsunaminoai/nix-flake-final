@@ -31,6 +31,9 @@
 
     #################### Users to Create ####################
     ../common/users/tsunami
+
+    ### Modules to Test ###
+    ../common/media/server
   ];
   # set custom autologin options. see greetd.nix for details
 
