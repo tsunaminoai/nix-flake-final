@@ -216,6 +216,12 @@
         modules = [./hosts/youmu];
         specialArgs = {inherit inputs outputs;};
       };
+      "bedford-media-macmini" = nix-darwin.lib.darwinSystem {
+      system = "x86_64-darwin";
+        modules = [./hosts/bedford-media-macmini];
+        specialArgs = {inherit inputs outputs;};
+        
+      };
     };
 
     #################### User-level Home-Manager Configurations ####################
