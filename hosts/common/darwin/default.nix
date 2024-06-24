@@ -39,7 +39,7 @@
   };
 
   system = {
-    defaults = {
+    defaults = lib.mkDefault {
       CustomSystemPreferences = {};
       CustomUserPreferences = {};
       SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
@@ -134,7 +134,7 @@
 
   # backwards compat; don't change
   system.stateVersion = 4;
-  homebrew = {
+  homebrew = lib.mkDefault {
     enable = true;
     caskArgs.no_quarantine = true;
     global.brewfile = true;
