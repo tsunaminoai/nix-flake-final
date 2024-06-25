@@ -32,7 +32,7 @@ in {
       options snd_hda_intel enable=0,1 power_save=0 power_save_controller=Y
     '';
 
-    loader = {
+    loader = lib.mkDefault {
       grub = {
         # no need to set devices, disko will add all devices that have a EF02 partition to the list already
         # devices = [ ];
