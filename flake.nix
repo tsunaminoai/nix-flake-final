@@ -17,6 +17,11 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # generate outputs for different target formats
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Official NixOS hardware packages
     hardware = {
@@ -134,6 +139,7 @@
     devshell,
     home-manager,
     stylix,
+    nixos-generators,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -194,6 +200,15 @@
         modules = [./hosts/mokou];
         specialArgs = {inherit inputs outputs;};
       };
+      # Razer Laptop
+      razer = lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/razer
+          nixos-generators.nixosModules.all-formats
+        ];
+        specialArgs = {inherit inputs outputs;};
+      };
 
       installerIso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -252,6 +267,14 @@
         modules = [
           stylix.homeManagerModules.stylix
           ./home/tsunami/mokou.nix
+        ];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+      };
+      "tsunami@razer" = lib.homeManagerConfiguration {
+        modules = [
+          stylix.homeManagerModules.stylix
+          ./home/tsunami/razer.nix
         ];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};

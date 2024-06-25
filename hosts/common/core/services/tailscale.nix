@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   services.tailscale = {
     enable = true;
     extraUpFlags = [
@@ -7,7 +11,7 @@
     useRoutingFeatures = "client";
     authKeyFile = config.sops.secrets."tailscale/auth-key".path;
   };
-  networking.firewall = {
+  networking.firewall = lib.mkDefault {
     enable = true;
     trustedInterfaces = ["tailscale0"];
     allowedUDPPorts = [config.services.tailscale.port];

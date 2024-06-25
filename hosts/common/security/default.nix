@@ -13,12 +13,12 @@
     "[${host}.armadillo-banfish.ts.net]:${port}"
   ];
   isLinux = pkgs.stdenv.hostPlatform.isLinux;
-  linuxSecOptions = {
+  linuxSecOptions = lib.mkForce {
     sudo.wheelNeedsPassword = false;
     pam.p11.enable = true;
     audit.enable = true;
   };
-  darwinSecOptions = {
+  darwinSecOptions = lib.mkForce {
     pam.enableSudoTouchIdAuth = true;
   };
   # TODO: THIS IS THE PROPER WAY TO DO CONDITIONAL ATTRIBUTES
