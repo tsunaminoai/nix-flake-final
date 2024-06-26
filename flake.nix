@@ -162,6 +162,19 @@
       };
     });
 
+    topology = forEachSystem (pkgs:
+      import nix-topology {
+        inherit pkgs; # Only this package set must include nix-topology.overlays.default
+        modules = [
+          # Your own file to define global topology. Works in principle like a nixos module but uses different options.
+          ./docs/topology
+          # Inline module to inform topology of your existing NixOS hosts.
+          {
+            nixosConfigurations = self.nixosConfigurations;
+          }
+        ];
+      });
+
     #################### NixOS Configurations ####################
     #
     # Available through 'nixos-rebuild --flake .#hostname'
@@ -173,7 +186,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/ishtar
-          nix-topology.nixosModules.default
+          self.inputs.nix-topology.nixosModules.default
         ];
         specialArgs = {inherit inputs outputs;};
       };
@@ -182,7 +195,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/mokou
-          nix-topology.nixosModules.default
+          self.inputs.nix-topology.nixosModules.default
         ];
         specialArgs = {inherit inputs outputs;};
       };
@@ -255,18 +268,6 @@
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
-    };
-
-    topology = import nix-topology {
-      pkgs = pkgsFor.x86_64-darwin; # Only this package set must include nix-topology.overlays.default
-      modules = [
-        # Your own file to define global topology. Works in principle like a nixos module but uses different options.
-        ./docs/topology
-        # Inline module to inform topology of your existing NixOS hosts.
-        {
-          nixosConfigurations = self.nixosConfigurations;
-        }
-      ];
     };
   };
 }

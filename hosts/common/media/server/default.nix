@@ -18,7 +18,7 @@ rec {
   };
 
   #TODO: Definitely cool that this works, but not viable without global backup strat
-  
+
   # services.borgmatic = {
   #   enable = true;
   #   configurations = {

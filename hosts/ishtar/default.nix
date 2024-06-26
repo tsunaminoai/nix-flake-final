@@ -10,6 +10,7 @@
   ...
 }: {
   imports = [
+    inputs.nix-topology.nixosModules.default
     #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-intel
     #    inputs.hardware.nixosModules.common-gpu-intel
@@ -30,26 +31,27 @@
   ];
   # set custom autologin options. see greetd.nix for details
 
-  toplogy.self = {
-    name = "Ishtar";
-    interfaces.ens18 = {
-      network = "gensokyo";
-      renderer.hidePhysicalConnections = true;
-      virtual = true;
-      type = "wireguard";
-    };
-    interfaces.tailscale0 = {
-      network = "tailscale";
-      renderer.hidePhysicalConnections = true;
-      virtual = true;
-      type = "wireguard";
-    };
+  # toplogy.self = {
+  #   name = "Ishtar";
+  #   interfaces.ens18 = {
+  #     network = "gensokyo";
+  #     renderer.hidePhysicalConnections = true;
+  #     virtual = true;
+  #     type = "wireguard";
+  #   };
+  #   interfaces.tailscale0 = {
+  #     network = "tailscale";
+  #     renderer.hidePhysicalConnections = true;
+  #     virtual = true;
+  #     type = "wireguard";
+  #     addresses = ["100.101.153.99/32"];
+  #   };
 
-    hardware.info = "Proxmox VM";
-    # physicalConnections = [
-    #   (config.lib.topology.mkConnection "mokou" "wg0")
-    # ];
-  };
+  #   hardware.info = "Proxmox VM";
+  #   # physicalConnections = [
+  #   #   (config.lib.topology.mkConnection "mokou" "wg0")
+  #   # ];
+  # };
 
   services.gnome.gnome-keyring.enable = true;
   #TODO enable and move to greetd area? may need authentication dir or something?
@@ -77,13 +79,4 @@
   services.qemuGuest.enable = true;
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
-  topology.self = {
-    interfaces.ens18 = {
-      network = "gensokyo"; # Use the network we define below
-    };
-    interfaces.tailscale0 = {
-      network = "tailscale";
-      addresses = ["100.101.153.99/32"];
-    };
-  };
 }
