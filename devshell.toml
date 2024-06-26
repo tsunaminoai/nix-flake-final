@@ -13,6 +13,8 @@ command ='''
 os=$(uname -s | tr '[:upper:]' '[:lower:]')
 arch=$(uname -m)
 nix build .#topology.${arch}-${os}.config.output|& nom
+cp -f result/* docs/topology/images
+git add docs/topology/images
 '''
 help = "Builds the topology diagrams"
 category = "Build"

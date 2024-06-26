@@ -122,3 +122,14 @@ flowchart TD
 
     M ==>|"SMB Mount"| I
 ```
+
+## Topology
+
+Main
+
+![Main](./topology/images/main.svg)
+
+Network
+
+![Networks](./topology/images/network.svg)
+
