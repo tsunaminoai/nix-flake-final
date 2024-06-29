@@ -5,10 +5,14 @@
 #
 ###############################################################
 {
+  config,
   inputs,
   pkgs,
   ...
-}: {
+}: let
+  sops = config.sops;
+  ssid = sops.secrets.wifi.ssid;
+in {
   imports = [
     #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-intel
@@ -37,11 +41,27 @@
   #TODO enable and move to greetd area? may need authentication dir or something?
   #services.pam.services.greetd.enableGnomeKeyring = true;
 
+  sops.secrets.wifi = {
+    path = "/etc/nixos/wifi-secrets";
+  };
   networking = {
     hostName = "razer";
     networkmanager.enable = true;
     enableIPv6 = false;
+    wireless = {
+      enable = true;
+      userControlled = {
+        enable = true;
+        group = "networkmanager";
+      };
+      networks = {
+        "FalseBlue" = {
+          auth = config.sops.secrets.wifi.path;
+        };
+      };
+    };
   };
+
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBm4yzmOrF+MCV+w0yfd10R88iHR6QusZBCpEtPFm+f+ tsunami@mokou"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH2IrKNs2BLgup7rSVt7KJqRqeSxhU+B1FUrBlHNNmSJ tsunami@youmu"
