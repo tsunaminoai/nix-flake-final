@@ -28,9 +28,8 @@ in {
       "tailscale/auth-key" = {
         path = "/var/lib/tailscale/tailscale.key";
       };
-      "wifi/FalseBlue" = {
-        path = "/etc/nixos/wifi-secrets";
-      };
+      "wifi/FalseBlue" = {};
+
       # msmtp-host = {};
       # msmtp-address = {};
       # msmtp-password = {};

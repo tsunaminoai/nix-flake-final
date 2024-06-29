@@ -41,9 +41,6 @@ in {
   #TODO enable and move to greetd area? may need authentication dir or something?
   #services.pam.services.greetd.enableGnomeKeyring = true;
 
-  sops.secrets.wifi = {
-    path = "/etc/nixos/wifi-secrets";
-  };
   networking = {
     hostName = "razer";
     networkmanager = {
@@ -53,13 +50,19 @@ in {
     enableIPv6 = false;
     wireless = {
       enable = true;
+      # see https://search.nixos.org/options?channel=24.05&show=networking.wireless.environmentFile
+      environmentFile = config.sops.secrets."wifi/FalseBlue".path;
       userControlled = {
         enable = true;
         group = "networkmanager";
       };
       networks = {
         "FalseBlue" = {
-          auth = config.sops.secrets.wifi.path;
+          auth = ''
+            eap=PEAP
+            identity="@USER@"
+            password="@PASS@"
+          '';
         };
       };
     };
