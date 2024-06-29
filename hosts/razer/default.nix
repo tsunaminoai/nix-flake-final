@@ -46,7 +46,10 @@ in {
   };
   networking = {
     hostName = "razer";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      unmanaged = ["wlp3s0"];
+    };
     enableIPv6 = false;
     wireless = {
       enable = true;
