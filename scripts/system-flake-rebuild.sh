@@ -9,5 +9,5 @@ fi
 if [ $system != "Darwin" ]; then
 	nh os switch
 else 
-	darwin-rebuild --flake .#$HOST switch 
+	darwin-rebuild --flake .#$HOST switch |& nom
 fi
