@@ -13,20 +13,14 @@
   format, # A normalized name for the system target (eg. `iso`).
   virtual, # A boolean to determine whether this system is a virtual target using nixos-generators.
   systems, # An attribute map of your defined hosts.
-  # All other arguments come from the system system.
+  # All other arguments come from the module system.
   config,
   ...
-}: {
-  tsunaminoai = {
-    nix = {
-      enable = true;
-      dev = true;
-    };
-    security = {
-      gpg = {
-        enable = true;
-      };
-    };
+}: let
+  cfg = config.${namespace}.nix;
+in {
+  options.tsunaminoai.security = with lib.types; {
   };
-  networking.hostName = "youmu";
+
+  config = {};
 }
