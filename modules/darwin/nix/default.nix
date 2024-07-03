@@ -1,15 +1,26 @@
 {
-  config,
-  inputs,
+  # Snowfall Lib provides a customized `lib` instance with access to your flake's library
+  # as well as the libraries available from your flake's inputs.
   lib,
+  # An instance of `pkgs` with your overlays and packages applied is also available.
   pkgs,
-  outputs,
+  # You also have access to your flake's inputs.
+  inputs,
+  # Additional metadata is provided by Snowfall Lib.
+  namespace, # The namespace used for your flake, defaulting to "internal" if not set.
+  system, # The system architecture for this host (eg. `x86_64-linux`).
+  target, # The Snowfall Lib target for this system (eg. `x86_64-iso`).
+  format, # A normalized name for the system target (eg. `iso`).
+  virtual, # A boolean to determine whether this system is a virtual target using nixos-generators.
+  systems, # An attribute map of your defined hosts.
+  # All other arguments come from the module system.
+  config,
   ...
 }: let
-  cfg = config.tsunaminoai.nix;
+  cfg = config.${namespace}.nix;
 
-  isDarwin = pkgs.stdenv.isDarwin;
-  isLinux = pkgs.stdenv.isLinux;
+  isDarwin = format == "darwin";
+  isLinux = format == "linux";
 
   darwinOptions = {
     services.nix-daemon.enable = true;
@@ -28,13 +39,16 @@
         ephemeral = false;
       };
       settings = {
-        allowed-users = ["@admin"];
-        cores = 4;
-        sandbox = true;
-        trusted-users = ["@admin"];
+        trusted-users = ["@admin" "@staff" "tsunami" "root"];
+        allowed-users = ["@admin" "@staff" "tsunami"];
+        build-users-group = "nixbld";
+        auto-optimise-store = true;
+        experimental-features = ["nix-command" "flakes"];
+        extra-nix-path = "nixpkgs=flake:nixpkgs";
       };
     };
   };
+
   linuxOptions = {
     documentation.dev.enable = false;
   };
@@ -44,8 +58,7 @@ in {
   };
 
   config = lib.mkMerge [
-    {}
-    lib.mkIf cfg.enable {
+    (lib.mkIf cfg.enable {
       # tools for working with nix
       environment.systemPackages = with pkgs; [
         deadnix # dead code detection
@@ -57,8 +70,6 @@ in {
 
       # Set up nix packages configuration
       nixpkgs = {
-        overlays = builtins.attrValues outputs.overlays;
-
         config = {
           allowUnfree = false;
           allowBroken = false;
@@ -67,7 +78,7 @@ in {
               "nvidia-x11"
               "nvidia-settings"
               "vscode"
-              "obsidian"`
+              "obsidian"
             ];
         };
       };
@@ -148,8 +159,8 @@ in {
           max-free = ${builtins.toString (1024 * 1024 * 1024)}
         '';
       };
-    }
+    })
     (lib.mkIf isDarwin darwinOptions)
+    (lib.mkIf isLinux linuxOptions)
   ];
-
 }
