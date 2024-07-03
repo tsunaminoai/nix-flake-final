@@ -18,5 +18,5 @@
   ...
 }: {
   tsunaminoai.nix.enable = true;
-  networking.hostName = "MacBook-Pro-0432";
+  networking.hostName = "youmu";
 }
