@@ -105,7 +105,7 @@ category = "Utils"
 [[commands]]
 name = "home-switch"
 command ='''
-nh home switch
+nh home switch .
 check-sops
 '''
 help = "Switches the home-manager configuration"
