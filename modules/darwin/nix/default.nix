@@ -19,11 +19,9 @@
 }: let
   cfg = config.${namespace}.nix;
 in {
-  options.tsunaminoai = with lib.types; {
-    nix = {
-      enable = lib.mkEnableOption "Enable nix configuration";
-      dev = lib.mkEnableOption "Enable nix development tools";
-    };
+  options.tsunaminoai.nix = with lib.types; {
+    enable = lib.mkEnableOption "Enable nix configuration";
+    dev = lib.mkEnableOption "Enable nix development tools";
   };
 
   config = lib.mkMerge [
