@@ -111,143 +111,34 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nix-darwin,
-    devshell,
-    home-manager,
-    stylix,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-    lib = nixpkgs.lib // home-manager.lib;
+  outputs = inputs:
+    inputs.snowfall-lib.mkFlake {
+      inherit inputs;
+      src = ./.;
 
-    systems = [
-      "x86_64-linux"
-      #"AArch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-      #"i686-linux"
-    ];
-    forEachSystem = f: lib.genAttrs systems (system: f pkgsFor.${system});
-    pkgsFor = lib.genAttrs systems (system:
-      import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [devshell.overlays.default];
-        isDarwin = nixpkgs.stdenv.isDarwin;
-        isLinux = nixpkgs.stdenv.isLinux;
-      });
-  in {
-    inherit lib; # Expose lib for use in custom modules
+      # Configure Snowfall Lib, all of these settings are optional.
+      snowfall = {
+        # Tell Snowfall Lib to look in the `./nix/` directory for your
+        # Nix files.
+        root = ./nix;
 
-    # Custom modules to enable special functionality for nixos or home-manager oriented configs.
-    nixosModules = lib.mkMerge [(import ./modules/nixos) (import ./modules/host)];
-    darwinModules = import ./modules/host;
-    homeManagerModules = import ./modules/home-manager;
+        # Choose a namespace to use for your flake's packages, library,
+        # and overlays.
+        namespace = "tsunaminoai";
 
-    # Custom modifications/overrides to upstream packages.
-    overlays = import ./overlays {inherit inputs outputs;};
+        # Add flake metadata that can be processed by tools like Snowfall Frost.
+        meta = {
+          # A slug to use in documentation when displaying things like file paths.
+          name = "tsunaminoai-flake";
 
-    # Your custom packages meant to be shared or upstreamed.
-    # Accessible through 'nix build', 'nix shell', etc
-    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
-
-    # Nix formatter available through allejandra
-    # Wrapped with a shell script to make it easier to use in vscode's extension settings.
-    formatter = forEachSystem (pkgs:
-      pkgs.writeShellScriptBin "alejandra" ''
-        exec ${pkgs.alejandra}/bin/alejandra --quiet "$@"
-      '');
-
-    # Shell configured with packages that are typically only needed when working on or with nix-config.
-    devShells = forEachSystem (pkgs: {
-      default = pkgs.devshell.mkShell {
-        imports = [(pkgs.devshell.importTOML ./devshell.toml)];
-      };
-    });
-
-    #################### NixOS Configurations ####################
-    #
-    # Available through 'nixos-rebuild --flake .#hostname'
-    # Typically adopted using 'sudo nixos-rebuild switch --flake .#hostname'
-
-    nixosConfigurations = {
-      # Ishtar VM on Ereshkigal (Proxmox)
-      ishtar = lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [./hosts/ishtar];
-        specialArgs = {inherit inputs outputs;};
-      };
-      # Mokou Desktop
-      mokou = lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [./hosts/mokou];
-        specialArgs = {inherit inputs outputs;};
+          # A title to show for your flake, typically the name.
+          title = "TsunamiNoAi's Nix-Config";
+        };
       };
 
-      installerIso = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./hosts/common/optional/installeriso.nix
-        ];
-      };
+      overlays = with inputs; [
+        inputs.nixpkgs.overlays.default
+        inputs.nix-topology.overlays.default
+      ];
     };
-
-    darwinConfigurations = {
-      # Work Laptop
-      "MacBook-Pro-0432" = nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        modules = [./hosts/work-laptop];
-        specialArgs = {inherit inputs outputs;};
-      };
-      "youmu" = nix-darwin.lib.darwinSystem {
-        system = "x86_64-darwin";
-        modules = [./hosts/youmu];
-        specialArgs = {inherit inputs outputs;};
-      };
-    };
-
-    #################### User-level Home-Manager Configurations ####################
-    #
-    # Available through 'home-manager --flake .#primary-username@hostname'
-    # Typically adopted using 'home-manager switch --flake .#primary-username@hostname'
-
-    homeConfigurations = {
-      "bcraton@MacBook-Pro-0432" = lib.homeManagerConfiguration {
-        modules = [
-          stylix.homeManagerModules.stylix
-          ./home/tsunami/work-laptop.nix
-        ];
-        pkgs = pkgsFor.aarch64-darwin;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-      "tsunami@youmu" = lib.homeManagerConfiguration {
-        modules = [
-          stylix.homeManagerModules.stylix
-          ./home/tsunami/youmu.nix
-        ];
-        pkgs = pkgsFor.x86_64-darwin;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-      "tsunami@ishtar" = lib.homeManagerConfiguration {
-        modules = [
-          stylix.homeManagerModules.stylix
-          ./home/tsunami/ishtar.nix
-        ];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-      "tsunami@mokou" = lib.homeManagerConfiguration {
-        modules = [
-          stylix.homeManagerModules.stylix
-          ./home/tsunami/mokou.nix
-        ];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-      };
-    };
-  };
 }
