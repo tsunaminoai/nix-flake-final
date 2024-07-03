@@ -7,7 +7,6 @@
 }: {
   # See: https://daiderd.com/nix-darwin/manual/index.html
 
-  home-manager.extraSpecialArgs = {inherit inputs outputs;};
   time.timeZone = lib.mkDefault "America/Indiana/Indianapolis";
 
   security = {

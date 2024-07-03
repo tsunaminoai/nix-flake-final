@@ -44,7 +44,7 @@ in {
   };
 
   config = lib.mkMerge [
-
+    {}
     lib.mkIf cfg.enable {
       # tools for working with nix
       environment.systemPackages = with pkgs; [

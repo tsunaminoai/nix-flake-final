@@ -59,30 +59,6 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    # Windows management
-
-    hyprland = {
-      url = "github:hyprwm/Hyprland/";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprcontrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
-    # Status bar
-    barbie = {
-      url = "github:sioodmy/barbie";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
-        flake-parts.follows = "flake-parts";
-      };
-    };
-
     # a tree-wide formatter
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -100,11 +76,14 @@
       url = "github:lighttigerXIV/catppuccinifier";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     # tui editor
     helix = {
       url = "github:helix-editor/helix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Stylix for declarative styling
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -113,6 +92,12 @@
     # VSCode Server
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Flake management
+    snowfall-lib = {
+      url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -151,6 +136,8 @@
         inherit system;
         config.allowUnfree = true;
         overlays = [devshell.overlays.default];
+        isDarwin = nixpkgs.stdenv.isDarwin;
+        isLinux = nixpkgs.stdenv.isLinux;
       });
   in {
     inherit lib; # Expose lib for use in custom modules

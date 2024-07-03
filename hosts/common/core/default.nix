@@ -5,38 +5,34 @@
   pkgs,
   ...
 }: let
-  pkgs = inputs.nixpkgs.legacyPackages.;
-  isLinux = stdenv.isLinux;
-  isDarwin = stdenv.isDarwin;
-  linuxOnlyImports =
-    if isLinux
-    then [./locale.nix]
-    else [];
-  darwinOnlyImports =
-    if isDarwin
-    then [./darwin.nix]
-    else [];
+  linuxOnlyImports = [
+    ./locale.nix
+    ./services/tailscale.nix # tailscale
+    ./services/auto-upgrade.nix # auto-upgrade service
+  ];
+  darwinOnlyImports = [./darwin.nix];
 in {
   imports =
     [
-      inputs.home-manager.nixosModules.home-manager
       ../security # security settings
       ./direnv.nix # direnv
       ./locale.nix # loclalization settings
       ./sops.nix # secrets management
       ./fish.nix # fish shell
-      ./services/tailscale.nix # tailscale
-      ./services/auto-upgrade.nix # auto-upgrade service
       ./tools.nix # tools for system administration
     ]
-    ++ (builtins.attrValues outputs.nixosModules)
-    ++ linuxOnlyImports
-    ++ darwinOnlyImports;
+    ++ (lib.optionals
+      pkgs.stdenv.isLinux
+      linuxOnlyImports)
+    ++ (lib.optionals
+      pkgs.stdenv.isDarwin
+      darwinOnlyImports)
+    ++ (builtins.attrValues outputs.nixosModules);
 
   config = lib.mkMerge [
     {
       home-manager.extraSpecialArgs = {inherit inputs outputs;};
     }
-    (lib.mkIf isLinux {inuputs.hardware.enableRedistributableFirmware = true;})
+    (lib.mkIf pkgs.stdenv.isLinux {inuputs.hardware.enableRedistributableFirmware = true;})
   ];
 }
