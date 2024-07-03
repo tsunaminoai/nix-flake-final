@@ -17,10 +17,33 @@
   config,
   ...
 }: let
-  cfg = config.${namespace}.nix;
+  cfg = config.${namespace}.security;
 in {
   options.tsunaminoai.security = with lib.types; {
+    GuestEnabled = lib.mkEnableOption "Enable guest account";
+    LoginWindowText = lib.mkOption {
+      type = str;
+      default = "Welcome to ${config.networking.hostName}!";
+      description = "The text displayed on the login window";
+    };
   };
 
-  config = {};
+  config = lib.mkMerge [
+    (lib.mkIf cfg.GuestEnabled {
+      system.defaults.loginwindow.GuestEnabled = true;
+    })
+    {
+      security.pam.enableSudoTouchIdAuth = true;
+      system.defaults = {
+        loginwindow = {
+          LoginwindowText = cfg.LoginWindowText;
+        };
+
+        screensaver = {
+          askForPassword = true;
+          askForPasswordDelay = 15;
+        };
+      };
+    }
+  ];
 }

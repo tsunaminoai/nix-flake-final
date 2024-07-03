@@ -79,6 +79,8 @@ in {
     })
 
     (lib.mkIf cfg.localize {
+      time.timeZone = lib.mkDefault "America/Indiana/Indianapolis";
+
       system = {
         defaults = {
           NSGlobalDomain = {
