@@ -136,6 +136,9 @@
           # A title to show for your flake, typically the name.
           title = "TsunamiNoAi's Nix-Config";
         };
+        alias = {
+          shells.default = "flakeshell";
+        };
       };
 
       overlays = with inputs; [
