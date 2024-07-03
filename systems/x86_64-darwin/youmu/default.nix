@@ -17,6 +17,11 @@
   config,
   ...
 }: {
-  tsunaminoai.nix.enable = true;
+  tsunaminoai = {
+    nix = {
+      enable = true;
+      dev = true;
+    };
+  };
   networking.hostName = "youmu";
 }

@@ -45,6 +45,8 @@ in {
           allowBroken = false;
           allowUnfreePredicate = pkg:
             builtins.elem (lib.getName pkg) [
+              "nvidia-x11"
+              "nvidia-settings"
               "vscode"
               "obsidian"
             ];
@@ -56,31 +58,33 @@ in {
         enable = true;
         doc.enable = false;
         man.enable = true;
+        documentation.dev.enable = false;
       };
 
-      services.nix-daemon.enable = true;
+      programs.nh = {
+        enable = true;
+        clean.enable = false;
+        clean.extraArgs = "--keep-since 4d --keep 3";
+      };
 
       # nix package manager configuration
       nix = {
-        package = pkgs.nix;
-        nixPath = ["$HOME/.nix-defexpr/darwin"];
         settings = {
-          builders-use-substitutes = true;
-          allowed-users = ["@admin" "@staff"];
           auto-optimise-store = true;
-          build-users-group = "nixbld";
-          experimental-features = ["nix-command" "flakes"];
-          extra-nix-path = "nixpkgs=flake:nixpkgs";
-          max-jobs = "auto";
-          trusted-users = ["@admin" "@staff"];
+          builders-use-substitutes = true;
+
+          experimental-features = ["nix-command" "flakes" "repl-flake"];
           warn-dirty = false;
+          allowed-users = ["@wheel"];
+          trusted-users = ["@wheel"];
+          max-jobs = "auto";
 
           # continue building derivations if one fails
           keep-going = true;
 
           log-lines = 20;
           sandbox = true;
-          system-features = ["big-parallel" "kvm"];
+          system-features = ["kvm" "big-parallel" "nixos-test"];
           flake-registry = ""; # Disable global flake registry   This is a hold-over setting from Misterio77. Not sure significance but likely to do with nix.registry entry below.
 
           # use binary cache, its not gentoo
@@ -97,11 +101,6 @@ in {
           ];
         };
 
-        linux-builder = {
-          enable = true;
-          ephemeral = false;
-        };
-
         # Make builds run with low priority so the system stays responsive
         daemonCPUSchedPolicy = "idle";
         daemonIOSchedClass = "idle";
@@ -116,10 +115,9 @@ in {
         # Garbage Collection
         gc = {
           automatic = true;
-          interval = {
-            Hour = 3;
-            Minute = 15;
-          };
+          dates = "daily";
+          randomizedDelaySec = "14m";
+          options = "--delete-older-than 3d";
         };
 
         # Free up to 1GiB whenever there is less than 100MiB left.
