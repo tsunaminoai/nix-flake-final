@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   users.users.tsunami = {
     home = "/Users/tsunami";
     shell = pkgs.fish; #default shell
