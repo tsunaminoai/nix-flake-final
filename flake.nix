@@ -137,6 +137,7 @@
   } @ inputs: let
     inherit (self) outputs;
     lib = nixpkgs.lib // home-manager.lib;
+
     systems = [
       "x86_64-linux"
       #"AArch64-linux"
@@ -155,7 +156,8 @@
     inherit lib; # Expose lib for use in custom modules
 
     # Custom modules to enable special functionality for nixos or home-manager oriented configs.
-    nixosModules = import ./modules/nixos;
+    nixosModules = lib.mkMerge [(import ./modules/nixos) (import ./modules/host)];
+    darwinModules = import ./modules/host;
     homeManagerModules = import ./modules/home-manager;
 
     # Custom modifications/overrides to upstream packages.
@@ -165,8 +167,12 @@
     # Accessible through 'nix build', 'nix shell', etc
     packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
 
-    # Nix formatter available through 'nix fmt' https://nix-community.github.io/nixpkgs-fmt
-    formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
+    # Nix formatter available through allejandra
+    # Wrapped with a shell script to make it easier to use in vscode's extension settings.
+    formatter = forEachSystem (pkgs:
+      pkgs.writeShellScriptBin "alejandra" ''
+        exec ${pkgs.alejandra}/bin/alejandra --quiet "$@"
+      '');
 
     # Shell configured with packages that are typically only needed when working on or with nix-config.
     devShells = forEachSystem (pkgs: {
@@ -255,28 +261,6 @@
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
-      # "ta@grief" = lib.homeManagerConfiguration {
-      #   modules = [./home/ta/grief.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
-      # "ta@guppy" = lib.homeManagerConfiguration {
-      #   modules = [./home/ta/guppy.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
-      # "media@gusto" = lib.homeManagerConfiguration {
-      #   modules = [./home/media/gusto.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
-      # "ta@gusto" = lib.homeManagerConfiguration {
-      #   modules = [./home/ta/gusto.nix];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {inherit inputs outputs;};
-      # };
     };
-
-    #################### DevShell Configurations ####################
   };
 }

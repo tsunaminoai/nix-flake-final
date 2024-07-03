@@ -1,0 +1,3 @@
+{
+  nix = import ./nix.nix;
+}

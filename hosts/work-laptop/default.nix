@@ -4,10 +4,14 @@
 #  Macbook Pro 13" M1 (apple-silicon) Running nix-darwin
 #
 ###############################################################
-{...}: {
+{
+  inputs,
+  outputs,
+  ...
+}: {
   imports = [
     #################### Required Configs ####################
-    ../common/darwin
+    ../common/core
     ../common/security
     ../common/optional/yubikey
 
@@ -23,7 +27,11 @@
   #   '';
   # };
 
-  networking = {
-    hostName = "MacBook-Pro-0432";
+  config = {
+    tsunaminoai.nix.enable = true;
+
+    networking = {
+      hostName = "MacBook-Pro-0432";
+    };
   };
 }

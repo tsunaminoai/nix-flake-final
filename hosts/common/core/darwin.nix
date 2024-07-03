@@ -6,25 +6,9 @@
   ...
 }: {
   # See: https://daiderd.com/nix-darwin/manual/index.html
-  imports = [
-    inputs.home-manager.darwinModules.home-manager
-    ../core/direnv.nix # direnv settings
-    ../core/fish.nix # fish shell
-    # sops nix does not work on darwin. do not import it
-    # tailscale should only be imported on darwin using home-manager
-    ../security
-  ];
 
   home-manager.extraSpecialArgs = {inherit inputs outputs;};
   time.timeZone = lib.mkDefault "America/Indiana/Indianapolis";
-
-  nixpkgs = {
-    # you can add global overlays here
-    overlays = builtins.attrValues outputs.overlays;
-    config = {
-      allowUnfree = true;
-    };
-  };
 
   security = {
     pam.enableSudoTouchIdAuth = true;
@@ -104,34 +88,6 @@
   };
   # fonts.fontDir.enable = true; # DANGER
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
-
-  nix = {
-    nixPath = ["$HOME/.nix-defexpr/darwin"];
-    gc = {
-      automatic = true;
-      interval = {
-        Hour = 3;
-        Minute = 15;
-      };
-    };
-    linux-builder = {
-      enable = true;
-      ephemeral = false;
-    };
-    settings = {
-      allowed-users = ["@admin"];
-      auto-optimise-store = false;
-      cores = 4;
-      sandbox = true;
-      trusted-users = ["@admin"];
-    };
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
-
   # backwards compat; don't change
   system.stateVersion = 4;
   homebrew = {
@@ -144,5 +100,5 @@
     ];
   };
 
-  nix.package = pkgs.nix;
+  # nix.package = pkgs.nix;
 }
