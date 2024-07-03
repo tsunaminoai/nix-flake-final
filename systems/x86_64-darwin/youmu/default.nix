@@ -22,6 +22,11 @@
       enable = true;
       dev = true;
     };
+    system = {
+      input = true;
+      ui = true;
+      localize = true;
+    };
     security = {
       gpg = {
         enable = true;
