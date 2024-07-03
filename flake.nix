@@ -101,6 +101,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-topology.url = "github:oddlama/nix-topology";
+
     #################### Personal Repositories ####################
 
     # Private secrets repo.  See ./docs/secretsmgmt.md
@@ -120,7 +122,7 @@
       snowfall = {
         # Tell Snowfall Lib to look in the `./nix/` directory for your
         # Nix files.
-        root = ./nix;
+        root = ./.;
 
         # Choose a namespace to use for your flake's packages, library,
         # and overlays.
@@ -137,8 +139,9 @@
       };
 
       overlays = with inputs; [
-        inputs.nixpkgs.overlays.default
+        # inputs.nixpkgs.overlay
         inputs.nix-topology.overlays.default
+        inputs.devshell.overlays.default
       ];
     };
 }
