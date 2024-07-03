@@ -3,12 +3,10 @@
   pkgs,
   lib,
   inputs,
-  namespace,
   ...
 }:
-with lib;
-with lib.${namespace}; let
-  cfg = config.${namespace}.security.gpg;
+with lib; let
+  cfg = config.tsunaminoai.security.gpg;
 
   gpgConf = "${inputs.gpg-base-conf}/gpg.conf";
 
@@ -54,9 +52,8 @@ with lib.${namespace}; let
   reload-yubikey = pkgs.writeShellScriptBin "reload-yubikey" ''
     ${pkgs.gnupg}/bin/gpg-connect-agent "scd serialno" "learn --force" /bye
   '';
-
 in {
-  options.${namespace}.security.gpg = with types; {
+  options.tsunaminoai.security.gpg = with types; {
     enable = mkBoolOpt false "Enable GPG";
     agentTimeout = mkOpt int 5 "The amount of time to wait before continuing with shell init";
   };
@@ -66,8 +63,8 @@ in {
     services.udev.packages = with pkgs; [
       yubikey-personalization
     ];
-  
-      environment.shellInit = ''
+
+    environment.shellInit = ''
       export GPG_TTY="$(tty)"
       export SSH_AUTH_SOCK=$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)
 
@@ -80,7 +77,6 @@ in {
         echo 'Run "gpgconf --launch gpg-agent" to try and launch it again.'
       fi
     '';
-
 
     environment.systemPackages = with pkgs; [
       cryptsetup
@@ -117,5 +113,4 @@ in {
       };
     };
   };
-  
 }

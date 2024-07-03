@@ -108,6 +108,7 @@
   services.nix-daemon.enable = true;
 
   nix = {
+    package = pkgs.nix;
     nixPath = ["$HOME/.nix-defexpr/darwin"];
     gc = {
       automatic = true;
@@ -121,11 +122,11 @@
       ephemeral = false;
     };
     settings = {
-      allowed-users = ["@admin"];
+      allowed-users = ["@admin" "@staff"];
       auto-optimise-store = false;
       cores = 4;
       sandbox = true;
-      trusted-users = ["@admin"];
+      trusted-users = ["@admin" "@staff"];
     };
     extraOptions = ''
       experimental-features = nix-command flakes
@@ -143,6 +144,4 @@
     casks = [
     ];
   };
-
-  nix.package = pkgs.nix;
 }

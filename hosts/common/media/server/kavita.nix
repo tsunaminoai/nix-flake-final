@@ -14,7 +14,9 @@ in {
   };
   services.kavita = {
     enable = true;
-    port = 3000;
+    settings = {
+      port = 3000;
+    };
     tokenKeyFile = config.sops.secrets."kavita-token-key".path;
   };
 
