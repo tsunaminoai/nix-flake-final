@@ -644,7 +644,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -859,11 +859,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1720096762,
-        "narHash": "sha256-KvpJIWxTNuaSpN2L/9TmTlEhlwxEnzJ1vCpEcfK/4mQ=",
+        "lastModified": 1720108661,
+        "narHash": "sha256-m1f/yXrCX3czYSVvBz5jdJ41dcCVsKlSIrnH0i83L6U=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "638369f687471823770f6d3093f1721dc7b8c897",
+        "rev": "fa14fd5d4617b17526ff9991a14e96b22964814d",
         "type": "github"
       },
       "original": {

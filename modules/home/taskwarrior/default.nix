@@ -24,6 +24,13 @@ in {
   };
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
+      tsunaminoai.sops.secrets = [
+        {
+          name = "taskchampion/tsunami";
+          path = ".config/task/taskchampion-sync";
+        }
+      ];
+
       programs.taskwarrior = {
         enable = true;
         package = pkgs.taskwarrior3;
@@ -237,6 +244,13 @@ in {
       '';
     })
     (lib.mkIf (cfg.withTaskOpen && cfg.enable && cfg.withObsidian) {
+      tsunaminoai.sops.secrets = [
+        {
+          name = "obsidian/api-key";
+          path = ".config/obsidian/api-key";
+        }
+      ];
+
       home.file.".local/share/taskopen/scripts/editobsidian".text = ''
         #!/usr/bin/env bash
         # Opens a Notes file and creates a header if file does not exist.
