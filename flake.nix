@@ -147,8 +147,12 @@
 
       overlays = with inputs; [
         # inputs.nixpkgs.overlay
-        inputs.nix-topology.overlays.default
-        inputs.devshell.overlays.default
+        nix-topology.overlays.default
+        devshell.overlays.default
+      ];
+
+      homes.modules = with inputs; [
+        sops-nix.homeManagerModules.sops
       ];
     };
 }
