@@ -102,6 +102,10 @@
     };
 
     nix-topology.url = "github:oddlama/nix-topology";
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     #################### Personal Repositories ####################
 
