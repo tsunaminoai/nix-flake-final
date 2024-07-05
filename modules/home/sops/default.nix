@@ -16,59 +16,57 @@
   ...
 }: let
   cfg = config.${namespace}.sops;
+  buildSecrets = l:
+    builtins.listToAttrs
+    (map (s: {
+        name = s.name;
+        value = builtins.removeAttrs s ["name"];
+      })
+      l);
+
   secretspath = builtins.toString inputs.mysecrets;
   homeDir = config.snowfall.users.home;
+  # secretOption = with lib.types; {
+  #   options = {
+  #     name = lib.mkOption {
+  #       type = str;
+  #       description = lib.mdDoc "The name/id of the secret";
+  #     };
+  #     # path = lib.mkOption {
+  #     #   type = str;
+  #     #   description = lib.mdDoc "The path to write the secret to relative to ~/";
+  #     # };
+
+  #     # mode = lib.mkOption {
+  #     #   type = nullOr str;
+  #     #   default = "0400";
+  #     #   description = lib.mdDoc "The mode to set on the secret file";
+  #     # };
+  #   };
+  # };
   keyLocation =
     if (lib.snowfall.system.is-darwin)
     then builtins.toPath "${homeDir}/Library/Application Support/sops/age/keys.txt"
     else builtins.toPath "${homeDir}/.config/sops/age/keys.txt";
-
-  secretOption = with lib.types; {
-    options = {
-      name = lib.mkOption {
-        type = str;
-        # description = "The name/id of the secret";
-      };
-      path = lib.mkOption {
-        type = str;
-        # description = "The path to write the secret to relative to ~/";
-      };
-
-      mode = lib.mkOption {
-        type = str;
-        default = "0400";
-        # description = "The mode to set on the secret file";
-      };
-    };
-  };
 in {
   options.tsunaminoai.sops = with lib.types; {
     enable = lib.mkEnableOption "Enable sops";
     secrets = lib.mkOption {
-      type = listOf (submodule secretOption);
-      default = [];
       description = "List of secrets to manage with sops";
+      type = anything;
+      default = {};
     };
   };
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
       sops = {
-        # gnupg = {
-        #   home = "/var/lib/sops";
-        #   sshKeyPaths = [ ];
-        # }
-
         # This is the key and needs to have been copied to this location on the host
         age.keyFile = keyLocation;
 
         defaultSopsFile = "${secretspath}/secrets.yaml";
         validateSopsFiles = true;
 
-        secrets = builtins.listToAttrs (map (item: {
-            name = item.name;
-            value = removeAttrs item ["name"];
-          })
-          cfg.secrets);
+        secrets = cfg.secrets;
       };
     })
   ];

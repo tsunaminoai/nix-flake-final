@@ -24,12 +24,12 @@ in {
   };
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      tsunaminoai.sops.secrets = [
-        {
-          name = "taskchampion/tsunami";
+      tsunaminoai.sops.secrets = {
+        "taskchampion/tsunami" = {
           path = ".config/task/taskchampion-sync";
-        }
-      ];
+          mode = "0400";
+        };
+      };
 
       programs.taskwarrior = {
         enable = true;
