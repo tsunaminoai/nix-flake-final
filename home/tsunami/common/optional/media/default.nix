@@ -8,7 +8,5 @@
     mpg123
     sox
     youtube-dl
-    youtube-tui
-    ytfzf
   ];
 }
