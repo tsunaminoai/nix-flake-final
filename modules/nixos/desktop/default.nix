@@ -11,8 +11,8 @@ in {
   options.tsunaminoai.desktop = with types; {
     enable = mkBoolOpt false "Enable desktop configuration";
     windowManager = lib.mkOption {
-      type = types.enum ["sway"];
-      default = "sway";
+      type = types.enum ["sway" "plasma"];
+      default = "plasma";
       description = ''
         The window manager to use.
       '';
@@ -34,7 +34,20 @@ in {
       # the languagetool extension for code needs a server running
       languagetool.enable = true;
     })
+    (
+      lib.mkIf (cfg.enable && cfg.windowManager == "plasma") {
+        services.xserver.enable = true;
 
+        # Enable the KDE Plasma Desktop Environment.
+        services.displayManager.sddm.enable = true;
+        services.desktopManager.plasma6.enable = true;
+        # Configure keymap in X11
+        services.xserver = {
+          layout = "us";
+          xkbVariant = "";
+        };
+      }
+    )
     (lib.mkIf (cfg.enable && cfg.windowManager == "sway") {
       programs = {
         dconf.enable = true;
