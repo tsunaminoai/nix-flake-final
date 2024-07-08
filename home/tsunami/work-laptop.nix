@@ -3,20 +3,18 @@
   outputs,
   ...
 }: {
-  imports =
-    [
-      outputs.homeManagerModules.newsboat
-      #################### Required Configs ####################
-      ./common/core #required
+  imports = [
+    outputs.homeManagerModules.newsboat
+    #################### Required Configs ####################
+    ./common/core #required
 
-      #################### Host-specific Optional Configs ####################
-      common/optional/sops.nix
+    #################### Host-specific Optional Configs ####################
+    common/optional/sops.nix
 
-      #################### Optional Configs ####################
-      common/optional/editors
-      common/optional/dev
-    ]
-    ++ outputs.homeManagerModules;
+    #################### Optional Configs ####################
+    common/optional/editors
+    common/optional/dev
+  ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };
 
@@ -24,9 +22,6 @@
   home = {
     homeDirectory = "/Users/bcraton";
     username = "bcraton";
-    packages = with pkgs; [
-      azure-cli
-    ];
   };
 
   tsunaminoai.news = {
