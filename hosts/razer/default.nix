@@ -40,6 +40,8 @@ in {
     };
   };
 
+  powerManagement.enable = false;
+
   networking = {
     hostName = "razer";
     networkmanager = {
