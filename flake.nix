@@ -193,6 +193,11 @@
         modules = [./hosts/mokou];
         specialArgs = {inherit inputs outputs;};
       };
+      razer = lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [./hosts/razer];
+        specialArgs = {inherit inputs outputs;};
+      };
 
       installerIso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

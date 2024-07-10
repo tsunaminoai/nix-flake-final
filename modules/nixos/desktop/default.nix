@@ -9,7 +9,7 @@ with lib; let
   cfg = config.tsunaminoai.desktop;
 in {
   options.tsunaminoai.desktop = with types; {
-    enable = mkBoolOpt false "Enable desktop configuration";
+    enable = lib.mkEnableOption "Enable desktop configuration";
     windowManager = lib.mkOption {
       type = types.enum ["sway" "plasma"];
       default = "plasma";
@@ -30,9 +30,9 @@ in {
           alsa.support32Bit = true;
           pulse.enable = true;
         };
+        # the languagetool extension for code needs a server running
+        languagetool.enable = true;
       };
-      # the languagetool extension for code needs a server running
-      languagetool.enable = true;
     })
     (
       lib.mkIf (cfg.enable && cfg.windowManager == "plasma") {

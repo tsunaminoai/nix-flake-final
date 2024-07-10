@@ -8,8 +8,8 @@
 with lib; let
   cfg = config.tsunaminoai.fonts;
 in {
-  options.tsunaminoai.desktop = with types; {
-    enable = mkBoolOpt false "Enable font configuration";
+  options.tsunaminoai.fonts = with types; {
+    enable = lib.mkEnableOption "Enable font configuration";
   };
 
   config = lib.mkMerge [

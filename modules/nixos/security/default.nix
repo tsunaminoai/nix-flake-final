@@ -8,7 +8,7 @@
 with lib; let
   cfg = config.tsunaminoai.security.gpg;
 
-  gpgConf = "${inputs.gpg-base-conf}/gpg.conf";
+  # gpgConf = "${inputs.gpg-base-conf}/gpg.conf";
 
   gpgAgentConf = ''
     enable-ssh-support
@@ -54,8 +54,12 @@ with lib; let
   '';
 in {
   options.tsunaminoai.security.gpg = with types; {
-    enable = mkBoolOpt false "Enable GPG";
-    agentTimeout = mkOpt int 5 "The amount of time to wait before continuing with shell init";
+    enable = lib.mkEnableOption "Enable GPG";
+    agentTimeout = lib.mkOption {
+      type = int;
+      default = 5;
+      description = "The amount of time to wait before continuing with shell init";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -102,15 +106,15 @@ in {
     };
 
     tsunaminoai = {
-      home.file = {
-        ".gnupg/.keep".text = "";
+      # home.file = {
+      #   ".gnupg/.keep".text = "";
 
-        ".gnupg/yubikey-guide.md".source = guide;
-        ".gnupg/yubikey-guide.html".source = guideHTML;
+      #   ".gnupg/yubikey-guide.md".source = guide;
+      #   ".gnupg/yubikey-guide.html".source = guideHTML;
 
-        ".gnupg/gpg.conf".source = gpgConf;
-        ".gnupg/gpg-agent.conf".text = gpgAgentConf;
-      };
+      #   ".gnupg/gpg.conf".source = gpgConf;
+      #   ".gnupg/gpg-agent.conf".text = gpgAgentConf;
+      # };
     };
   };
 }
