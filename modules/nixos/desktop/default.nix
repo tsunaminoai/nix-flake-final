@@ -50,8 +50,12 @@ in {
       }
     )
     (lib.mkIf (cfg.enable && cfg.enableVNC) {
+      environment.systemPackages = with pkgs; [
+        turbovnc
+      ];
+      networking.firewall.allowedTCPPorts = [8000 5901];
       services.xserver.displayManager.sessionCommands = ''
-        ${pkgs.x11vnc}/bin/x11vnc -rfbauth $HOME/.vnc/passwd &
+        vncserver /run/current-system/sw/bin/startplasma-x1
       '';
     })
     (lib.mkIf (cfg.enable && cfg.windowManager == "sway") {
