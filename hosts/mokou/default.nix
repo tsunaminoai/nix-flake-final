@@ -55,6 +55,8 @@
     };
   };
 
+  powerManagement.enable = false;
+
   networking = {
     hostName = "mokou";
     networkmanager.enable = true;
