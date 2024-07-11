@@ -55,7 +55,7 @@ in {
       ];
       networking.firewall.allowedTCPPorts = [8000 5901];
       services.xserver.displayManager.sessionCommands = ''
-        vncserver /run/current-system/sw/bin/startplasma-x1
+        vncserver -wm /run/current-system/sw/bin/startplasma-x1
       '';
     })
     (lib.mkIf (cfg.enable && cfg.windowManager == "sway") {
