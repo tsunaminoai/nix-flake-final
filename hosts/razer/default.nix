@@ -25,6 +25,8 @@ in {
 
     #################### Required Configs ####################
     ./bootloader.nix
+    ../common/core
+    ../common/users/tsunami
   ];
 
   tsunaminoai = {
