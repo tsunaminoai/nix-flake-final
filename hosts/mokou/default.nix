@@ -9,11 +9,13 @@
   inputs,
   pkgs,
   config,
+  outputs,
   ...
 }: {
   imports = [
     #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-intel
+    outputs.nixosModules.desktop
     #    inputs.hardware.nixosModules.common-gpu-intel
 
     #################### Required Configs ####################
@@ -26,9 +28,7 @@
     # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
-    ../common/optional/nvidia.nix
     ../common/optional/virtualization.nix
-    ../common/optional/wayland
 
     #################### Users to Create ####################
     ../common/users/tsunami
@@ -41,6 +41,19 @@
   services.gnome.gnome-keyring.enable = true;
   #TODO enable and move to greetd area? may need authentication dir or something?
   #services.pam.services.greetd.enableGnomeKeyring = true;
+
+  tsunaminoai = {
+    desktop = {
+      enable = true;
+      windowManager = "plasma";
+    };
+    security = {
+      # gpg = {
+      #   enable = true;
+      #   agentTimeout = 5;
+      # };
+    };
+  };
 
   networking = {
     hostName = "mokou";
