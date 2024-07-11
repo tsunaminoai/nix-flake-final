@@ -48,24 +48,24 @@ in {
       enable = true;
     };
     enableIPv6 = false;
-    wireless = {
-      enable = true;
-      # # see https://search.nixos.org/options?channel=24.05&show=networking.wireless.environmentFile
-      # environmentFile = config.sops.secrets."wifi/FalseBlue".path;
-      # userControlled = {
-      #   enable = true;
-      #   group = "networkmanager";
-      # };
-      # networks = {
-      #   "FalseBlue" = {
-      #     auth = ''
-      #       eap=PEAP
-      #       identity="@USER@"
-      #       password="@PASS@"
-      #     '';
-      #   };
-      # };
-    };
+    # wireless = {
+    #   enable = true;
+    #   # # see https://search.nixos.org/options?channel=24.05&show=networking.wireless.environmentFile
+    #   # environmentFile = config.sops.secrets."wifi/FalseBlue".path;
+    #   # userControlled = {
+    #   #   enable = true;
+    #   #   group = "networkmanager";
+    #   # };
+    #   # networks = {
+    #   #   "FalseBlue" = {
+    #   #     auth = ''
+    #   #       eap=PEAP
+    #   #       identity="@USER@"
+    #   #       password="@PASS@"
+    #   #     '';
+    #   #   };
+    #   # };
+    # };
   };
 
   users.users.root.openssh.authorizedKeys.keys = [
