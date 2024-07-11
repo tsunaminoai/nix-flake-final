@@ -49,6 +49,7 @@ in {
         };
       }
     )
+    #FIXME: This needs to be in home-manager
     (lib.mkIf (cfg.enable && cfg.enableVNC) {
       environment.systemPackages = with pkgs; [
         turbovnc
