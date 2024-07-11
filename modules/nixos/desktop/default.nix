@@ -17,6 +17,7 @@ in {
         The window manager to use.
       '';
     };
+    enableVNC = mkEnableOption "Enable VNC server";
   };
 
   config = lib.mkMerge [
@@ -48,6 +49,11 @@ in {
         };
       }
     )
+    (lib.mkIf (cfg.enable && cfg.enableVNC) {
+      services.xserver.displayManager.sessionCommands = ''
+        ${pkgs.x11vnc}/bin/x11vnc -rfbauth $HOME/.vnc/passwd &
+      '';
+    })
     (lib.mkIf (cfg.enable && cfg.windowManager == "sway") {
       programs = {
         dconf.enable = true;

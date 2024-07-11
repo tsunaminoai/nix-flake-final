@@ -29,6 +29,7 @@ in {
     desktop = {
       enable = true;
       windowManager = "plasma";
+      enableVNC = true;
     };
     security = {
       # gpg = {
