@@ -15,10 +15,6 @@
   ssid = sops.secrets.wifi.ssid;
 in {
   imports = [
-    outputs.nixosModules.desktop
-    outputs.nixosModules.security
-    outputs.nixosModules.fonts
-
     #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-intel
     # inputs.hardware.nixosModules.common-gpu-nvidia

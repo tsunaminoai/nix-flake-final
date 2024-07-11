@@ -15,7 +15,6 @@
   imports = [
     #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-intel
-    outputs.nixosModules.desktop
     #    inputs.hardware.nixosModules.common-gpu-intel
 
     #################### Required Configs ####################
