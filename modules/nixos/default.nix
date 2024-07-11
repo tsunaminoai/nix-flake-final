@@ -3,5 +3,7 @@
 {
   # List your module files here
   # my-module = import ./my-module.nix;
-  # security = import ./security;
+  security = import ./security;
+  desktop = import ./desktop;
+  fonts = import ./fonts;
 }

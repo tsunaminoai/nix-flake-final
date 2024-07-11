@@ -1,45 +1,29 @@
 #############################################################
 #
-#  Mokou - Desktop
-#  NixOS running on a Intel(R) Core(TM) i7-4790K CPU @ 4.00GHz
-#  32GB RAM, Nvidia 1080i
+#  Razer - Laptop
+#  NixOS running on a razer laptop
 #
 ###############################################################
 {
+  config,
   inputs,
   pkgs,
-  config,
   outputs,
   ...
-}: {
+}: let
+  sops = config.sops;
+  ssid = sops.secrets.wifi.ssid;
+in {
   imports = [
     #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-intel
-    #    inputs.hardware.nixosModules.common-gpu-intel
+    # inputs.hardware.nixosModules.common-gpu-nvidia
 
     #################### Required Configs ####################
     ./bootloader.nix
     ../common/core
-
-    #################### Host-specific Optional Configs ####################
-    ../common/optional/yubikey
-    ../common/optional/yubikey/linux-services.nix
-    # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
-    # ../common/optional/msmtp.nix #required for emailing clamav alerts
-    ../common/optional/services/openssh.nix
-    ../common/optional/virtualization.nix
-
-    #################### Users to Create ####################
     ../common/users/tsunami
-
-    ### Modules to Test ###
-    ../common/media/server
   ];
-  # set custom autologin options. see greetd.nix for details
-
-  services.gnome.gnome-keyring.enable = true;
-  #TODO enable and move to greetd area? may need authentication dir or something?
-  #services.pam.services.greetd.enableGnomeKeyring = true;
 
   tsunaminoai = {
     desktop = {
@@ -55,11 +39,34 @@
     };
   };
 
+  powerManagement.enable = false;
+
   networking = {
-    hostName = "mokou";
-    networkmanager.enable = true;
+    hostName = "razer";
+    networkmanager = {
+      enable = true;
+    };
     enableIPv6 = false;
+    # wireless = {
+    #   enable = true;
+    #   # # see https://search.nixos.org/options?channel=24.05&show=networking.wireless.environmentFile
+    #   # environmentFile = config.sops.secrets."wifi/FalseBlue".path;
+    #   # userControlled = {
+    #   #   enable = true;
+    #   #   group = "networkmanager";
+    #   # };
+    #   # networks = {
+    #   #   "FalseBlue" = {
+    #   #     auth = ''
+    #   #       eap=PEAP
+    #   #       identity="@USER@"
+    #   #       password="@PASS@"
+    #   #     '';
+    #   #   };
+    #   # };
+    # };
   };
+
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBm4yzmOrF+MCV+w0yfd10R88iHR6QusZBCpEtPFm+f+ tsunami@mokou"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH2IrKNs2BLgup7rSVt7KJqRqeSxhU+B1FUrBlHNNmSJ tsunami@youmu"
@@ -82,18 +89,6 @@
 
   security.polkit.enable = true;
   security.pam.services.swaylock = {};
-  # services.greetd = {
-  #   enable = true;
-  #   settings = {
-  #     default_session.command = ''
-  #       ${pkgs.greetd.tuigreet}/bin/tuigreet \
-  #         --time \
-  #         --asterisks \
-  #         --user-menu \
-  #         --cmd sway
-  #     '';
-  #   };
-  # };
 
   # Razer stuff
   hardware.openrazer = {
@@ -103,9 +98,6 @@
     keyStatistics = true;
     devicesOffOnScreensaver = true;
   };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
