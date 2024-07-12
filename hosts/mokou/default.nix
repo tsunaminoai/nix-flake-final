@@ -55,6 +55,7 @@
     };
   };
 
+  services.xserver.displayManager.gdm.autoSuspend = false;
   powerManagement.enable = false;
 
   networking = {
