@@ -252,6 +252,14 @@
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
+      "tsunami@ereshkigal" = lib.homeManagerConfiguration {
+        modules = [
+          stylix.homeManagerModules.stylix
+          ./home/tsunami/ereshkigal.nix
+        ];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+      };
       "tsunami@mokou" = lib.homeManagerConfiguration {
         modules = [
           stylix.homeManagerModules.stylix
