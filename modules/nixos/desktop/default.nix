@@ -23,7 +23,7 @@ in {
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
       tsunaminoai.fonts.enable = true;
-
+      console.useXkbConfig = true;
       services = {
         pipewire = {
           enable = true;
@@ -38,7 +38,6 @@ in {
     (
       lib.mkIf (cfg.enable && cfg.windowManager == "plasma") {
         services.xserver.enable = true;
-
         # Enable the KDE Plasma Desktop Environment.
         services.displayManager.sddm.enable = true;
         services.desktopManager.plasma6.enable = true;
@@ -51,6 +50,8 @@ in {
         services.xserver.xkb = {
           layout = "us";
           variant = "";
+
+        options ="esc:swapcaps";
         };
       }
     )
