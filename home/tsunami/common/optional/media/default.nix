@@ -7,6 +7,6 @@
     mangal
     mpg123
     sox
-    youtube-dl
+    yt-dlp
   ];
 }
