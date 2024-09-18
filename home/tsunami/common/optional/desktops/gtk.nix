@@ -23,7 +23,7 @@
     };
     font = lib.mkDefault {
       name = "DejaVu Sans";
-      size = 16;
+      size = 12;
     };
 
     #TODO add ascendancy cursor pack

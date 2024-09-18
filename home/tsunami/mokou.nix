@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     #################### Required Configs ####################
     ./common/core #required
@@ -18,4 +18,12 @@
   services.vscode-server.enable = true;
     # Disable impermanence
   #home.persistence = lib.mkForce { };
+
+
+  programs.gnome-shell.theme ={
+  name = "Plata-Noir";
+  package = pkgs.plata-theme;
+};
+
+
 }
