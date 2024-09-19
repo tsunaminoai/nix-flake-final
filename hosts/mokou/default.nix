@@ -55,10 +55,10 @@
     };
   };
   systemd.targets = {
-  "sleep.target".enable = false;
-  "suspend.target".enable = false;
-  "hibernate.target".enable = false;
-  "hybrid-sleep.target".enable = false;
+    "sleep.target".enable = false;
+    "suspend.target".enable = false;
+    "hibernate.target".enable = false;
+    "hybrid-sleep.target".enable = false;
   };
   services.xserver.displayManager.gdm.autoSuspend = false;
   powerManagement.enable = false;

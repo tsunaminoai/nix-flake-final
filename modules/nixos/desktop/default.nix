@@ -51,7 +51,7 @@ in {
           layout = "us";
           variant = "";
 
-        options ="esc:swapcaps";
+          options = "esc:swapcaps";
         };
       }
     )

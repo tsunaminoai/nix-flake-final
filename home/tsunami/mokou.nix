@@ -16,14 +16,11 @@
     common/optional/editors
   ];
   services.vscode-server.enable = true;
-    # Disable impermanence
+  # Disable impermanence
   #home.persistence = lib.mkForce { };
 
-
-  programs.gnome-shell.theme ={
-  name = "Plata-Noir";
-  package = pkgs.plata-theme;
-};
-
-
+  programs.gnome-shell.theme = {
+    name = "Plata-Noir";
+    package = pkgs.plata-theme;
+  };
 }
