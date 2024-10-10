@@ -6,4 +6,6 @@
   security = import ./security;
   desktop = import ./desktop;
   fonts = import ./fonts;
+  media-acquisition = import ./media-acquisition;
+  tailscale = import ./tailscale;
 }
