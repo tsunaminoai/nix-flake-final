@@ -12,7 +12,6 @@
       ./nix.nix # nix settings and garbage collection
       ./sops.nix # secrets management
       ./fish.nix # fish shell
-      ./services/tailscale.nix # tailscale
       ./services/auto-upgrade.nix # auto-upgrade service
       ./tools.nix # tools for system administration
     ]

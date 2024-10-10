@@ -65,7 +65,7 @@ in {
       enable = true;
       trustedInterfaces = ["tailscale0"];
       allowedUDPPorts = [config.services.tailscale.port];
-      allowPing = false;
+      allowPing = true;
       logReversePathDrops = true;
     };
   };

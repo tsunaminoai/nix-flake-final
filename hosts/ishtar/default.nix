@@ -24,8 +24,13 @@
     #################### Users to Create ####################
     ../common/users/tsunami
   ];
-  # set custom autologin options. see greetd.nix for details
 
+  tsunaminoai = {
+    tailscale.enable = true;
+    
+  };
+
+  # set custom autologin options. see greetd.nix for details
   services.gnome.gnome-keyring.enable = true;
   #TODO enable and move to greetd area? may need authentication dir or something?
   #services.pam.services.greetd.enableGnomeKeyring = true;
