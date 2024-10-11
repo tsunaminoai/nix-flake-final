@@ -1,7 +1,6 @@
 {
   config,
   theme,
-  lib,
   ...
 }: let
   pointer = config.home.pointerCursor;

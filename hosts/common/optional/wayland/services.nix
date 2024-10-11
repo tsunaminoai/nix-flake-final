@@ -18,10 +18,25 @@
       };
       wantedBy = ["multi-user.target"];
     };
+    configure-flathub-repo = {
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.flatpak];
+      script = ''
+        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      '';
+    };
+    configure-appcenter-repo = {
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.flatpak];
+      script = ''
+        flatpak remote-add --if-not-exists appcenter https://flatpak.elementary.io/repo.flatpakrepo
+      '';
+    };
   };
 
   services = {
-    mullvad-vpn.enable = true;
+    flatpak.enable = true;
+
     greetd = {
       enable = true;
       settings = rec {

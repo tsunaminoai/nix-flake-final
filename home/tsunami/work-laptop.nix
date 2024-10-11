@@ -1,19 +1,19 @@
 {
-  lib,
-  inputs,
+  pkgs,
+  outputs,
   ...
-}: let
-in {
+}: {
   imports = [
+    outputs.homeManagerModules.newsboat
     #################### Required Configs ####################
     ./common/core #required
 
     #################### Host-specific Optional Configs ####################
     common/optional/sops.nix
-    common/optional/dev/java.nix
 
     #################### Optional Configs ####################
-    common/optional/neofetch
+    common/optional/editors
+    common/optional/dev
   ];
   # Disable impermanence
   #home.persistence = lib.mkForce { };
@@ -22,6 +22,32 @@ in {
   home = {
     homeDirectory = "/Users/bcraton";
     username = "bcraton";
+  };
+
+  tsunaminoai.news = {
+    enable = true;
+    urls = [
+      {
+        url = "https://cybereason.com/blog/rss.xml";
+        tags = ["ciso"];
+        title = "Cybereason";
+      }
+      {
+        url = "https://cisomag.com/feed";
+        tags = ["ciso"];
+        title = "CISO Mag";
+      }
+      {
+        url = "https://cisostreet.com/feed";
+        tags = ["ciso"];
+        title = "CISO Street";
+      }
+      {
+        url = "https://welivesecurity.com/feed";
+        tags = ["security"];
+        title = "WeLiveSecurity";
+      }
+    ];
   };
 
   programs.git = {

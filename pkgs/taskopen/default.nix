@@ -5,7 +5,6 @@
   darwin,
   git,
   nim,
-  pkg-config,
   taskopen,
   makeWrapper,
 }:

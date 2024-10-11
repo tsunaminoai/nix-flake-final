@@ -8,22 +8,23 @@ in {
   services = lib.mkIf (!isDarwin) {
     gpg-agent = {
       enable = true;
+      enableFishIntegration = true;
       enableSshSupport = true;
       enableExtraSocket = true;
-      pinentryPackage = pkgs.pinentry-curses;
+      pinentryPackage = pkgs.pinentry;
       defaultCacheTtl = 60 * 60; # 1 hour
       defaultCacheTtlSsh = 2 * 60 * 60; # 2 hours
       maxCacheTtl = 2 * 60 * 60; # 2 hours
       maxCacheTtlSsh = 4 * 60 * 60; # 4 hours
     };
   };
-  programs.fish.interactiveShellInit = ''
-    if test -f $HOME/.gnupg/gpg-agent.conf
-      set -x GPG_TTY (tty)
-      set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-      gpgconf --launch gpg-agent
-    end
-  '';
+  #  programs.fish.interactiveShellInit = ''
+  #    if test -f $HOME/.gnupg/gpg-agent.conf
+  #      set -x GPG_TTY (tty)
+  #      set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+  #      gpgconf --launch gpg-agent
+  #    end
+  #  '';
 
   home.file.".gnupg/gpg-agent.reference".text = ''
     # https://github.com/drduh/config/blob/master/gpg-agent.conf
@@ -34,7 +35,7 @@ in {
     #pinentry-program /usr/local/bin/pinentry-curses
     #pinentry-program /usr/local/bin/pinentry-mac
     #pinentry-program /opt/homebrew/bin/pinentry-mac
-    pinentry-program ${pkgs.pinentry-curses}/bin/pinentry-curses
+    pinentry-program ${pkgs.pinentry-curses}/bin/pinentry-tty
     enable-ssh-support
     ttyname $GPG_TTY
     default-cache-ttl 60

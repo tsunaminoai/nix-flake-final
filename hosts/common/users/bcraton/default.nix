@@ -1,11 +1,4 @@
-{
-  pkgs,
-  inputs,
-  config,
-  ...
-}: let
-  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
-in {
+{pkgs, ...}: {
   users.users.bcraton = {
     home = "/Users/bcraton";
     shell = pkgs.fish; #default shell
@@ -26,5 +19,5 @@ in {
   '';
 
   # Import this user's personal/home configurations
-  home-manager.users.bcraton = import ../../../../home/tsunami/work-laptop.nix;
+  # home-manager.users.bcraton = import ../../../../home/tsunami/work-laptop.nix;
 }

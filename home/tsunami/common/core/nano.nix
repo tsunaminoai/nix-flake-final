@@ -1,9 +1,4 @@
-{
-  home,
-  pkgs,
-  config,
-  ...
-}: {
+{home, ...}: {
   home.file.".nanorc".text = ''
 
     set tabsize 2

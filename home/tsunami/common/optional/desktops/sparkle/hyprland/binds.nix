@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{...}: let
   mod = "SUPER";
   modshift = "${mod}SHIFT";
 

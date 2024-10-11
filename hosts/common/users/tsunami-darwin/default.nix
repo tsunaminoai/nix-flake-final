@@ -1,11 +1,8 @@
 {
   pkgs,
-  inputs,
   config,
   ...
-}: let
-  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
-in {
+}: {
   users.users.tsunami = {
     home = "/Users/tsunami";
     shell = pkgs.fish; #default shell
@@ -26,5 +23,5 @@ in {
   '';
 
   # Import this user's personal/home configurations
-  home-manager.users.tsunami = import ../../../../home/tsunami/${config.networking.hostName}.nix;
+  # home-manager.users.tsunami = import ../../../../home/tsunami/${config.networking.hostName}.nix;
 }

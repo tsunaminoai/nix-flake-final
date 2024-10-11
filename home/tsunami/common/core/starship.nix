@@ -1,28 +1,33 @@
 {
-  home,
-  pkgs,
   lib,
+  config,
   ...
-}: {
+}: let
+  style = config.lib.stylix.colors;
+in {
+  # disable devbox prompt interaction
+  home.sessionVariables = {
+    DEVBOX_NO_PROMPT = "true";
+  };
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
-    enableTransience = true;
+    enableTransience = false;
     settings = {
       add_newline = false;
 
       format = lib.concatStrings [
-        "[](fg:#115aa8)"
+        "[](color_blue)"
+        "$username"
         "$os"
         "$hostname"
-        "[](bg:#9A348E fg:#115aa8)"
-        "$username"
-        "[](bg:#DA627D fg:#9A348E)"
+        "[ ](bg:color_cyan fg:color_blue)"
         "$directory"
-        "[](fg:#DA627D bg:#FCA17D)"
+        "[ ](bg:color_green fg:color_cyan)"
         "$git_branch"
         "$git_status"
-        "[](fg:#FCA17D bg:#86BBD8)"
+        "[ ](bg:color_yellow fg:color_green)"
+        "$direnv"
         "$c"
         "$elixir"
         "$elm"
@@ -38,43 +43,74 @@
         "$scala"
         "$zig"
         "$docker_context"
-        "[](fg:#86BBD8 bg:#33658A)"
+        "[ ](fg:color_yellow)"
+        "$line_break"
+        "[](fg:color_purple)"
         "$time"
-        "[ ](fg:#33658A)"
+        "[](fg:color_purple)"
       ];
 
+      palette = "stylix";
+      palettes.stylix = {
+        color_fg0 = "#" + style.base04;
+        color_fg1 = "#" + style.base05;
+        color_bg0 = "#" + style.base00;
+        color_bg1 = "#" + style.base01;
+        color_blue = "#" + style.base0D;
+        color_cyan = "#" + style.base0C;
+        color_green = "#" + style.base0B;
+        color_orange = "#" + style.base09;
+        color_purple = "#" + style.base0E;
+        color_red = "#" + style.base08;
+        color_yellow = "#" + style.base0A;
+        color_brown = "#" + style.base0F;
+      };
+
       username = {
-        show_always = true;
-        style_user = "bg:#9A348E";
-        style_root = "bg:#9A348E";
-        format = "[ $user ]($style)";
         disabled = false;
+        style_user = "fg:color_fg0 bg:color_blue";
+        style_root = "fg:color_red bg:color_blue";
+        format = "[$user]($style)";
+        show_always = true;
       };
 
       hostname = {
-        style = "bg:#115aa8";
-        ssh_only = true;
-        ssh_symbol = "󰢩 ";
-        format = "[$hostname ]($style)";
+        style = "fg:color_fg0 bg:color_blue";
+        format = "[$hostname $ssh_symbol]($style)";
+        ssh_only = false;
+        ssh_symbol = "󰢩";
       };
 
       os = {
-        style = "bg:#115aa8";
         disabled = false;
+        style = "fg:color_fg0 bg:color_blue";
+        format = "[ $symbol ]($style)";
         symbols = {
-          Macos = " ";
-          Debian = " ";
-          Ubuntu = " ";
-          NixOS = "❄️ ";
+          Macos = "";
+          Debian = "";
+          Ubuntu = "";
+          NixOS = "";
         };
+      };
+      direnv = {
+        disabled = false;
+        style = "bg:color_yellow fg:color_fg0";
+        format = "[$symbol$loaded ]($style)";
+        symbol = "";
+        loaded_msg = "󰉋";
+        # allowed_msg = "󰇵 ";
+        # not_allowed_msg = " ";
+        denied_msg = "";
+        unloaded_msg = "";
       };
 
       directory = {
-        style = "bg:#DA627D";
+        style = "bg:color_cyan fg:color_fg0";
+        format = "[$path ]($style)";
+        fish_style_pwd_dir_length = 10;
         truncate_to_repo = true;
-        format = "[ $path ]($style)";
         truncation_symbol = "…/";
-        truncation_length = 2;
+        truncation_length = 20;
         read_only = "";
         home_symbol = "~";
         substitutions = {
@@ -87,13 +123,17 @@
       };
 
       git_branch = {
-        style = "bg:#FCA17D fg:#111111";
-        format = "[$symbol$branch]($style)";
-        symbol = " ";
         disabled = false;
+        style = "bg:color_green fg:color_fg0";
+        format = "[$symbol$branch ]($style)";
+        symbol = "";
+        truncation_length = 20;
       };
 
       git_status = {
+        disabled = false;
+        style = "bg:color_green fg:color_fg0";
+        format = "[$conflicted$staged$modified$untracked$stashed$renamed$deleted ]($style)";
         ahead = "↑";
         behind = "↓";
         diverged = "↕";
@@ -104,29 +144,26 @@
         stashed = "✭";
         renamed = "➜";
         deleted = "✖";
-        format = "[$conflicted$staged$modified$untracked$stashed$renamed$deleted]($style)";
-        style = "bg:#FCA17D fg:#111111";
-        disabled = false;
       };
       nix_shell = {
-        symbol = "❄️ ";
-        style = "bg:#86BBD8 fg:#111111";
-        format = "[ $symbol ($name) ]($style)";
         disabled = false;
+        style = "bg:color_yellow fg:color_fg0";
+        format = "[$symbol $name ]($style)";
+        symbol = "";
       };
 
       time = {
         disabled = false;
+        style = "bg:color_purple fg:color_fg0";
+        format = "[$time ]($style)";
         time_format = "%R"; # Hour:Minute Format
-        style = "bg:#33658A";
-        format = "[ $time ]($style)";
       };
 
       zig = {
-        symbol = "⚡️ ";
-        style = "bg:#86BBD8 fg:#111111";
+        style = "bg:color_yellow fg:color_fg0";
+        format = "[$symbol ($version) ]($style)";
         version_format = "v\${raw}";
-        format = "[$symbol($version )]($style)";
+        symbol = "󱐋";
       };
     };
   };

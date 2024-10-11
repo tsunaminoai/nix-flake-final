@@ -1,13 +1,4 @@
-{
-  outputs,
-  lib,
-  config,
-  ...
-}: let
-  inherit (config.networking) hostName;
-  hosts = outputs.nixosConfigurations;
-  pubKey = host: ../../../${host}/ssh_host_ed25519_key.pub;
-
+{lib, ...}: let
   # Sops needs acess to the keys before the persist dirs are even mounted; so
   # just persisting the keys won't work, we must point at /persist
   #hasOptinPersistence = config.environment.persistence ? "/persist";

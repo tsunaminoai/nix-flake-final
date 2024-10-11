@@ -1,6 +1,5 @@
 {
   home,
-  pkgs,
   config,
   ...
 }: {
@@ -15,6 +14,15 @@
     hashKnownHosts = true;
 
     matchBlocks = {
+      "ssh.dev.azure.com" = {
+        user = "git";
+        hostname = "ssh.dev.azure.com";
+        identitiesOnly = true;
+        identityFile = [
+          # ADO only supports RSA keys >.>
+          "~/.ssh/id_rsa"
+        ];
+      };
       "github.com" = {
         user = "git";
         hostname = "github.com";

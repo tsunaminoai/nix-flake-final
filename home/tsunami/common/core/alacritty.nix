@@ -1,12 +1,12 @@
 {
-  home,
   pkgs,
+  lib,
   ...
 }: {
-  programs.alacritty = {
+  programs.alacritty = lib.mkDefault {
     enable = true;
     settings = {
-      live_config_reload = true; # no point when using nix
+      live_config_reload = false; # no point when using nix
       shell = "fish";
       window = {
         dimensions = {

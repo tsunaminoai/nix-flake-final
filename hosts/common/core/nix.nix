@@ -4,7 +4,9 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  isLinux = lib.hasAttr "linux" config.system;
+in {
   # tools for working with nix
   environment.systemPackages = with pkgs; [
     deadnix # dead code detection
@@ -15,7 +17,7 @@
   ];
 
   # Set up nix packages configuration
-  nixpkgs = {
+  nixpkgs = lib.mkIf isLinux {
     config = {
       allowUnfree = false;
       allowBroken = false;
@@ -37,13 +39,19 @@
     dev.enable = false;
   };
 
+  programs.nh = {
+    enable = true;
+    clean.enable = false;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+  };
+
   # nix package manager configuration
-  nix = {
+  nix = lib.mkIf isLinux {
     settings = {
       auto-optimise-store = lib.mkDefault true;
       builders-use-substitutes = true;
 
-      experimental-features = ["nix-command" "flakes" "repl-flake"];
+      experimental-features = ["nix-command" "flakes" ];
       warn-dirty = false;
       allowed-users = ["@wheel"];
       trusted-users = ["@wheel"];

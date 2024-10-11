@@ -1,11 +1,10 @@
 {
-  description = "EmergentMind's Nix-Config";
+  description = "TsunamiNoAi's Nix-Config";
 
   inputs = {
     #################### Official NixOS Package Sources ####################
 
-    # nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # FREEEEEEEBIRD!
+    nixpkgs.url = "github:NixOS/nixpkgs/release-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # also see 'unstable-packages' overlay at 'overlays/default.nix"
 
     nix-darwin.url = "github:LnL7/nix-darwin";
@@ -20,8 +19,9 @@
     };
 
     # Official NixOS hardware packages
-    hardware.url = "github:nixos/nixos-hardware";
-
+    hardware = {
+      url = "github:nixos/nixos-hardware";
+    };
     # Secrets management. See ./docs/secretsmgmt.md
     sops-nix = {
       url = "github:mic92/sops-nix";
@@ -46,11 +46,18 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    # vim4LMFQR!
-    nixvim = {
-      url = "github:nix-community/nixvim/nixos-23.11";
+    # Numtide's utilities
+
+    # Devshell for declarative shell environments
+    devshell = {
+      url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Flake utilities
+    # flake-utils = {
+    #   url = "github:numtide/flake-utils";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # Windows management
 
@@ -97,17 +104,17 @@
     helix = {
       url = "github:helix-editor/helix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
-    # Pure and reproducible nix overlay of binary distributed rust toolchains
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
+    stylix = {
+      url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # VSCode Server
-    vscode-server = {url = "github:nix-community/nixos-vscode-server";
-    inputs.nixpkgs.follows = "nixpkgs";};
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     #################### Personal Repositories ####################
 
@@ -123,7 +130,9 @@
     self,
     nixpkgs,
     nix-darwin,
+    devshell,
     home-manager,
+    stylix,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -140,9 +149,10 @@
       import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        overlays = [devshell.overlays.default];
       });
   in {
-    inherit lib;
+    inherit lib; # Expose lib for use in custom modules
 
     # Custom modules to enable special functionality for nixos or home-manager oriented configs.
     nixosModules = import ./modules/nixos;
@@ -159,7 +169,11 @@
     formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
 
     # Shell configured with packages that are typically only needed when working on or with nix-config.
-    devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
+    devShells = forEachSystem (pkgs: {
+      default = pkgs.devshell.mkShell {
+        imports = [(pkgs.devshell.importTOML ./devshell.toml)];
+      };
+    });
 
     #################### NixOS Configurations ####################
     #
@@ -167,17 +181,6 @@
     # Typically adopted using 'sudo nixos-rebuild switch --flake .#hostname'
 
     nixosConfigurations = {
-      # # devlab
-      # grief = lib.nixosSystem {
-      #   modules = [./hosts/grief];
-      #   specialArgs = {inherit inputs outputs;};
-      # };
-      # # remote install lab
-      # guppy = lib.nixosSystem {
-      #   system = "x86_64-linux";
-      #   modules = [./hosts/guppy];
-      #   specialArgs = {inherit inputs outputs;};
-      # };
       # Ishtar VM on Ereshkigal (Proxmox)
       ishtar = lib.nixosSystem {
         system = "x86_64-linux";
@@ -190,6 +193,11 @@
         modules = [./hosts/mokou];
         specialArgs = {inherit inputs outputs;};
       };
+      razer = lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [./hosts/razer];
+        specialArgs = {inherit inputs outputs;};
+      };
 
       installerIso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -198,12 +206,6 @@
           ./hosts/common/optional/installeriso.nix
         ];
       };
-
-      # # theatre
-      # gusto = lib.nixosSystem {
-      #   modules = [./hosts/gusto];
-      #   specialArgs = {inherit inputs outputs;};
-      # };
     };
 
     darwinConfigurations = {
@@ -227,22 +229,34 @@
 
     homeConfigurations = {
       "bcraton@MacBook-Pro-0432" = lib.homeManagerConfiguration {
-        modules = [./home/tsunami/work-laptop.nix];
+        modules = [
+          stylix.homeManagerModules.stylix
+          ./home/tsunami/work-laptop.nix
+        ];
         pkgs = pkgsFor.aarch64-darwin;
         extraSpecialArgs = {inherit inputs outputs;};
       };
       "tsunami@youmu" = lib.homeManagerConfiguration {
-        modules = [./home/tsunami/youmu.nix];
+        modules = [
+          stylix.homeManagerModules.stylix
+          ./home/tsunami/youmu.nix
+        ];
         pkgs = pkgsFor.x86_64-darwin;
         extraSpecialArgs = {inherit inputs outputs;};
       };
       "tsunami@ishtar" = lib.homeManagerConfiguration {
-        modules = [./home/tsunami/ishtar.nix];
+        modules = [
+          stylix.homeManagerModules.stylix
+          ./home/tsunami/ishtar.nix
+        ];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
       "tsunami@mokou" = lib.homeManagerConfiguration {
-        modules = [./home/tsunami/mokou.nix];
+        modules = [
+          stylix.homeManagerModules.stylix
+          ./home/tsunami/mokou.nix
+        ];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
@@ -267,5 +281,7 @@
       #   extraSpecialArgs = {inherit inputs outputs;};
       # };
     };
+
+    #################### DevShell Configurations ####################
   };
 }

@@ -107,7 +107,10 @@
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 
+  ids.uids.nixbld = lib.mkForce 3333;
   nix = {
+    package = pkgs.nix;
+    nixPath = ["$HOME/.nix-defexpr/darwin"];
     gc = {
       automatic = true;
       interval = {
@@ -119,13 +122,17 @@
       enable = true;
       ephemeral = false;
     };
+    configureBuildUsers = true;
+
     settings = {
-      allowed-users = ["@admin"];
+      trusted-users = ["@admin" "@staff" "tsunami" "root"];
+      allowed-users = ["@admin" "@staff" "tsunami"];
+      build-users-group = "nixbld";
       auto-optimise-store = true;
-      cores = 4;
-      sandbox = true;
-      trusted-users = ["@admin"];
+      experimental-features = ["nix-command" "flakes"];
+      extra-nix-path = "nixpkgs=flake:nixpkgs";
     };
+
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -142,6 +149,4 @@
     casks = [
     ];
   };
-
-  nix.package = pkgs.nix;
 }

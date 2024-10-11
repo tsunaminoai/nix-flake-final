@@ -8,7 +8,7 @@
   imports = [
     #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-intel
-    inputs.hardware.nixosModules.common-gpu-intel
+    #    inputs.hardware.nixosModules.common-gpu-intel
 
     #################### Required Configs ####################
     ./install-config.nix
@@ -20,6 +20,7 @@
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
     ../common/optional/virtualization.nix
+    ../common/security
 
     #################### Users to Create ####################
     ../common/users/tsunami

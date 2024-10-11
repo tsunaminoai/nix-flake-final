@@ -9,12 +9,13 @@
   inputs,
   pkgs,
   config,
+  outputs,
   ...
 }: {
   imports = [
     #################### Hardware Modules ####################
     inputs.hardware.nixosModules.common-cpu-intel
-    # inputs.hardware.nixosModules.common-gpu-intel
+    #    inputs.hardware.nixosModules.common-gpu-intel
 
     #################### Required Configs ####################
     ./bootloader.nix
@@ -22,21 +23,45 @@
 
     #################### Host-specific Optional Configs ####################
     ../common/optional/yubikey
+    ../common/optional/yubikey/linux-services.nix
     # ../common/optional/services/clamav.nix # depends on optional/msmtp.nix
     # ../common/optional/msmtp.nix #required for emailing clamav alerts
     ../common/optional/services/openssh.nix
-    # ../common/optional/nvidia.nix
     ../common/optional/virtualization.nix
-    ../common/optional/wayland
 
     #################### Users to Create ####################
     ../common/users/tsunami
+
+    ### Modules to Test ###
+    ../common/media/server
   ];
   # set custom autologin options. see greetd.nix for details
 
   services.gnome.gnome-keyring.enable = true;
   #TODO enable and move to greetd area? may need authentication dir or something?
   #services.pam.services.greetd.enableGnomeKeyring = true;
+
+  tsunaminoai = {
+    desktop = {
+      enable = true;
+      windowManager = "plasma";
+      enableVNC = true;
+    };
+    security = {
+      # gpg = {
+      #   enable = true;
+      #   agentTimeout = 5;
+      # };
+    };
+  };
+  systemd.targets = {
+    "sleep.target".enable = false;
+    "suspend.target".enable = false;
+    "hibernate.target".enable = false;
+    "hybrid-sleep.target".enable = false;
+  };
+  services.xserver.displayManager.gdm.autoSuspend = false;
+  powerManagement.enable = false;
 
   networking = {
     hostName = "mokou";

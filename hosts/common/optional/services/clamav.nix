@@ -1,12 +1,7 @@
 #
 # FIXME check for dependency somehow? Requires the msmtp.nix option for email notifications
 #
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}: let
+{pkgs, ...}: let
   # FIXME
   #isEnabled = name: predicate: {
   #assertion = predicate;

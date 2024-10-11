@@ -27,5 +27,7 @@
     btrfs-progs
     cifs-utils
     appimage-run
+    killall
+    pstree
   ];
 }

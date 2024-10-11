@@ -3,7 +3,6 @@ This module contains options required only for systems with a graphical desktop.
 */
 {
   pkgs,
-  lib,
   config,
   ...
 }: {

@@ -1,4 +1,4 @@
-{
+{...}: {
   # convert rrggbb hex to #rrggbb
   x = c: "#${c}";
 

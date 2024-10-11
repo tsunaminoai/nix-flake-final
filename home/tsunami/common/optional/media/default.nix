@@ -1,6 +1,12 @@
-#
-# TODO this is a placeholder list for now
-#
-calibre
-vlc
-spotify
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    ffmpeg
+    fluidsynth
+    imagemagick
+    lame
+    mangal
+    mpg123
+    sox
+    yt-dlp
+  ];
+}

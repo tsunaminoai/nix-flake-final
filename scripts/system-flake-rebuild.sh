@@ -7,7 +7,7 @@ else
 fi
 
 if [ $system != "Darwin" ]; then
-	sudo nixos-rebuild --flake .#$HOST switch
+	nh os switch
 else 
-    darwin-rebuild --flake .#$HOST switch 
+	darwin-rebuild --flake .#$HOST switch |& nom
 fi

@@ -3,7 +3,6 @@
   inputs,
   pkgs,
   config,
-  lib,
   ...
 }: let
   secretspath = builtins.toString inputs.mysecrets;
@@ -27,15 +26,11 @@ in {
     age.keyFile = keyLocation;
 
     defaultSopsFile = "${secretspath}/secrets.yaml";
-    validateSopsFiles = false;
+    validateSopsFiles = true;
 
     secrets = {
-      "taskwarrior/user-cert" = {
-        path = "${homeDir}/.task/cert.pem";
-        mode = "0400";
-      };
-      "taskwarrior/user-key" = {
-        path = "${homeDir}/.task/key.pem";
+      "taskchampion/tsunami" = {
+        path = "${homeDir}/.config/task/taskchampion-sync";
         mode = "0400";
       };
       "github/ssh-pub" = {

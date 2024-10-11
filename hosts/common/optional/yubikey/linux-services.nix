@@ -1,9 +1,11 @@
 # TODO: This needs to be a module that can be included in the main config
 {
   pkgs,
-  scripts,
+  lib,
   ...
-}: {
+}: let
+  scripts = import ./scripts {inherit pkgs;};
+in {
   services = {
     # FIXME: Put this behind an option for yubikey ssh
     # Create ssh files

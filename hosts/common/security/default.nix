@@ -22,12 +22,6 @@
     pam.enableSudoTouchIdAuth = true;
   };
   # TODO: THIS IS THE PROPER WAY TO DO CONDITIONAL ATTRIBUTES
-  conditionalAttrs =
-    if isLinux
-    then {
-      programs.fuse.userAllowOther = true; # Allow non-root users to use FUSE
-    }
-    else {};
 
   securityOptions =
     if isLinux
@@ -35,8 +29,6 @@
     else darwinSecOptions;
 in {
   config = {
-    inherit (conditionalAttrs);
-
     programs.gnupg.agent = lib.mkDefault {
       enable = true;
       # enableSSHSupport = true; # Do not enable at the system level. Use home-manager to enable per user.

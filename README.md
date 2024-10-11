@@ -17,5 +17,5 @@ The purpose of this repository is to unify, finally, all of the IT stuff that I 
 - [ ] Automatic host key and secrets provisioning
 - [ ] Pre-flight VM testing
 - [ ] Convert a majority of user configuration into a module
-- [ ] Move to numtide/devshell
+- [x] Move to numtide/devshell
 - [ ] Remove the old reference material

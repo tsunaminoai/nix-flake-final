@@ -1,30 +1,6 @@
 # Modeled on https://github.com/Mic92/dotfiles for now
-{
-  pkgs,
-  lib,
-  ...
-}: let
-  isLinux = pkgs.stdenv.hostPlatform.isLinux;
-
-  linux-services = ./linux-services.nix;
-
-  scripts = {
-    yubikey-up = pkgs.writeShellApplication {
-      name = "yubikey-up";
-      runtimeInputs = builtins.attrValues {
-        inherit
-          (pkgs)
-          gawk
-          yubikey-manager
-          ;
-      };
-      text = builtins.readFile ./scripts/yubikey-up.sh;
-    };
-    yubikey-down = pkgs.writeShellApplication {
-      name = "yubikey-down";
-      text = builtins.readFile ./scripts/yubikey-down.sh;
-    };
-  };
+{pkgs, ...}: let
+  scripts = import ./scripts {inherit pkgs;};
 in {
   environment.systemPackages = with pkgs; [
     gnupg

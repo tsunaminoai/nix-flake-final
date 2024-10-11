@@ -1,9 +1,4 @@
-{
-  lib,
-  inputs,
-  ...
-}: let
-in {
+{pkgs, ...}: {
   imports = [
     #################### Required Configs ####################
     ./common/core #required
@@ -17,7 +12,15 @@ in {
     common/optional/browsers
     common/optional/comms
     common/optional/tools
+    common/optional/office
+    common/optional/editors
   ];
+  services.vscode-server.enable = true;
   # Disable impermanence
   #home.persistence = lib.mkForce { };
+
+  programs.gnome-shell.theme = {
+    name = "Plata-Noir";
+    package = pkgs.plata-theme;
+  };
 }

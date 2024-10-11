@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}: {
+{config, ...}: {
   services.tailscale = {
     enable = true;
     extraUpFlags = [
