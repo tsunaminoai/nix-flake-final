@@ -4,4 +4,5 @@
   # List your module files here
   # my-module = import ./my-module.nix;
   newsboat = import ./newsboat.nix;
+  razer-mouse = import ./razer-mouse.nix;
 }

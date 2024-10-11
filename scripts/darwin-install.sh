@@ -2,7 +2,8 @@
 
 pushd scripts
 sh ./nix-install.sh
+popd 
+nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+./result/bin/darwin-installer
 
-nix --extra-experimental-features "nix-command flakes" run nix-darwin -- switch --flake github:tsunaminoai/nix-flake-final#`hostname`
-
-popd
+darwin-rebuild --show-trace --flake .#$HOST switch 

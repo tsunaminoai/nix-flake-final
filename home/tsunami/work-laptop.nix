@@ -5,6 +5,7 @@
 }: {
   imports = [
     outputs.homeManagerModules.newsboat
+    outputs.homeManagerModules.razer-mouse
     #################### Required Configs ####################
     ./common/core #required
 
@@ -24,30 +25,33 @@
     username = "bcraton";
   };
 
-  tsunaminoai.news = {
-    enable = true;
-    urls = [
-      {
-        url = "https://cybereason.com/blog/rss.xml";
-        tags = ["ciso"];
-        title = "Cybereason";
-      }
-      {
-        url = "https://cisomag.com/feed";
-        tags = ["ciso"];
-        title = "CISO Mag";
-      }
-      {
-        url = "https://cisostreet.com/feed";
-        tags = ["ciso"];
-        title = "CISO Street";
-      }
-      {
-        url = "https://welivesecurity.com/feed";
-        tags = ["security"];
-        title = "WeLiveSecurity";
-      }
-    ];
+  tsunaminoai = {
+    razer-mouse.enable = true;
+    news = {
+      enable = true;
+      urls = [
+        {
+          url = "https://cybereason.com/blog/rss.xml";
+          tags = ["ciso"];
+          title = "Cybereason";
+        }
+        {
+          url = "https://cisomag.com/feed";
+          tags = ["ciso"];
+          title = "CISO Mag";
+        }
+        {
+          url = "https://cisostreet.com/feed";
+          tags = ["ciso"];
+          title = "CISO Street";
+        }
+        {
+          url = "https://welivesecurity.com/feed";
+          tags = ["security"];
+          title = "WeLiveSecurity";
+        }
+      ];
+    };
   };
 
   programs.git = {

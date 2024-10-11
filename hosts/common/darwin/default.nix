@@ -107,7 +107,7 @@
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 
-  ids.uids.nixbld = 350;
+  ids.gids.nixbld = 350;
   nix = {
     package = pkgs.nix;
     nixPath = ["$HOME/.nix-defexpr/darwin"];
