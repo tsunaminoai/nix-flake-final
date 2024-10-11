@@ -25,7 +25,7 @@ sudo rm -rf /etc/nix /var/root/.nix-profile /var/root/.nix-defexpr /var/root/.ni
 rm -rf ~/.nix-profile ~/.nix-defexpr ~/.nix-channels
 
 sudo diskutil apfs deleteVolume /nix
-
+sudo security delete-generic-password  -a "Nix Store" -s "Nix Store" -l "disk3 encryption password" -D "Encrypted volume password"
 diskutil list
 
 echo "Make sure that /nix is not above."
